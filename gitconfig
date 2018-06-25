@@ -1,0 +1,35 @@
+[include]
+	path = ~/.gitconfig.local
+[push]
+	default = simple
+[credential]
+	helper = osxkeychain
+[alias]
+	switch = !legit switch
+	branches = !legit branches
+	sprout = !legit sprout
+	unpublish = !legit unpublish
+	harvest = !legit harvest
+	sync = !legit sync
+	publish = !legit publish
+	graft = !legit graft
+	resync = !legit resync
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+[core]
+	excludesfile = ~/.gitignore
+	editor = subl -n -w
+	whitespace = trailing-space,space-before-tab,tab-in-indent
+	autocrlf = false
+	savecrlf = true
+	pager = less
+[help]
+	autocorrect = 5
+[merge "ours"]
+	driver = true
+[color]
+	ui = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
