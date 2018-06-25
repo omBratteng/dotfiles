@@ -59,6 +59,7 @@
 		docker
 		docker-compose
 		docker-machine
+		rbates
 	)
 	source $ZSH/oh-my-zsh.sh
 
@@ -77,7 +78,6 @@
 	alias .5='cd ../../../../../'                                   # Go back 5 directory levels
 	alias .6='cd ../../../../../../'                                # Go back 6 directory levels
 	alias ~="cd ~"                                                  # ~:            Go Home
-	alias c='clear'                                                 # c:            Clear terminal display
 	alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
 	alias zshEdit='edit ~/.zshrc'
 
@@ -170,4 +170,4 @@
 #   ---------------------------------------
 #   Fancy boot info
 #   ---------------------------------------
-test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey" -z
+	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey" -z

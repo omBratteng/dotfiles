@@ -39,6 +39,7 @@ task :install do
 
 	files = Dir['*'] - %w[Rakefile README LICENSE oh-my-zsh]
 	files << "oh-my-zsh/custom/themes/clean.zsh-theme"
+	files << "oh-my-zsh/custom/plugins/rbates"
 	files.each do |file|
 		next if FileTest.symlink?(File.join(ENV['HOME'], ".#{file}"))
 
