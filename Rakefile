@@ -163,6 +163,7 @@ def install_git_radar
 		system %Q{echo 'export PATH=$PATH:$HOME/.git-radar' >> $HOME/.zshrc.local}
 	else
 		print "Install git-radar? [ynq]"
+		case $stdin.gets.chomp
 		when 'y'
 			puts "Installing git-radar..."
 			system %Q{git clone https://github.com/michaeldfallen/git-radar "$HOME/.git-radar"}
