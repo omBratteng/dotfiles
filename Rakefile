@@ -155,3 +155,20 @@ def install_nanorc
 		end
 	end
 end
+
+def install_git_radar
+	if File.exist?(File.join(ENV['HOME'], ".nano"))
+		puts "Found ~/.nano and updates nanorc to latest commit"
+		system %Q{cd $HOME/.git-radar/; git fetch; git reset --hard origin/master}
+		system %Q{echo 'export PATH=$PATH:$HOME/.git-radar' >> $HOME/.zshrc.local}
+	else
+		print "Install git-radar? [ynq]"
+		when 'y'
+			puts "Installing git-radar..."
+			system %Q{git clone https://github.com/michaeldfallen/git-radar "$HOME/.git-radar"}
+		when 'q'
+			exit
+		else
+			puts "Skipping git-radar, you will need to install ~/.git-radar manually"
+		end
+end
