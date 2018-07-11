@@ -171,4 +171,5 @@ def install_git_radar
 		else
 			puts "Skipping git-radar, you will need to install ~/.git-radar manually"
 		end
+	end
 end
