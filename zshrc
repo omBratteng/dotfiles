@@ -64,6 +64,10 @@
 	alias .6='cd ../../../../../../'                                # Go back 6 directory levels
 	alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
 
+	alias df="df -H"
+	alias du="du -ch"
+	alias du1="du -chd1"
+
 	if [ -x "$(command -v exa)" ]; then
 		alias ls="exa"
 		alias la="exa -la"
