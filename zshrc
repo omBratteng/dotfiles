@@ -36,6 +36,7 @@
 #	Enable Plugins
 #	------------------------------------------------------------------------
 	plugins=(
+		colored-man-pages
 		git
 		encode64
 		sudo
