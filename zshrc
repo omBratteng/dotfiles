@@ -5,6 +5,7 @@
 #	Enable oh-my-zsh
 #	------------------------------------------------------------------------
 	export ZSH=$HOME/.oh-my-zsh
+	export DOTFILES=$HOME/.dotfiles
 	ZSH_THEME="clean"
 	HIST_STAMPS="dd.mm.yyyy"
 
