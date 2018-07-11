@@ -31,6 +31,7 @@ task :default => :install
 desc "Install the dotfiles into user's home directory"
 task :install do
 	install_nanorc
+	install_git_radar
 	install_oh_my_zsh
 	install_zsh_syntax_highlighting
 	switch_to_zsh
