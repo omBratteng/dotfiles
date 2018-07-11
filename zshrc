@@ -46,6 +46,7 @@
 		docker-compose
 		docker-machine
 		rbates
+		dotfiles
 	)
 	source $ZSH/oh-my-zsh.sh
 
