@@ -1,30 +1,15 @@
-#  ---------------------------------------------------------------------------
-#
-#  Description:  This file holds all my BASH configurations and aliases
-#
-#  Sections:
-#  1.   Environment Configuration
-#  2.   Make Terminal Better (remapping defaults and adding functionality)
-#  3.   File and Folder Management
-#  4.   Make Git better
-#  5.   Networking
-#  6.   System Operations & Information
-#  7.   OS Exports and Aliases
-#
-#  ---------------------------------------------------------------------------
+#	-------------------------------------------
+#		ENVIRONMENT CONFIGURATION
+#	-------------------------------------------
 
-#   -------------------------------
-#   1.  ENVIRONMENT CONFIGURATION
-#   -------------------------------
-
-#   Enable oh-my-zsh
-#   ------------------------------------------------------------
+#	Enable oh-my-zsh
+#	------------------------------------------------------------------------
 	export ZSH=$HOME/.oh-my-zsh
 	ZSH_THEME="clean"
 	HIST_STAMPS="dd.mm.yyyy"
 
-#   Homebrew settings
-#   ------------------------------------------------------------
+#	Homebrew settings
+#	------------------------------------------------------------------------
 	export LANG=en_US.UTF-8
 	export LC_ALL=en_US.UTF-8
 	export LANGUAGE=en_US.UTF-8
@@ -35,8 +20,8 @@
 
 	export COMPOSER_ALLOW_SUPERUSER=1
 
-#   Set Paths
-#   ------------------------------------------------------------
+#	Set Paths
+#	------------------------------------------------------------------------
 	export PATH=${PATH}:/bin
 	export PATH=${PATH}:/usr/bin
 	export PATH=/usr/local/bin:${PATH}
@@ -47,8 +32,8 @@
 
 	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-#   Enable Plugins
-#   ------------------------------------------------------------
+#	Enable Plugins
+#	------------------------------------------------------------------------
 	plugins=(
 		git
 		encode64
@@ -63,9 +48,9 @@
 	)
 	source $ZSH/oh-my-zsh.sh
 
-#   -----------------------------
-#   2.  MAKE TERMINAL BETTER
-#   -----------------------------
+#	-----------------------------------------
+#		MAKE TERMINAL BETTER
+#	-----------------------------------------
 
 	alias cp="cp -iv"                                               # Preferred 'cp' implentation
 	alias mv="mv -iv"                                               # Preferred 'mv' implentation
@@ -80,19 +65,19 @@
 	alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
 
 	if [ -x "$(command -v exa)" ]; then
-        alias ls="exa"
-        alias la="exa -la"
-    fi
+		alias ls="exa"
+		alias la="exa -la"
+	fi
 
 	alias wp="wp --allow-root"
 
-#   -------------------------------
-#   3.  FILE AND FOLDER MANAGEMENT
-#   -------------------------------
+#	-------------------------------------------
+#		FILE AND FOLDER MANAGEMENT
+#	-------------------------------------------
 	zipf () { zip -r "$1".zip "$1" ; }                              # zipf:             To create a ZIP archive of a folder
 
-#   extract:  Extract most know archives with one command
-#   ---------------------------------------------------------
+#	extract:  Extract most know archives with one command
+#	-------------------------------------------------------------------
 	extract () {
 		if [ -f $1 ] ; then
 		  case $1 in
@@ -114,9 +99,9 @@
 		 fi
 	}
 
-#   ---------------------------
-#   4.  MAKE GIT BETTER
-#   ---------------------------
+#	---------------------------------------
+#		MAKE GIT BETTER
+#	---------------------------------------
 	alias status='git status'
 	alias s='git status'
 	alias add='git add'
@@ -124,9 +109,9 @@
 	alias push="git push"
 	alias clone="git clone"
 
-#   ---------------------------
-#   5.  NETWORKING
-#   ---------------------------
+#	---------------------------------------
+#		NETWORKING
+#	---------------------------------------
 	alias myip='curl -4 icanhazip.com; curl -6 icanhazip.com'       # myip:             Public facing IP Address
 	alias netCons='lsof -i'                                         # netCons:          Show all open TCP/IP sockets
 	alias flushDNS='sudo killall -HUP mDNSResponder'                # flushDNS:         Flush out the DNS Cache
@@ -136,14 +121,16 @@
 	alias openPorts='sudo lsof -i | grep LISTEN'                    # openPorts:        All listening connections
 	alias showBlocked='sudo ipfw list'                              # showBlocked:      All ipfw rules inc/ blocked IPs
 
-#   ---------------------------------------
-#   6.  SYSTEMS OPERATIONS & INFORMATION
-#   ---------------------------------------
+#	---------------------------------------
+#		SYSTEMS OPERATIONS & INFORMATION
+#	---------------------------------------
 
-#   cleanupDS:  Recursively delete .DS_Store files
-#   -------------------------------------------------------------------
+#	cleanupDS:	Recursively delete .DS_Store files
+#	-------------------------------------------------------------------
 	alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
 
+#	mkcd:		Create a directory and cd into it
+#	-------------------------------------------------------------------
 	function mkcd {
 		if [ ! -n "$1" ]; then
 			echo "Enter a directory name"
@@ -154,14 +141,13 @@
 		fi
 	}
 
-# 	Kopy.io CLI tool || Usage >
-# 	echo "Hello World" | kopy
+#	kopy:		Send stdin to kopy.io
+#	-------------------------------------------------------------------
 	kopy() {
 		a=$(cat);
 		curl -X POST -s -d "raw:$a" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}';
 	}
 
-#   ---------------------------------------
-#   Fancy boot info
-#   ---------------------------------------
+#	pyarchey:	Fancy boot info
+#	-------------------------------------------------------------------
 	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey"
