@@ -164,4 +164,4 @@
 #   ---------------------------------------
 #   Fancy boot info
 #   ---------------------------------------
-	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey" -z
+	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey"
