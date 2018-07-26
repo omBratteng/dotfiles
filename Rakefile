@@ -30,6 +30,7 @@ task :default => :install
 
 desc "Install the dotfiles into user's home directory"
 task :install do
+	install_nvm
 	install_nanorc
 	install_git_radar
 	install_oh_my_zsh
@@ -173,6 +174,24 @@ def install_git_radar
 			exit
 		else
 			puts "Skipping git-radar, you will need to install ~/.git-radar manually"
+		end
+	end
+end
+
+def install_nvm
+	if File.exist?(File.join(ENV['HOME'], ".nvm"))
+		puts "Found ~/.nvm and updates nvm to latest commit"
+		system %Q{cd $HOME/.nvm/; git fetch --tags origin; git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`}
+	else
+		print "Install nvm? [ynq]"
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing nvm..."
+			system %Q{git clone https://github.com/creationix/nvm.git "$HOME/.nvm"}
+		when 'q'
+			exit
+		else
+			puts "Skipping nvm, you will need to install ~/.nvm manually"
 		end
 	end
 end
