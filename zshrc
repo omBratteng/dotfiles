@@ -23,13 +23,12 @@
 
 #	Set Paths
 #	------------------------------------------------------------------------
-	export PATH=${PATH}:/bin
-	export PATH=${PATH}:/usr/bin
-	export PATH=/usr/local/bin:${PATH}
+	export PATH=/bin
 	export PATH=${PATH}:/sbin
+	export PATH=${PATH}:/usr/bin
 	export PATH=${PATH}:/usr/sbin
+	export PATH=${PATH}:/usr/local/bin
 	export PATH=${PATH}:/usr/local/sbin
-	export PATH=${PATH}:~/.composer/vendor/bin
 
 	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
