@@ -163,7 +163,9 @@ def install_git_radar
 	if File.exist?(File.join(ENV['HOME'], ".git-radar"))
 		puts "Found ~/.git-radar and updates git-radar to latest commit"
 		system %Q{cd $HOME/.git-radar/; git fetch; git reset --hard origin/master}
-		system %Q{echo 'export PATH=$PATH:$HOME/.git-radar' >> $HOME/.zshrc.local}
+		if !`echo $PATH`.include? ".git-radar"
+			system %Q{echo 'export PATH=$PATH:$HOME/.git-radar' >> $HOME/.zshrc.local}
+		end
 	else
 		print "Install git-radar? [ynq]"
 		case $stdin.gets.chomp
