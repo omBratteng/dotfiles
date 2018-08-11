@@ -1,5 +1,6 @@
 # Use colors, but only if connected to a terminal, and that terminal
 # supports them.
+
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
@@ -32,4 +33,16 @@ then
   printf "${BLUE}%s\n" "Hooray! .dotfiles has been updated and/or is at the current version."
 else
   printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
+fi
+
+read -p "${BLUE}Do you want to run rake? [${GREEN}Y${BLUE}/${RED}n${BLUE}] " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  echo "${GREEN}Running rake...${NORMAL}"
+  cd $HOME/.dotfiles
+  rake
+  exit
+else
+  printf '%s\n' "${RED}Not running rake. You'll have to run it manually later"
+  exit 1
 fi
