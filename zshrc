@@ -21,15 +21,6 @@
 
 	export COMPOSER_ALLOW_SUPERUSER=1
 
-#	Set Paths
-#	------------------------------------------------------------------------
-	export PATH=/bin
-	export PATH=${PATH}:/sbin
-	export PATH=${PATH}:/usr/bin
-	export PATH=${PATH}:/usr/sbin
-	export PATH=${PATH}:/usr/local/bin
-	export PATH=${PATH}:/usr/local/sbin
-
 	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 #	Enable Plugins
