@@ -21,7 +21,6 @@
 
 	export COMPOSER_ALLOW_SUPERUSER=1
 
-	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 #	Enable Plugins
 #	------------------------------------------------------------------------
@@ -39,6 +38,7 @@
 		rbates
 		dotfiles
 	)
+	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 	source $ZSH/oh-my-zsh.sh
 
 #	-----------------------------------------
