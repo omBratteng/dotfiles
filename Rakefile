@@ -43,6 +43,7 @@ task :install do
 	files << "oh-my-zsh/custom/themes/clean.zsh-theme"
 	files << "oh-my-zsh/custom/plugins/rbates"
 	files << "oh-my-zsh/custom/plugins/dotfiles"
+	files << "oh-my-zsh/custom/plugins/gpg-agent"
 	files.each do |file|
 		next if FileTest.symlink?(File.join(ENV['HOME'], ".#{file}"))
 
