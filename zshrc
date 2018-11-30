@@ -56,6 +56,7 @@
 	alias .5='cd ../../../../../'                                   # Go back 5 directory levels
 	alias .6='cd ../../../../../../'                                # Go back 6 directory levels
 	alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
+	alias gh='history | grep '										# Grep from history, easy shortcut
 
 	alias df="df -H"
 	alias du="du -ch"
