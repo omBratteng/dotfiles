@@ -146,6 +146,12 @@
 		curl -X POST -s -d "raw:$a" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}';
 	}
 
+#	gi:			Source templates for gitignore.io
+#	-------------------------------------------------------------------
+	function gi() {
+		curl -L -s https://www.gitignore.io/api/$1;
+	}
+
 #	pyarchey:	Fancy boot info
 #	-------------------------------------------------------------------
 	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey"
