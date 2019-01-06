@@ -13,3 +13,7 @@ end_of_ine = lf
 [*.yml]
 indent_style = space
 indent_size = 2
+
+[*.toml, *.tml]
+indent_style = space
+indent_size = 2
