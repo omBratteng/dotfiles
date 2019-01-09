@@ -152,6 +152,8 @@
 		curl -L -s https://www.gitignore.io/api/$1;
 	}
 
-#	pyarchey:	Fancy boot info
+#	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
-	test -e "/usr/local/bin/pyarchey" && "/usr/local/bin/pyarchey"
+	if [ -x "$(command -v neofetch)" ]; then
+		neofetch
+	fi
