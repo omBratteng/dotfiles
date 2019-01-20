@@ -39,7 +39,7 @@ task :default => :install
 
 desc "Install the dotfiles into user's home directory"
 task :install do
-	install_nvm
+	install_n
 	install_nanorc
 	install_git_radar
 	install_tmux_tpm
@@ -97,6 +97,10 @@ end
 def link_file(file)
 	puts "Linking ~/.#{file} to home directory"
 	system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
+end
+
+def command?(command)
+	system("which #{ command} > /dev/null 2>&1")
 end
 
 def switch_to_zsh
@@ -189,20 +193,20 @@ def install_git_radar
 	end
 end
 
-def install_nvm
-	if File.exist?(File.join(ENV['HOME'], ".nvm"))
-		puts "Found ~/.nvm and updates nvm to latest commit".green
-		system %Q{cd $HOME/.nvm/; git fetch --tags origin; git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`}
+def install_n
+	if command?("n")
+		puts "Found n".green
 	else
-		print "Install nvm? [ynq]"
+		print "Install n? [ynq] "
 		case $stdin.gets.chomp
 		when 'y'
-			puts "Installing nvm..."
-			system %Q{git clone https://github.com/creationix/nvm.git "$HOME/.nvm"}
+			puts "Installing n..."
+			system %Q{git clone https://github.com/tj/n.git}
+			system %Q{cd n; make install; cd ..; rm -rf n}
 		when 'q'
 			exit
 		else
-			puts "Skipping nvm, you will need to install ~/.nvm manually".red
+			puts "Skipping n, you will need to install n manually".red
 		end
 	end
 end
