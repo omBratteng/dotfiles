@@ -152,6 +152,13 @@
 		curl -L -s https://www.gitignore.io/api/$1;
 	}
 
+#	dadjoke:	Fetches a dadjoke straight to the terminal
+#	-------------------------------------------------------------------
+	function dadjoke() {
+		curl -H "Accept: text/plain" https://icanhazdadjoke.com/
+		echo ""
+	}
+
 #	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
 	if [ -x "$(command -v neofetch)" ]; then
