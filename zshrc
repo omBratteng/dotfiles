@@ -58,7 +58,7 @@
 	alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
 	alias gh='history | grep '										# Grep from history, easy shortcut
 
-	alias df="df -H"
+	alias df="df -h -x overlay -x tmpfs"
 	alias du="du -ch"
 	alias du1="du -chd1"
 
