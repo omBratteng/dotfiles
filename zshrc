@@ -119,6 +119,9 @@
 	alias openPorts='sudo lsof -i | grep LISTEN'                    # openPorts:        All listening connections
 	alias showBlocked='sudo ipfw list'                              # showBlocked:      All ipfw rules inc/ blocked IPs
 
+	alias ip4="ip -4"
+	alias ip6="ip -6"
+
 #	---------------------------------------
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
