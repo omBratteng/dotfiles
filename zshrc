@@ -62,6 +62,9 @@
 	alias du="du -ch"
 	alias du1="du -chd1"
 
+	# Quick SSH without messing up your known hosts file
+	alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
 	if [ -x "$(command -v exa)" ]; then
 		alias ls="exa"
 		alias la="exa -la"
