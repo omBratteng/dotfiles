@@ -10,7 +10,7 @@ charset = utf-8
 trim_trailing_whitespace = true
 end_of_ine = lf
 
-[*.yml]
+[*.yml, *.yaml]
 indent_style = space
 indent_size = 2
 
