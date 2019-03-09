@@ -165,6 +165,12 @@
 		echo ""
 	}
 
+#	mp4:		Input video file and convert it to mp4
+#	-------------------------------------------------------------------
+	function mp4() {
+		ffmpeg -i $1 ${$(basename $1)%.*}.mp4
+	}
+
 #	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
 	if [ -x "$(command -v neofetch)" ]; then
