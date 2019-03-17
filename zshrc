@@ -30,6 +30,7 @@
 		encode64
 		sudo
 		zsh-syntax-highlighting
+		zsh-autosuggestions
 		yarn
 		sublime
 		docker

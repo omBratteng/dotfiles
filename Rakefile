@@ -44,6 +44,7 @@ task :install do
 	install_git_radar
 	install_tmux_tpm
 	install_oh_my_zsh
+	install_zsh_autosuggestions
 	install_zsh_syntax_highlighting
 	switch_to_zsh
 
@@ -133,6 +134,23 @@ def install_oh_my_zsh
 			exit
 		else
 			puts "Skipping oh-my-zsh, you will need to change ~/.zshrc manually".red
+		end
+	end
+end
+
+def install_zsh_autosuggestions
+	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh/custom/plugins/zsh-autosuggestions"))
+		puts "You are already using zsh-autosuggestions".green
+	else
+		print "Do you want to install zsh-autosuggestions? [ynq] "
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing zsh-autosuggestions..."
+			system %Q{git clone https://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"}
+		when 'q'
+			exit
+		else
+			puts "Skipping zsh-autosuggestions, you will need to change ~/.zshrc manually".red
 		end
 	end
 end
