@@ -180,7 +180,7 @@ def install_git_radar
 		system %Q{cd $HOME/.git-radar/; git fetch; git reset --hard origin/master}
 		puts "Remeber to add .git-radar to your $PATH"
 	else
-		print "Install git-radar? [ynq]"
+		print "Install git-radar? [ynq] "
 		case $stdin.gets.chomp
 		when 'y'
 			puts "Installing git-radar..."
@@ -216,7 +216,7 @@ def install_tmux_tpm
 		puts "Found tmux-tpm and updates tmux-tpm to latest commit".green
 		system %Q{cd $HOME/.tmux/plugins/tpm; git fetch; git reset --hard origin/master}
 	else
-		print "Install tmux-tpm? [ynq]"
+		print "Install tmux-tpm? [ynq] "
 		case $stdin.gets.chomp
 		when 'y'
 			puts "Installing tmux-tpm..."
