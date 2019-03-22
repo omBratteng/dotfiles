@@ -46,6 +46,7 @@ task :install do
 	install_oh_my_zsh
 	install_zsh_autosuggestions
 	install_zsh_syntax_highlighting
+	install_git_flow_completion
 	switch_to_zsh
 
 	replace_all = false
@@ -168,6 +169,23 @@ def install_zsh_syntax_highlighting
 			exit
 		else
 			puts "Skipping zsh-syntax-highlighting, you will need to change ~/.zshrc manually".red
+		end
+	end
+end
+
+def install_git_flow_completion
+	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh/custom/plugins/git-flow-completion"))
+		puts "You are already using git-flow-completion".green
+	else
+		print "Do you want to install git-flow-completion? [ynq] "
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing git-flow-completion..."
+			system %Q{git clone https://github.com/bobthecow/git-flow-completion.git "$HOME/.oh-my-zsh/custom/plugins/git-flow-completion"}
+		when 'q'
+			exit
+		else
+			puts "Skipping git-flow-completion, you will need to change ~/.zshrc manually".red
 		end
 	end
 end
