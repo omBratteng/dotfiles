@@ -51,6 +51,7 @@ task :install do
 	replace_all = false
 
 	files = Dir['*'] - %w[Rakefile README LICENSE oh-my-zsh tools]
+	files << "oh-my-zsh/custom/lib/misc.zsh"
 	files << "oh-my-zsh/custom/themes/clean.zsh-theme"
 	files << "oh-my-zsh/custom/plugins/rbates"
 	files << "oh-my-zsh/custom/plugins/dotfiles"
