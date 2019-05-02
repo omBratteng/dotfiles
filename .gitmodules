@@ -1,0 +1,3 @@
+[submodule "oh-my-zsh/custom/plugins/codestats"]
+	path = oh-my-zsh/custom/plugins/codestats
+	url = https://gitlab.com/code-stats/code-stats-zsh.git
