@@ -17,7 +17,7 @@
 	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
 [core]
 	excludesfile = ~/.gitignore
-	editor = code
+	editor = code --wait
 	whitespace = trailing-space,space-before-tab,tab-in-indent
 	autocrlf = false
 	savecrlf = true
