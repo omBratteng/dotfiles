@@ -1,5 +1,9 @@
 [include]
 	path = ~/.gitconfig.local
+[format]
+	pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[log]
+	abbrevCommit = true
 [push]
 	default = simple
 [credential]
