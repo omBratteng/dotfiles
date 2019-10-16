@@ -108,6 +108,18 @@ def link_file(file)
 	system %Q{ln -s "$PWD/#{file}" "$HOME/.#{file}"}
 end
 
+def get_file(file, output)
+	puts "Downloading #{file}"
+	if command?("wget")
+		system %Q{wget -O #{output} #{file}}
+	elsif command?("curl")
+		system %Q{curl -L --output #{output} #{file}}
+	else
+		puts "wget or curl is not installed, exiting"
+		exit 1
+	end
+end
+
 def command?(command)
 	system("which #{ command} > /dev/null 2>&1")
 end
