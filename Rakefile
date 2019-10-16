@@ -46,6 +46,7 @@ task :install do
 	install_oh_my_zsh
 	install_zsh_autosuggestions
 	install_zsh_syntax_highlighting
+	install_zsh_completions
 	switch_to_zsh
 
 	replace_all = false
@@ -164,7 +165,7 @@ end
 
 def install_zsh_syntax_highlighting
 	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"))
-		puts "You are already using zsh syntax highlighting".green
+		puts "You are already using zsh-syntax-highlighting".green
 	else
 		print "Do you want to install zsh-syntax-highlighting? [ynq] "
 		case $stdin.gets.chomp
@@ -175,6 +176,23 @@ def install_zsh_syntax_highlighting
 			exit
 		else
 			puts "Skipping zsh-syntax-highlighting, you will need to change ~/.zshrc manually".red
+		end
+	end
+end
+
+def install_zsh_completions
+	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh/custom/plugins/zsh-completions"))
+		puts "You are already using zsh-completions".green
+	else
+		print "Do you want to install zsh-completions? [ynq] "
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing zsh-completions..."
+			system %Q{git clone https://github.com/zsh-users/zsh-completions.git "$HOME/.oh-my-zsh/custom/plugins/zsh-completions"}
+		when 'q'
+			exit
+		else
+			puts "Skipping zsh-completions, you will need to change ~/.zshrc manually".red
 		end
 	end
 end
