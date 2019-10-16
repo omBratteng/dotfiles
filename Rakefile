@@ -50,6 +50,11 @@ task :install do
 
 	replace_all = false
 
+	# Fixes symbolic link issue later
+	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh"))
+		system %Q{mkdir -p "$HOME/.oh-my-zsh/custom/lib/"}
+	end
+
 	files = Dir['*'] - %w[Rakefile README LICENSE oh-my-zsh tools]
 	files << "oh-my-zsh/custom/lib/misc.zsh"
 	files << "oh-my-zsh/custom/themes/clean.zsh-theme"
