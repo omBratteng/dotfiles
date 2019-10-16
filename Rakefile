@@ -40,6 +40,7 @@ task :default => :install
 desc "Install the dotfiles into user's home directory"
 task :install do
 	install_n
+	install_pastel
 	install_nanorc
 	install_git_radar
 	install_tmux_tpm
@@ -262,6 +263,30 @@ def install_n
 			exit
 		else
 			puts "Skipping n, you will need to install n manually".red
+		end
+	end
+end
+
+def install_pastel
+	if command?("pastel")
+		puts "Found pastel".green
+	else
+		print "Install pastel? [ynq] "
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing pastel..."
+			if OS.mac?
+				system %Q{brew install pastel}
+			elsif OS.linux?
+				if linux_variant[:distro] == "Debian"
+					get_file("https://github.com/sharkdp/pastel/releases/download/v0.6.1/pastel_0.6.1_amd64.deb", "pastel.deb")
+					system %Q{dpkg -i pastel.deb; rm pastel.deb}
+				end
+			end
+		when 'q'
+			exit
+		else
+			puts "Skipping pastel, you will need to install pastel manually".red
 		end
 	end
 end
