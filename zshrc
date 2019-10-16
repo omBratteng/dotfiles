@@ -189,3 +189,7 @@
 	if [ -x "$(command -v neofetch)" ]; then
 		neofetch
 	fi
+
+#	Trigger a new load of autocompletions
+#	-------------------------------------------------------------------
+	autoload -U compinit && compinit
