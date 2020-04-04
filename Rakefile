@@ -48,6 +48,7 @@ task :install do
 	install_zsh_autosuggestions
 	install_zsh_syntax_highlighting
 	install_zsh_completions
+	install_zsh_history_substring_search
 	switch_to_zsh
 
 	replace_all = false
@@ -206,6 +207,23 @@ def install_zsh_completions
 			exit
 		else
 			puts "Skipping zsh-completions, you will need to change ~/.zshrc manually".red
+		end
+	end
+end
+
+def install_zsh_history_substring_search
+	if File.exist?(File.join(ENV['HOME'], ".oh-my-zsh/custom/plugins/zsh-history-substring-search"))
+		puts "You are already using zsh-history-substring-search".green
+	else
+		print "Do you want to install zsh-history-substring-search? [ynq] "
+		case $stdin.gets.chomp
+		when 'y'
+			puts "Installing zsh-history-substring-search..."
+			system %Q{git clone https://github.com/zsh-users/zsh-history-substring-search.git "$HOME/.oh-my-zsh/custom/plugins/zsh-history-substring-search"}
+		when 'q'
+			exit
+		else
+			puts "Skipping zsh-history-substring-search, you will need to change ~/.zshrc manually".red
 		end
 	end
 end
