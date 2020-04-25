@@ -43,7 +43,6 @@ task :install do
 	install_pastel
 	install_nanorc
 	install_git_radar
-	install_tmux_tpm
 	install_oh_my_zsh
 	install_zsh_autosuggestions
 	install_zsh_syntax_highlighting
@@ -305,24 +304,6 @@ def install_pastel
 			exit
 		else
 			puts "Skipping pastel, you will need to install pastel manually".red
-		end
-	end
-end
-
-def install_tmux_tpm
-	if File.exist?(File.join(ENV['HOME'], ".tmux/plugins/tpm"))
-		puts "Found tmux-tpm and updates tmux-tpm to latest commit".green
-		system %Q{cd $HOME/.tmux/plugins/tpm; git fetch; git reset --hard origin/master}
-	else
-		print "Install tmux-tpm? [ynq] "
-		case $stdin.gets.chomp
-		when 'y'
-			puts "Installing tmux-tpm..."
-			system %Q{git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"}
-		when 'q'
-			exit
-		else
-			puts "Skipping tmux-tpm, you will need to install ~/.tmux-tpm manually".red
 		end
 	end
 end
