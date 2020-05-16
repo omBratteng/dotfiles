@@ -6,6 +6,7 @@
 #	------------------------------------------------------------------------
 	export ZSH=$HOME/.oh-my-zsh
 	export DOTFILES=$HOME/.dotfiles
+	export XDG_CONFIG_HOME=$HOME/.config
 	ZSH_THEME="clean"
 	HIST_STAMPS="dd.mm.yyyy"
 
