@@ -1,8 +1,8 @@
-if [[ "$OSTYPE" == "linux-gnu"* ] || [ "$OSTYPE" == "freebsd"* ] ]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	p() { cd /srv/$1; }
 	_p() { _files -W /srv -/; }
 	compdef _p p
-elif [[ "$OSTYPE" == "darwing"* ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
 	p() { cd ~/Projects/$1; }
 	_p() { _files -W ~/Projects -/; }
 	compdef _p p
