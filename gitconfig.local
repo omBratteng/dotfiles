@@ -1,5 +1,6 @@
 # local gitconfig--add personal stuff to this file, e.g. github credentials...
-#
+# [credential]
+#	helper = osxkeychain
 # [user]
 #   name = Your Name
 #   email = email@domain.com

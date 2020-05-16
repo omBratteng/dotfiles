@@ -6,8 +6,6 @@
 	abbrevCommit = true
 [push]
 	default = simple
-[credential]
-	helper = osxkeychain
 [alias]
 	switch = !legit switch
 	branches = !legit branches
