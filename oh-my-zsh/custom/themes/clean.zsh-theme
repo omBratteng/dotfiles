@@ -1,8 +1,21 @@
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="white"; fi
-if [ "$(uname)" = "Linux" ]; then FQDN=$(hostname -f); else FQDN=$(hostname -s); fi
+if [ $UID -eq 0 ]; then
+	NCOLOR="red";
+else
+	if [ "$(uname)" = "Linux" ]; then
+		NCOLOR="magenta";
+	else
+		NCOLOR="white";
+	fi
+fi
+
+if [ "$(uname)" = "Linux" ]; then
+	FQDN=$(hostname -f);
+else
+	FQDN=$(hostname -s);
+fi
 
 PROMPT='
-%{$fg[$NCOLOR]%}%n@%B%{$fg[yellow]%}%{$FQDN%}%b%{$reset_color%}:%{$fg[blue]%}%B%c/%b%{$reset_color%}$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
+%{$fg[$NCOLOR]%}%n%B%{$fg[green]%}@%B%{$fg[yellow]%}%{$FQDN%}%b%{$reset_color%}:%{$fg[blue]%}%B%c/%b%{$reset_color%}$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
 $ '
 RPROMPT='[%*]'
 
