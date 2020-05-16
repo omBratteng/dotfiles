@@ -275,7 +275,7 @@ def install_n
 		when 'y'
 			puts "Installing n..."
 			system %Q{git clone https://github.com/tj/n.git}
-			system %Q{cd n; make install; cd ..; rm -rf n}
+			system %Q{cd n; sudo make install; cd ..; rm -rf n}
 		when 'q'
 			exit
 		else
@@ -297,7 +297,7 @@ def install_pastel
 			elsif OS.linux?
 				if linux_variant[:distro] == "Debian"
 					get_file("https://github.com/sharkdp/pastel/releases/download/v0.6.1/pastel_0.6.1_amd64.deb", "pastel.deb")
-					system %Q{dpkg -i pastel.deb; rm pastel.deb}
+					system %Q{sudo dpkg -i pastel.deb; rm pastel.deb}
 				end
 			end
 		when 'q'
