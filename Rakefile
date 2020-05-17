@@ -295,7 +295,7 @@ def install_pastel
 			if OS.mac?
 				system %Q{brew install pastel}
 			elsif OS.linux?
-				if linux_variant[:distro] == ("Debian" || "Ubuntu")
+				if ["Debian", "Ubuntu"].include? linux_variant[:distro]
 					get_file("https://github.com/sharkdp/pastel/releases/download/v0.6.1/pastel_0.6.1_amd64.deb", "pastel.deb")
 					system %Q{sudo dpkg -i pastel.deb; rm pastel.deb}
 				end
@@ -376,4 +376,4 @@ def linux_variant
 	end
 
 	return r
-  end
+end
