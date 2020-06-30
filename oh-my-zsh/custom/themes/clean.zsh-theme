@@ -1,3 +1,7 @@
+_newline=$'\n'
+_lineup=$'\e[1A'
+_linedown=$'\e[1B'
+
 if [ $UID -eq 0 ]; then
 	NCOLOR="red";
 else
@@ -17,7 +21,7 @@ fi
 PROMPT='
 %{$fg[$NCOLOR]%}%n%B%{$fg[green]%}@%B%{$fg[yellow]%}%{$FQDN%}%b%{$reset_color%}:%{$fg[blue]%}%B%c/%b%{$reset_color%}$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
 $ '
-RPROMPT='[%*]'
+RPROMPT='%{${_lineup}%}[%*]%{${_linedown}%}'
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
