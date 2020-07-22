@@ -32,7 +32,6 @@
 		sudo
 		zsh-syntax-highlighting
 		zsh-autosuggestions
-		history-substring-search
 		yarn
 		sublime
 		docker
