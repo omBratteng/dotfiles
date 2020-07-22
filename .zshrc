@@ -5,7 +5,6 @@
 #	Enable oh-my-zsh
 #	------------------------------------------------------------------------
 	export ZSH=$HOME/.oh-my-zsh
-	export DOTFILES=$HOME/.dotfiles
 	export XDG_CONFIG_HOME=$HOME/.config
 	ZSH_THEME="clean"
 	HIST_STAMPS="dd.mm.yyyy"
@@ -38,7 +37,6 @@
 		docker-compose
 		docker-machine
 		rbates
-		dotfiles
 	)
 	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 	source $ZSH/oh-my-zsh.sh
