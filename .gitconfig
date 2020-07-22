@@ -1,37 +1,37 @@
 [include]
 	path = ~/.gitconfig.local
-[format]
-	pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-[log]
-	abbrevCommit = true
-[push]
-	default = simple
 [alias]
-	switch = !legit switch
-	branches = !legit branches
-	sprout = !legit sprout
-	unpublish = !legit unpublish
-	harvest = !legit harvest
-	sync = !legit sync
-	publish = !legit publish
-	graft = !legit graft
-	resync = !legit resync
 	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
-[core]
-	excludesfile = ~/.gitignore
-	editor = code --wait
-	whitespace = trailing-space,space-before-tab,tab-in-indent
-	autocrlf = false
-	savecrlf = true
-	pager = less
-[help]
-	autocorrect = 5
-[merge "ours"]
-	driver = true
+	branches = !legit branches
+	graft = !legit graft
+	harvest = !legit harvest
+	publish = !legit publish
+	resync = !legit resync
+	sprout = !legit sprout
+	switch = !legit switch
+	sync = !legit sync
+	unpublish = !legit unpublish
 [color]
 	ui = true
+[core]
+	autocrlf = false
+	editor = code --wait
+	excludesfile = ~/.gitignore
+	pager = less
+	savecrlf = true
+	whitespace = trailing-space,space-before-tab,tab-in-indent
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
+	clean = git-lfs clean -- %f
 	process = git-lfs filter-process
 	required = true
-	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[format]
+	pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+[help]
+	autocorrect = 5
+[log]
+	abbrevCommit = true
+[merge "ours"]
+	driver = true
+[push]
+	default = simple
