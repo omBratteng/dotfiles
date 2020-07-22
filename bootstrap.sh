@@ -29,7 +29,7 @@ command_exists() {
 yes_no="${RESET}(${GREEN}y${RESET}/${RED}n${RESET}/${YELLOW}q${RESET}) "
 
 cd "$(dirname "${(%):-%N}")";
-#UNCOMMENTgit pull origin main --ff-only --quiet
+git pull origin main --ff-only --quiet
 
 
 function syncDotfiles() {
@@ -47,7 +47,7 @@ function syncDotfiles() {
 		-avh --no-perms . ~;
 	echo "${GREEN}>> Done${RESET}"
 
-	#UNCOMMENTsource ~/.zshrc
+	source ~/.zshrc
 }
 
 function switch_to_zsh() {
