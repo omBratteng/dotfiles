@@ -1,2 +1,2 @@
 # Override with local settings
-source ~/.zshenv.local
+[ -f ~/.zshenv.local ] && source ~/.zshenv.local
