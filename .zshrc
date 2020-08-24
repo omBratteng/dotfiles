@@ -36,6 +36,8 @@
 		docker
 		docker-compose
 		docker-machine
+		kubectl
+		helm
 		rbates
 	)
 	[ -f ~/.zshrc.local ] && source ~/.zshrc.local
