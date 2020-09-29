@@ -190,6 +190,10 @@
 		neofetch
 	fi
 
+	if [ -f $HOME/.config/lscolors/lscolors.sh ]; then
+		. "$HOME/.config/lscolors/lscolors.sh"
+	fi
+
 #	Trigger a new load of autocompletions
 #	-------------------------------------------------------------------
 	autoload -U compinit && compinit

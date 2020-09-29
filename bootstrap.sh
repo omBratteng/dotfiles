@@ -104,6 +104,7 @@ function upgrade() {
 scripts=(
 	n
 	nanorc
+	ls_colors
 	git_radar
 	oh_my_zsh
 	zsh_autosuggestions
