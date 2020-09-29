@@ -71,6 +71,10 @@
 		alias la="exa --long --all --group"
 	fi
 
+	if [ -x "$(command -v duf)" ]; then
+		alias df="duf"
+	fi
+
 	alias wp="wp --allow-root"
 
 #	-------------------------------------------
@@ -190,6 +194,8 @@
 		neofetch
 	fi
 
+#	LS_COLORS:	Fancy ls colors
+#	-------------------------------------------------------------------
 	if [ -f $HOME/.config/lscolors/lscolors.sh ]; then
 		. "$HOME/.config/lscolors/lscolors.sh"
 	fi
