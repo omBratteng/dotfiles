@@ -31,6 +31,10 @@ yes_no="${RESET}(${GREEN}y${RESET}/${RED}n${RESET}/${YELLOW}q${RESET}) "
 cd "$(dirname "${(%):-%N}")";
 git pull origin main --ff-only --quiet
 
+if [[ ! -v DOTFILES ]]; then
+	echo 'export DOTFILES="$HOME/.dotfiles"' >> ~/.zshenv.local
+fi
+
 
 function syncDotfiles() {
 	echo ""

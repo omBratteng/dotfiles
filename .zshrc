@@ -62,6 +62,7 @@
 	alias df="df -h -x overlay -x tmpfs"
 	alias du="du -ch"
 	alias du1="du -chd1"
+	alias upgrade_dotfiles="$DOTFILES/bootstrap.sh -u"
 
 	# Quick SSH without messing up your known hosts file
 	alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
