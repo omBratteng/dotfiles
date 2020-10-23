@@ -159,4 +159,4 @@ printf '%s\n' '   / __  / __ \/ __/ /_/ / / _ \/ ___/   '
 printf '%s\n' ' _/ /_/ / /_/ / /_/ __/ / /  __(__  )    '
 printf '%s\n' '(_)__,_/\____/\__/_/ /_/_/\___/____/     '
 printf '%s\n' ''
-printf "${BLUE}%s\n" "Hooray! .dotfiles has been updated and/or is at the current version."
+printf "${BLUE}%s\n" "Hooray! .dotfiles has been updated and/or is at the current version.${RESET}"
