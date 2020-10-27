@@ -129,6 +129,8 @@ elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 		upgrade $script
 	done
 	syncDotfiles;
+elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
+	syncDotfiles;
 else
 	for script in "${scripts[@]}";
 	do
