@@ -9,12 +9,15 @@ export XDG_CONFIG_HOME=$HOME/.config
 ZSH_THEME="clean"
 HIST_STAMPS="dd.mm.yyyy"
 
-#	Homebrew settings
+#	Shell settings
 #	------------------------------------------------------------------------
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export GPG_TTY=$(tty)
+
+export EDITOR='vim'
+export GIT_EDITOR='vim'
 
 export GIT_RADAR_FETCH_TIME=30
 export LESS=eFRX
