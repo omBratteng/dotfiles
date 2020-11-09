@@ -46,6 +46,10 @@ plugins=(
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 source $ZSH/oh-my-zsh.sh
 
+# Remove command lines from the history list when the first character on the
+# line is a space, or when one of the expanded aliases contains a leading space
+setopt histignorespace
+
 #	-----------------------------------------
 #		MAKE TERMINAL BETTER
 #	-----------------------------------------
