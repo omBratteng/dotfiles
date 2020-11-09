@@ -50,6 +50,10 @@ source $ZSH/oh-my-zsh.sh
 # line is a space, or when one of the expanded aliases contains a leading space
 setopt histignorespace
 
+# Do not enter command lines into the history list if they are duplicates of the
+# previous event.
+setopt histignorealldups
+
 #	-----------------------------------------
 #		MAKE TERMINAL BETTER
 #	-----------------------------------------
