@@ -54,13 +54,14 @@ alias mv="mv -iv"                                               # Preferred 'mv'
 alias mkdir="mkdir -pv"                                         # Preferred 'mkdir' implentation
 alias cd..='cd ../'                                             # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                                               # Go back 1 directory level
-alias ...='cd ../../'                                           # Go back 2 directory levels
+alias ...='cd ../../'                                           # Go back 2 directory levelssy
 alias path='echo -e ${PATH//:/\\n}'                             # path:         Echo all executable Paths
 
 alias df="df -h -x overlay -x tmpfs"
 alias du="du -ch"
 alias du1="du -chd1"
-alias upgrade_dotfiles="$DOTFILES/bootstrap.sh -u"
+alias upgrade_dotfiles="$DOTFILES/bootstrap.sh --upgrade"
+alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
 
 # Quick SSH without messing up your known hosts file
 alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
