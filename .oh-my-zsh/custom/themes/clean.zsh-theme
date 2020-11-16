@@ -3,12 +3,12 @@ _lineup=$'\e[1A'
 _linedown=$'\e[1B'
 
 if [ $UID -eq 0 ]; then
-	USER="%F{009}";
+	USER_COLOR="%F{009}";
 else
 	if [ "$(uname)" = "Linux" ]; then
-		USER="%F{013}";
+		USER_COLOR="%F{013}";
 	else
-		USER='%F{015}';
+		USER_COLOR='%F{015}';
 	fi
 fi
 
@@ -19,7 +19,7 @@ else
 fi
 
 PROMPT='
-$USER%n%B%F{010}@%B%{$fg[yellow]%}%{$FQDN%}%b%f:%F{012}%B%c/%b%f$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
+%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}%{$FQDN%}%b%f:%F{012}%B%c/%b%f$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
 $ '
 RPROMPT='%{${_lineup}%}[%*]%{${_linedown}%}'
 
