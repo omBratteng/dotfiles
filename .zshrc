@@ -127,7 +127,7 @@ alias clone="git clone"
 #		MAKE DOCKER BETTER
 #	---------------------------------------
 # Show live stats
-alias ds='while true; do TEXT=$(docker stats --no-stream $(docker ps --format "{{.Names}}")); sleep 0.1; clear; echo "$TEXT"; done'
+alias dps='while true; do TEXT=$(docker stats --no-stream $(docker ps --format "{{.Names}}")); sleep 0.1; clear; echo "$TEXT"; done'
 
 # Kill all containers
 alias dk='docker kill $(docker ps -q)'
