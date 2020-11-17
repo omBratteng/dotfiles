@@ -150,6 +150,9 @@ alias showBlocked='sudo ipfw list'                              # showBlocked:  
 alias ip4="ip -4"
 alias ip6="ip -6"
 
+alias dig4="dig -4"
+alias dig6="dig -6"
+
 #	---------------------------------------
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
