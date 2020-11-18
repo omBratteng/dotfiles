@@ -199,8 +199,8 @@ fi
 
 #	LS_COLORS:	Fancy ls colors
 #	-------------------------------------------------------------------
-if [ -f $HOME/.config/lscolors/lscolors.sh ]; then
-	. "$HOME/.config/lscolors/lscolors.sh"
+if [ -f $XDG_CONFIG_HOME/lscolors/lscolors.sh ]; then
+	. "$XDG_CONFIG_HOME/lscolors/lscolors.sh"
 fi
 
 #	Trigger a new load of autocompletions
