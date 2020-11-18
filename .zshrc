@@ -57,6 +57,15 @@ alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
 
+if [ -x "$(command -v exa)" ]; then												# Replace default `ls` with `exa`
+	alias ls="exa"
+	alias la="exa --long --all --group"
+fi
+
+if [ -x "$(command -v duf)" ]; then												# Replace default `df` with `duf`
+	alias df="duf"
+fi
+
 #	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
 if [ -x "$(command -v neofetch)" ]; then
