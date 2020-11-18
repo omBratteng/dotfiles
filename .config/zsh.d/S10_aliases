@@ -1,0 +1,67 @@
+#! /usr/bin/env zsh
+
+#	-----------------------------------------
+#		MAKE TERMINAL BETTER
+#	-----------------------------------------
+alias ls='ls -G'
+alias l='ls -l'
+alias ll='ls -lh'
+alias la='ls -la'
+alias cp='nocorrect cp -iv'														# Preferred 'cp' implentation
+alias mv='nocorrect mv -iv'														# Preferred 'mv' implentation
+alias mkdir='nocorrect mkdir -pv'												# Preferred 'mkdir' implentation
+alias rm='rm -v'																# Preferred 'rm' implentation
+alias mkcd='take'																# Replaces old zsh function for making and cd to the directory
+
+alias cd..='cd ../'																# Go back 1 directory level (for fast typers)
+alias ..='cd ../'																# Go back 1 directory level
+alias ...='cd ../../'															# Go back 2 directory levelssy
+alias path='echo -e ${PATH//:/\\n}'												# Echo all executable Paths
+
+alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df. And show sizes as human readable
+alias du="du -ch"																# Show sizes as human readable and show a grand total
+alias du1="du -chd1"															# Shortcut to get the size of the current directory and it's imediate children
+
+alias reload="source ${HOME}/.zshrc"											# Reload zshrc
+alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"	# Quick SSH without messing up your known hosts file
+
+if [ -x "$(command -v exa)" ]; then												# Replace default `ls` with `exa`
+	alias ls="exa"
+	alias la="exa --long --all --group"
+fi
+
+if [ -x "$(command -v duf)" ]; then												# Replace default `df` with `duf`
+	alias df="duf"
+fi
+
+#	---------------------------------------
+#		MAKE GIT GREAT AGAIN
+#	---------------------------------------
+alias s='git status'
+alias add='git add'
+alias commit="git commit"
+
+
+#	---------------------------------------
+#		MAKE NETWORKING GREAT AGAIN
+#	---------------------------------------
+alias myip='curl -4 icanhazip.com; curl -6 icanhazip.com'						# Get my public facing IP Address
+alias ip4="ip -4"																# Shortcut for only querying IPv4
+alias ip6="ip -6"																# Shortcut for only querying IPv6
+alias dig4="dig -4"																# Shortcut for only querying IPv4
+alias dig6="dig -6"																# Shortcut for only querying IPv6
+
+#	---------------------------------------
+#		MAKE DOCKER GREAT AGAIN
+#	---------------------------------------
+
+# Show live stats
+alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
+alias dk='docker kill $(docker ps -q)'											# Kill all containers (be careful)
+alias dc='docker-compose'														# Docker-compose shortcut
+
+#	---------------------------------------
+#		MAKE MACOS GREAT AGAIN
+#	---------------------------------------
+alias flushDNS='sudo killall -HUP mDNSResponder'								# Flush out the DNS Cache (macOS)
+alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"					# Recursively delete .DS_Store files
