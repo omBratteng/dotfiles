@@ -1,4 +1,4 @@
 {
-	"cache": ".config/tldr",
+	"cache": "XDG_CONFIG_HOME/tldr",
 	"theme": "base16"
 }
