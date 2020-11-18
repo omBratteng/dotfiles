@@ -1,28 +1,14 @@
 #	-------------------------------------------
 #		ENVIRONMENT CONFIGURATION
 #	-------------------------------------------
-
-#	Enable oh-my-zsh
-#	------------------------------------------------------------------------
 export ZSH=$HOME/.oh-my-zsh
 export XDG_CONFIG_HOME=$HOME/.config
 ZSH_THEME="clean"
 HIST_STAMPS="dd.mm.yyyy"
 
-#	Shell settings
-#	------------------------------------------------------------------------
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export GPG_TTY=$(tty)
-
-export EDITOR='vim'
-export GIT_EDITOR='vim'
-
-export GIT_RADAR_FETCH_TIME=30
-export LESS=eFRX
-
-export COMPOSER_ALLOW_SUPERUSER=1
+for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
+    source $zshrc_snipplet
+done
 
 
 #	Enable Plugins
@@ -44,11 +30,10 @@ plugins=(
 	rbates
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-source $ZSH/oh-my-zsh.sh
 
-for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
-    source $zshrc_snipplet
-done
+#	Enable oh-my-zsh
+#	------------------------------------------------------------------------
+source $ZSH/oh-my-zsh.sh
 
 alias upgrade_dotfiles="$DOTFILES/bootstrap.sh --upgrade"
 alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
