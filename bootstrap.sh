@@ -48,6 +48,7 @@ function syncDotfiles() {
 		--exclude "LICENSE" \
 		--exclude "Rakefile" \
 		--exclude "*.local" \
+		--exclude ".vscode/" \
 		--exclude "misc/BratttengDark.itermcolors" \
 		-avh --no-perms . ~;
 	echo "${GREEN}>> Done${RESET}"
