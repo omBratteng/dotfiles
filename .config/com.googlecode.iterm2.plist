@@ -10,6 +10,8 @@
 	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
+	<key>AutoCommandHistory</key>
+	<false/>
 	<key>BadgeFont</key>
 	<string>Fira Code</string>
 	<key>CheckTestRelease</key>
@@ -403,13 +405,17 @@
 	<integer>4</integer>
 	<key>LeftOption</key>
 	<integer>2</integer>
+	<key>NeverWarnAboutShortLivedSessions_F7F35806-3CDF-4034-A9A8-3188FA2D7A12</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_F7F35806-3CDF-4034-A9A8-3188FA2D7A12_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
 			<key>ASCII Ligatures</key>
-			<true/>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
@@ -654,6 +660,8 @@
 			<true/>
 			<key>Blur</key>
 			<false/>
+			<key>Blur Radius</key>
+			<real>25.193547923294538</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -726,6 +734,8 @@
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
 			<true/>
+			<key>Draw Powerline Glyphs</key>
+			<false/>
 			<key>Flashing Bell</key>
 			<false/>
 			<key>Foreground Color</key>
@@ -733,13 +743,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.8784313725490196</real>
+				<real>0.87843137979507446</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.85490196078431369</real>
+				<real>0.85490196943283081</real>
 				<key>Red Component</key>
-				<real>0.84313725490196079</real>
+				<real>0.84313726425170898</real>
 			</dict>
 			<key>Guid</key>
 			<string>F7F35806-3CDF-4034-A9A8-3188FA2D7A12</string>
@@ -1209,6 +1219,10 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>FiraCode-Regular 11</string>
+			<key>Only The Default BG Color Uses Transparency</key>
+			<false/>
+			<key>Open Toolbelt</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1220,7 +1234,7 @@
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
-			<integer>1000</integer>
+			<integer>5000</integer>
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -2475,6 +2489,15 @@
 	<false/>
 	<key>SmartPlacement</key>
 	<false/>
+	<key>Snippets</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>dotfiles</string>
+			<key>value</key>
+			<string>cd ~/.dotfiles</string>
+		</dict>
+	</array>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
@@ -2491,6 +2514,7 @@
 	<array>
 		<string>Notes</string>
 		<string>Paste History</string>
+		<string>Snippets</string>
 	</array>
 	<key>UseBorder</key>
 	<false/>
