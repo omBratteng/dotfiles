@@ -109,6 +109,7 @@ function upgrade() {
 
 scripts=(
 	n
+	httpie
 	nanorc
 	ls_colors
 	git_radar
