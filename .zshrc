@@ -51,6 +51,10 @@ if [ -x "$(command -v duf)" ]; then												# Replace default `df` with `duf`
 	alias df="duf"
 fi
 
+if [ -x "$(command -v bat)" ]; then												# Replace default `df` with `duf`
+	alias cat="bat"
+fi
+
 #	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
 if [ -x "$(command -v neofetch)" ]; then
