@@ -51,3 +51,9 @@ function dadjoke() {
 function mp4() {
 	ffmpeg -i $1 ${$(basename $1)%.*}.mp4
 }
+
+#	pdf417:		Generate a PDF417 SVG image
+#	-------------------------------------------------------------------
+function pdf417() {
+	curl "http://www.barcode-generator.org/zint/api.php?bc_number=55&bc_download=1&bc_format=1&bc_size=s&bc_data=$1" | pbcopy
+}
