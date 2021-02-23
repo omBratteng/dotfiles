@@ -836,12 +836,28 @@
   # Default context color (no privileges, no SSH).
   typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
 
+  if [ $UID -eq 0 ]; then
+    USER_COLOR="%F{009}";
+  else
+    if [ "$(uname)" = "Linux" ]; then
+      USER_COLOR="%F{013}";
+    else
+      USER_COLOR='%F{015}';
+    fi
+  fi
+
+  if [ "$(uname)" = "Linux" ]; then
+    FQDN=$(hostname -f);
+  else
+    FQDN=$(hostname -s);
+  fi
+
   # Context format when running with privileges: bold user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%B%n@`hostname -f`"
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE="%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}`hostname -f`"
   # Context format when in SSH without privileges: user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE="%n@`hostname -f`"
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE="%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}`hostname -f`"
   # Default context format (no privileges, no SSH): user@hostname.
-  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%n@`hostname -f`"
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE="%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}`hostname -f`"
 
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
