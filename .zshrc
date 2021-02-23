@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #	-------------------------------------------
 #		ENVIRONMENT CONFIGURATION
 #	-------------------------------------------
 export ZSH=$HOME/.oh-my-zsh
 export XDG_CONFIG_HOME=$HOME/.config
-ZSH_THEME="clean"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 HIST_STAMPS="dd.mm.yyyy"
 
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
@@ -70,3 +77,6 @@ fi
 #	Trigger a new load of autocompletions
 #	-------------------------------------------------------------------
 autoload -U compinit && compinit
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f XDG_CONFIG_HOME/p10k.zsh ]] || source XDG_CONFIG_HOME/p10k.zsh

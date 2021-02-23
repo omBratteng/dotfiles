@@ -113,6 +113,7 @@ scripts=(
 	ls_colors
 	git_radar
 	oh_my_zsh
+	powerlevel10k
 	zsh_autosuggestions
 	zsh_syntax_highlighting
 	zsh_completions
