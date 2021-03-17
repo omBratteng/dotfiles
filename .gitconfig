@@ -6,6 +6,7 @@
 	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	gh = log --pretty=format:"%C(yellow)-%C(reset)\\ %C(green)%s%C(reset)\\ %C(red)%h%C(reset)" --decorate --reverse
 	local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
 	recent-branches = !git branch --sort=-committerdate | head
 	authors = !git log --format='%aN <%aE>' | grep -v 'users.noreply.github.com' | sort -u --ignore-case
