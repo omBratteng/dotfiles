@@ -1,10 +1,20 @@
 #! /usr/bin/env zsh
 
-#	zipf:		Create a ZIP archive of a folder
+#	listCompletions: Create a ZIP archive of a folder
+#	-------------------------------------------------------------------
+function listCompletions () {
+	for command completion in ${(kv)_comps:#-*(-|-,*)}
+	do
+		printf "%-32s %s\n" $command $completion
+	done | sort
+}
+
+
+#	zipf:			Create a ZIP archive of a folder
 #	-------------------------------------------------------------------
 function zipf () { zip -r "$1".zip "$1" ; }
 
-#	extract:	Extract most know archives with one command
+#	extract:		Extract most know archives with one command
 #	-------------------------------------------------------------------
 function extract () {
 	if [ -f $1 ] ; then
@@ -27,32 +37,32 @@ function extract () {
 	fi
 }
 
-#	kopy:		Send stdin to kopy.io
+#	kopy:			Send stdin to kopy.io
 #	-------------------------------------------------------------------
 function kopy () {
 	a=$(cat);
 	curl -X POST -s -d "raw:$a" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}';
 }
 
-#	gi:			Source templates for gitignore.io
+#	gi:				Source templates for gitignore.io
 #	-------------------------------------------------------------------
 function gi() {
 	curl -L -s https://www.gitignore.io/api/$1;
 }
 
-#	dadjoke:	Fetches a dadjoke straight to the terminal
+#	dadjoke:		Fetches a dadjoke straight to the terminal
 #	-------------------------------------------------------------------
 function dadjoke() {
 	curl -w '\n' -H "Accept: text/plain" https://icanhazdadjoke.com/
 }
 
-#	mp4:		Input video file and convert it to mp4
+#	mp4:			Input video file and convert it to mp4
 #	-------------------------------------------------------------------
 function mp4() {
 	ffmpeg -i $1 ${$(basename $1)%.*}.mp4
 }
 
-#	pdf417:		Generate a PDF417 SVG image
+#	pdf417:			Generate a PDF417 SVG image
 #	-------------------------------------------------------------------
 function pdf417() {
 	curl "http://www.barcode-generator.org/zint/api.php?bc_number=55&bc_download=1&bc_format=1&bc_size=s&bc_data=$1" | pbcopy
