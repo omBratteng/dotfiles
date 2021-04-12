@@ -28,11 +28,15 @@
 	pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 [help]
 	autocorrect = 5
+[hub]
+	protocol = ssh
 [init]
 	templateDir = ~/.config/git/template/
 [log]
 	abbrevCommit = true
 [merge "ours"]
 	driver = true
+[protocol]
+	version = 2
 [push]
 	default = simple
