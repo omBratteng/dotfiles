@@ -53,6 +53,14 @@ alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/doc
 alias dk='docker kill $(docker ps -q)'											# Kill all containers (be careful)
 alias dc='docker-compose'														# Docker-compose shortcut
 
+
+#	---------------------------------------
+#		MAKE KUBECTX GREAT AGAIN
+#	---------------------------------------
+
+alias kctx='kubectx'
+alias kns='kubens'
+
 #	---------------------------------------
 #		MAKE MACOS GREAT AGAIN
 #	---------------------------------------
