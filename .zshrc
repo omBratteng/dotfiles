@@ -8,8 +8,6 @@ fi
 #	-------------------------------------------
 #		ENVIRONMENT CONFIGURATION
 #	-------------------------------------------
-export ZSH=$HOME/.oh-my-zsh
-export XDG_CONFIG_HOME=$HOME/.config
 ZSH_THEME="powerlevel10k/powerlevel10k"
 HIST_STAMPS="dd.mm.yyyy"
 
