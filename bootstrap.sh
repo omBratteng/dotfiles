@@ -119,6 +119,7 @@ scripts=(
 	zsh_syntax_highlighting
 	zsh_completions
 	kubectl
+	kubectx
 )
 
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
