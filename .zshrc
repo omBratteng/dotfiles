@@ -31,6 +31,8 @@ plugins=(
 	docker-compose
 	docker-machine
 	kubectl
+	kubectx
+	gh
 	helm
 	rbates
 )
