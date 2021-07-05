@@ -9,11 +9,11 @@ indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[{*.yml, *.yaml}]
+[*.{yml,yaml}]
 indent_size = 2
 indent_style = space
 
-[{*.toml, *.tml}]
+[*.{toml,tml}]
 indent_size = 2
 indent_style = space
 
