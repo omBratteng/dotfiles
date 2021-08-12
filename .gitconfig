@@ -10,6 +10,8 @@
 	local-branches = !git branch -vv | cut -c 3- | awk '$3 !~/\\[/ { print $1 }'
 	recent-branches = !git branch --sort=-committerdate | head
 	authors = !git log --format='%aN <%aE>' | grep -v 'users.noreply.github.com' | sort -u --ignore-case
+	pr-bump-dependencies = !gh pr create --title \"Bump dependencies in \\`$(basename $(pwd))\\`\" --body \"$(git gh develop...HEAD)\n\n$(git log --pretty=format:'%an <%ae>' develop...HEAD | uniq | xargs -L1 echo 'Co-authored-by:')\"
+	merge-bump-dependencies = !gh pr merge --squash --delete-branch --body \"$(git gh develop...HEAD)\n\n$(git log --pretty=format:'%an <%ae>' develop...HEAD | uniq | xargs -L1 echo 'Co-authored-by:')\"
 [color]
 	ui = true
 [core]
