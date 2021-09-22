@@ -25,7 +25,6 @@ plugins=(
 	sudo
 	zsh-syntax-highlighting
 	zsh-autosuggestions
-	yarn
 	sublime
 	docker
 	docker-compose
@@ -35,6 +34,7 @@ plugins=(
 	gh
 	helm
 	rbates
+	yarn
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
