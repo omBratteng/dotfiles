@@ -13,6 +13,8 @@ alias mkdir='nocorrect mkdir -pv'												# Preferred 'mkdir' implentation
 alias rm='rm -v'																# Preferred 'rm' implentation
 alias mkcd='take'																# Replaces old zsh function for making and cd to the directory
 
+alias completions='echo $fpath | sed -e "s/ /\n/g" | sort'
+
 alias cd..='cd ../'																# Go back 1 directory level (for fast typers)
 alias ..='cd ../'																# Go back 1 directory level
 alias ...='cd ../../'															# Go back 2 directory levelssy
