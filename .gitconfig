@@ -17,7 +17,6 @@
 [core]
 	autocrlf = false
 	editor = code --wait
-	excludesfile = ~/.gitignore
 	pager = less
 	savecrlf = true
 	whitespace = trailing-space,space-before-tab,tab-in-indent

@@ -43,6 +43,7 @@ function syncDotfiles() {
 		--exclude ".git/" \
 		--exclude "scripts/" \
 		--exclude ".DS_Store" \
+		--exclude ".gitignore" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE" \
