@@ -44,12 +44,6 @@ function kopy () {
 	curl -X POST -s -d "raw:$a" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}';
 }
 
-#	gi:				Source templates for gitignore.io
-#	-------------------------------------------------------------------
-function gi() {
-	curl -sL https://www.toptal.com/developers/gitignore/api/$@;
-}
-
 #	dadjoke:		Fetches a dadjoke straight to the terminal
 #	-------------------------------------------------------------------
 function dadjoke() {

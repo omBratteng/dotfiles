@@ -21,6 +21,7 @@ done
 plugins=(
 	colored-man-pages
 	git
+	gitignore
 	encode64
 	sudo
 	zsh-syntax-highlighting
