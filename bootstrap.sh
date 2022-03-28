@@ -110,6 +110,7 @@ function upgrade() {
 
 scripts=(
 	n
+	bat
 	httpie
 	nanorc
 	ls_colors
