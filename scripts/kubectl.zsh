@@ -16,10 +16,13 @@ function install() {
 				false
 			fi
 		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-			if command_exists -v apt-get; then
-				sudo apt-get install kubectl
+			if command_exists -v curl; then
+				_tmpdir=$(mktemp -d)
+				cd $_tmpdir
+				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 			else
-				echo "apt-get doesn't exist"
+				echo "curl doesn't exist"
 				false
 			fi
 		fi
@@ -29,8 +32,20 @@ function install() {
 
 function upgrade() {
 	if command_exists -v kubectl; then
-		# upgrade is handled by the package manager
-		return
+		if [[ "$(uname)" == "Darwin" ]]; then
+			# upgrade is handled by the package manager
+			return
+		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+			if command_exists -v curl; then
+				_tmpdir=$(mktemp -d)
+				cd $_tmpdir
+				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+			else
+				echo "curl doesn't exist"
+				false
+			fi
+		fi
 	else
 		install
 	fi
