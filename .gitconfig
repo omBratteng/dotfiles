@@ -40,4 +40,4 @@
 [protocol]
 	version = 2
 [push]
-	default = simple
+	default = current
