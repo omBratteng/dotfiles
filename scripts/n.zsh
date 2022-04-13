@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+_uname=$(uname -s)
+
 function command_exists() {
 	command -v "$@" >/dev/null 2>&1
 }
@@ -8,7 +10,7 @@ function install() {
 	if command_exists -v n; then
 		false
 	else
-		if [[ "$(uname)" == "Darwin" ]]; then
+		if [[ "$_uname" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install n
 			else
@@ -34,4 +36,4 @@ else
 	false
 fi
 
-unset command_exists install upgrade
+unset command_exists install upgrade _uname

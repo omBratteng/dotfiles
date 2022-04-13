@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+_uname=$(uname -s)
+
 function command_exists() {
 	command -v "$@" >/dev/null 2>&1
 }
@@ -8,14 +10,14 @@ function install() {
 	if command_exists -v kubectl; then
 		false
 	else
-		if [[ "$(uname)" == "Darwin" ]]; then
+		if [[ "$_uname" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install kubernetes-cli
 			else
 				echo "Homebrew doesn't exist"
 				false
 			fi
-		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
 				cd "$_tmpdir" || exit
@@ -32,10 +34,10 @@ function install() {
 
 function upgrade() {
 	if command_exists -v kubectl; then
-		if [[ "$(uname)" == "Darwin" ]]; then
+		if [[ "$_uname" == "Darwin" ]]; then
 			# upgrade is handled by the package manager
 			return
-		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
 				cd "$_tmpdir" || exit
@@ -57,4 +59,4 @@ else
 	false
 fi
 
-unset command_exists install upgrade
+unset command_exists install upgrade _uname
