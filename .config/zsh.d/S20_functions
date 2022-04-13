@@ -72,3 +72,9 @@ function nodeSHA256() {
 function pdf417() {
 	curl "http://www.barcode-generator.org/zint/api.php?bc_number=55&bc_download=1&bc_format=1&bc_size=s&bc_data=$1" | pbcopy
 }
+
+#	tusDelete:		Delete a tus upload
+#	-------------------------------------------------------------------
+function tusDelete() {
+	curl -X DELETE -H 'Tus-Resumable: 1.0.0' "$@"
+}
