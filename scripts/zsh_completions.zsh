@@ -3,19 +3,19 @@
 DIR="${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
 
 function install() {
-	if [ -d $DIR ]; then
+	if [ -d "$DIR" ]; then
 		false
 	else
-		git clone --quiet https://github.com/zsh-users/zsh-completions.git $DIR
+		git clone --quiet https://github.com/zsh-users/zsh-completions.git "$DIR"
 		return
 	fi
 }
 
 function upgrade() {
-	if [ ! -d $DIR ]; then
+	if [ ! -d "$DIR" ]; then
 		install
 	else
-		cd $DIR
+		cd "$DIR"
 		git pull --ff-only --quiet
 		cd -
 		return

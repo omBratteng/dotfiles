@@ -54,7 +54,7 @@ function syncDotfiles() {
 	echo "${GREEN}>> Done${RESET}"
 
 	source ~/.zshrc
-	source $XDG_CONFIG_HOME/p10k.zsh
+	source "$XDG_CONFIG_HOME"/p10k.zsh
 }
 
 function switch_to_zsh() {
@@ -77,7 +77,7 @@ function switch_to_zsh() {
 function install() {
 	if $2; then
 		echo "${BOLD}${BLUE}>> Installing ${1}${RESET}"
-		if zsh ./scripts/$1.zsh install; then
+		if zsh ./scripts/"$1".zsh install; then
 			echo "${GREEN}>> Done${RESET}"
 		else
 			echo "${YELLOW}>> Already installed${RESET}"
@@ -86,7 +86,7 @@ function install() {
 		read "?Do you want to install ${1}? ${yes_no}"
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			echo "${BOLD}${BLUE}>> Installing ${1}${RESET}"
-			if zsh ./scripts/$1.zsh install; then
+			if zsh ./scripts/"$1".zsh install; then
 				echo "${GREEN}>> Done${RESET}"
 			else
 				echo "${YELLOW}>> Already installed${RESET}"
@@ -101,7 +101,7 @@ function install() {
 
 function upgrade() {
 	echo "${BOLD}${BLUE}>> Upgrading ${1}${RESET}"
-	if zsh ./scripts/$1.zsh upgrade; then
+	if zsh ./scripts/"$1".zsh upgrade; then
 		echo "${GREEN}>> Done${RESET}"
 	else
 		echo "${RED}>> An error occured when upgrading ${1}, please check manually${RESET}"
@@ -127,14 +127,14 @@ scripts=(
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	for script in "${scripts[@]}";
 	do
-		install $script true
+		install "$script" true
 	done
 	switch_to_zsh;
 	syncDotfiles;
 elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 	for script in "${scripts[@]}";
 	do
-		upgrade $script
+		upgrade "$script"
 	done
 	syncDotfiles;
 elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
@@ -142,7 +142,7 @@ elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
 else
 	for script in "${scripts[@]}";
 	do
-		install $script false
+		install "$script" false
 	done
 
 	if [ ! "$(basename "$SHELL")" = "zsh" ]; then

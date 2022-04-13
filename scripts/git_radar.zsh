@@ -3,19 +3,19 @@
 DIR="${HOME}/.git-radar"
 
 function install() {
-	if [ -d $DIR ]; then
+	if [ -d "$DIR" ]; then
 		false
 	else
-		git clone --quiet https://github.com/michaeldfallen/git-radar $DIR
+		git clone --quiet https://github.com/michaeldfallen/git-radar "$DIR"
 		return
 	fi
 }
 
 function upgrade() {
-	if [ ! -d $DIR ]; then
+	if [ ! -d "$DIR" ]; then
 		install
 	else
-		cd $DIR
+		cd "$DIR"
 		git pull --ff-only --quiet
 		cd -
 		return

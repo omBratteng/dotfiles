@@ -12,7 +12,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 HIST_STAMPS="dd.mm.yyyy"
 
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
-    source $zshrc_snipplet
+    source "$zshrc_snipplet"
 done
 
 
@@ -41,7 +41,7 @@ plugins=(
 
 #	Enable oh-my-zsh
 #	------------------------------------------------------------------------
-source $ZSH/oh-my-zsh.sh
+source "$ZSH"/oh-my-zsh.sh
 
 alias upgrade_dotfiles="$DOTFILES/bootstrap.sh --upgrade"
 alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
@@ -71,7 +71,7 @@ fi
 
 #	LS_COLORS:	Fancy ls colors
 #	-------------------------------------------------------------------
-if [ -f $XDG_CONFIG_HOME/lscolors/lscolors.sh ]; then
+if [ -f "$XDG_CONFIG_HOME"/lscolors/lscolors.sh ]; then
 	. "$XDG_CONFIG_HOME/lscolors/lscolors.sh"
 fi
 
@@ -80,4 +80,4 @@ fi
 autoload -U compinit && compinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f $XDG_CONFIG_HOME/p10k.zsh ]] || source $XDG_CONFIG_HOME/p10k.zsh
+[[ ! -f $XDG_CONFIG_HOME/p10k.zsh ]] || source "$XDG_CONFIG_HOME"/p10k.zsh
