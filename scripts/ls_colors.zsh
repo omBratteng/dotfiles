@@ -21,7 +21,7 @@ For C shell (e.g. ~/.cshrc):
 EOF
 			fi
 		fi
-		cd -
+		cd - || exit
 		rm -rf $_tmpdir
 		unset _tmpdir
 		return
@@ -37,7 +37,7 @@ function upgrade() {
 			if mv -t "$_lscolors_data_dir" lscolors.sh lscolors.csh ; then
 			fi
 		fi
-		cd -
+		cd - || exit
 		rm -rf $_tmpdir
 		unset _tmpdir
 		return

@@ -15,9 +15,9 @@ function upgrade() {
 	if [ ! -d "$DIR" ]; then
 		install
 	else
-		cd "$DIR"
+		cd "$DIR" || exit
 		git pull --ff-only --quiet
-		cd -
+		cd - || exit
 		return
 	fi
 }

@@ -18,7 +18,7 @@ function install() {
 		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
-				cd "$_tmpdir"
+				cd "$_tmpdir" || exit
 				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 			else
@@ -38,7 +38,7 @@ function upgrade() {
 		elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
-				cd "$_tmpdir"
+				cd "$_tmpdir" || exit
 				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 			else
