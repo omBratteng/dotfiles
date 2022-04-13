@@ -21,7 +21,7 @@ function upgrade() {
 }
 
 
-if [ ! -z "$1" ]; then
+if [ -n "$1" ]; then
 	"$1"
 else
 	false
