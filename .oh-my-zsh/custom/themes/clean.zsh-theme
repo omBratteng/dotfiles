@@ -19,7 +19,7 @@ else
 fi
 
 PROMPT='
-%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}%{$FQDN%}%b%f:%F{012}%B%c/%b%f$([ -x "$(command -v git-radar)" ] && git-radar --zsh --fetch)
+%{$USER_COLOR%}%n%B%F{010}@%B%{$fg[yellow]%}%{$FQDN%}%b%f:%F{012}%B%c/%b%f
 $ '
 RPROMPT='%{${_lineup}%}[%*]%{${_linedown}%}'
 

@@ -114,7 +114,6 @@ scripts=(
 	httpie
 	nanorc
 	ls_colors
-	git_radar
 	oh_my_zsh
 	powerlevel10k
 	zsh_autosuggestions
