@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,vim,visualstudiocode,intellij+all,sublimetext,linux,terraform,python,node,go
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,vim,visualstudiocode,intellij+all,sublimetext,linux,terraform,python,node,go
+# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,vim,visualstudiocode,intellij+all,sublimetext,terraform,python,node,go
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,vim,visualstudiocode,intellij+all,sublimetext,terraform,python,node,go
 
 ### Go ###
 # If you prefer the allow list template instead of the deny list, see community template:
@@ -405,7 +404,15 @@ ipython_config.py
 #   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
 #poetry.lock
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+# pdm
+#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
+#pdm.lock
+#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
+#   in version control.
+#   https://pdm.fming.dev/#use-with-ide
+.pdm.toml
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
 
 # Celery stuff
@@ -563,6 +570,10 @@ tags
 .ionide
 
 # Support for Project snippet scope
+.vscode/*.code-snippets
+
+# Ignore code-workspaces
+*.code-workspace
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -590,5 +601,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,windows,vim,visualstudiocode,intellij+all,sublimetext,linux,terraform,python,node,go
+# End of https://www.toptal.com/developers/gitignore/api/macos,windows,linux,vim,visualstudiocode,intellij+all,sublimetext,terraform,python,node,go
 
