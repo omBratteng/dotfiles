@@ -20,7 +20,7 @@ indent_style = space
 indent_size = 2
 indent_style = space
 
-[{package,tsconfig,jsconfig}.json]
+[*.json]
 indent_style = space
 indent_size = 2
 
