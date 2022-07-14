@@ -74,3 +74,21 @@ function pdf417() {
 function tusDelete() {
 	curl -X DELETE -H 'Tus-Resumable: 1.0.0' "$@"
 }
+
+#	deleteCWD:		Prompts the user to delete the current directory
+#					Usually used to delete a temporary directory created
+# 					by `mktemp -d`
+#	-------------------------------------------------------------------
+function deleteCWD() {
+	CWD=$(pwd)
+	if read -q "choice?[y/N] to delete $CWD: "; then
+		echo
+		cd $HOME
+		rm -rf $CWD
+	else
+		echo
+		echo "Cancelled."
+	fi
+
+	unset CWD
+}
