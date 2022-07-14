@@ -41,3 +41,4 @@
 	version = 2
 [push]
 	default = current
+	autoSetupRemote = true
