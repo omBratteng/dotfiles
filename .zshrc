@@ -19,17 +19,21 @@ done
 #	Enable Plugins
 #	------------------------------------------------------------------------
 plugins=(
+	aliases
 	colored-man-pages
 	docker
 	docker-compose
 	docker-machine
-	encode64
+	dotenv
 	gh
 	git
 	gitignore
 	helm
 	kubectl
 	kubectx
+	pip
+	pipx
+	poetry
 	rbates
 	sublime
 	sudo
