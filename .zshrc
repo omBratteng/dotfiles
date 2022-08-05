@@ -34,7 +34,7 @@ plugins=(
 	pip
 	pipx
 	poetry
-	rbates
+	projects
 	sublime
 	sudo
 	yarn
