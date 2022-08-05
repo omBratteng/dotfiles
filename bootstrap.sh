@@ -118,6 +118,7 @@ scripts=(
 	powerlevel10k
 	zsh_autosuggestions
 	zsh_syntax_highlighting
+	zsh_plugin_pipx
 	zsh_completions
 	kubectl
 	kubectx

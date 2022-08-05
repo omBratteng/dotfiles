@@ -32,13 +32,13 @@ plugins=(
 	kubectl
 	kubectx
 	pip
-	pipx
 	poetry
 	projects
 	sublime
 	sudo
 	yarn
 	zsh-autosuggestions
+	zsh-plugin-pipx
 	zsh-syntax-highlighting
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
