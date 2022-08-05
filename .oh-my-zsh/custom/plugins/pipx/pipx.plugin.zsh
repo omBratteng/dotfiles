@@ -1,45 +1,14 @@
-# Run something, muting output or redirecting it to the debug stream
-# depending on the value of _ARC_DEBUG.
-# If ARGCOMPLETE_USE_TEMPFILES is set, use tempfiles for IPC.
-__python_argcomplete_run() {
-    if [[ -z "${ARGCOMPLETE_USE_TEMPFILES-}" ]]; then
-        __python_argcomplete_run_inner "$@"
-        return
-    fi
-    local tmpfile="$(mktemp)"
-    _ARGCOMPLETE_STDOUT_FILENAME="$tmpfile" __python_argcomplete_run_inner "$@"
-    local code=$?
-    cat "$tmpfile"
-    rm "$tmpfile"
-    return $code
-}
+# Autocompletion for pipx.
+if (( ! $+commands[pipx] )); then
+  return
+fi
 
-__python_argcomplete_run_inner() {
-    if [[ -z "${_ARC_DEBUG-}" ]]; then
-        "$@" 8>&1 9>&2 1>/dev/null 2>&1
-    else
-        "$@" 8>&1 9>&2 1>&9 2>&1
-    fi
-}
+# If the completion file doesn't exist yet, we need to autoload it and
+# bind it to `pipx`. Otherwise, compinit will have already done that.
+if [[ ! -f "$ZSH_CACHE_DIR/completions/_pipx" ]]; then
+  typeset -g -A _comps
+  autoload -Uz _pipx
+  _comps[pipx]=_pipx
+fi
 
-_python_argcomplete() {
-    local IFS=$'\013'
-    local SUPPRESS_SPACE=0
-    if compopt +o nospace 2> /dev/null; then
-        SUPPRESS_SPACE=1
-    fi
-    COMPREPLY=( $(IFS="$IFS" \
-                  COMP_LINE="$COMP_LINE" \
-                  COMP_POINT="$COMP_POINT" \
-                  COMP_TYPE="$COMP_TYPE" \
-                  _ARGCOMPLETE_COMP_WORDBREAKS="$COMP_WORDBREAKS" \
-                  _ARGCOMPLETE=1 \
-                  _ARGCOMPLETE_SUPPRESS_SPACE=$SUPPRESS_SPACE \
-                  __python_argcomplete_run "$1") )
-    if [[ $? != 0 ]]; then
-        unset COMPREPLY
-    elif [[ $SUPPRESS_SPACE == 1 ]] && [[ "${COMPREPLY-}" =~ [=/:]$ ]]; then
-        compopt -o nospace
-    fi
-}
-complete -o nospace -o default -o bashdefault -F _python_argcomplete pipx
+register-python-argcomplete pipx >| "$ZSH_CACHE_DIR/completions/_pipx" &|
