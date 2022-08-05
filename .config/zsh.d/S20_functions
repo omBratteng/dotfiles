@@ -92,3 +92,10 @@ function deleteCWD() {
 
 	unset CWD
 }
+
+#	merge_zsh_histories:
+#	-------------------------------------------------------------------
+function merge_zsh_histories() {
+	set -x
+	cat $@ | awk -v date="WILL_NOT_APPEAR$(date +"%s")" '{if (sub(/\\$/,date)) printf "%s", $0; else print $0}' | LC_ALL=C sort -u | awk -v date="WILL_NOT_APPEAR$(date +"%s")" '{gsub('date',"\\\n"); print $0}'
+}
