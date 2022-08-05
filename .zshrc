@@ -20,22 +20,22 @@ done
 #	------------------------------------------------------------------------
 plugins=(
 	colored-man-pages
-	git
-	gitignore
-	encode64
-	sudo
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	sublime
 	docker
 	docker-compose
 	docker-machine
+	encode64
+	gh
+	git
+	gitignore
+	helm
 	kubectl
 	kubectx
-	gh
-	helm
 	rbates
+	sublime
+	sudo
 	yarn
+	zsh-autosuggestions
+	zsh-syntax-highlighting
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
