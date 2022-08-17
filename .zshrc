@@ -56,7 +56,7 @@ alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
 
 if [ -x "$(command -v exa)" ]; then												# Replace default `ls` with `exa`
 	alias ls="exa"
-	alias la="exa --long --all --group"
+	alias la="exa --long --all --group --git"
 fi
 
 if [ -x "$(command -v duf)" ]; then												# Replace default `df` with `duf`
