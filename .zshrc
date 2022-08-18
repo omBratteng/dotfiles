@@ -24,7 +24,6 @@ plugins=(
 	docker
 	docker-compose
 	docker-machine
-	dotenv
 	gh
 	git
 	gitignore
