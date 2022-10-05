@@ -31,7 +31,7 @@ EOF
 function upgrade() {
 	if [ -f $_lscolors_data_dir/lscolors.sh ]; then
 		_tmpdir=$(mktemp -d)
-		git clone --quiet https://github.com/isene/LS_COLORS.git $_tmpdir
+		git clone --quiet https://github.com/trapd00r/LS_COLORS.git $_tmpdir
 		cd $_tmpdir
 		if dircolors -b LS_COLORS > lscolors.sh && dircolors -c LS_COLORS > lscolors.csh ; then
 			if mv -t "$_lscolors_data_dir" lscolors.sh lscolors.csh ; then
