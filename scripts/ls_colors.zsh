@@ -7,7 +7,7 @@ function install() {
 		false
 	else
 		_tmpdir=$(mktemp -d)
-		git clone --quiet https://github.com/isene/LS_COLORS.git $_tmpdir
+		git clone --quiet https://github.com/trapd00r/LS_COLORS.git $_tmpdir
 		cd $_tmpdir
 		mkdir -p $HOME/.config/lscolors
 		if dircolors -b LS_COLORS > lscolors.sh && dircolors -c LS_COLORS > lscolors.csh ; then
