@@ -37,6 +37,7 @@ plugins=(
 	sudo
 	yarn
 	zsh-autosuggestions
+	zsh-completions
 	zsh-plugin-pipx
 	zsh-syntax-highlighting
 )
