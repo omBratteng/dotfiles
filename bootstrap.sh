@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+_uname=$(uname -s)
+
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
@@ -109,20 +111,26 @@ function upgrade() {
 }
 
 scripts=(
-	n
 	bat
-	httpie
-	nanorc
 	ls_colors
+	nanorc
 	oh_my_zsh
 	powerlevel10k
 	zsh_autosuggestions
-	zsh_syntax_highlighting
-	zsh_plugin_pipx
 	zsh_completions
-	kubectl
-	kubectx
+	zsh_syntax_highlighting
 )
+
+if [[ "$_uname" == "Darwin" ]]; then
+	scripts+=(
+		httpie
+		kubectl
+		kubectx
+		n
+		zsh_plugin_pipx
+	)
+fi
+
 
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	for script in "${scripts[@]}";
@@ -174,3 +182,5 @@ printf '%s\n' ' _/ /_/ / /_/ / /_/ __/ / /  __(__  )    '
 printf '%s\n' '(_)__,_/\____/\__/_/ /_/_/\___/____/     '
 printf '%s\n' ''
 printf "${BLUE}%s\n" "Hooray! .dotfiles has been updated and/or is at the current version.${RESET}"
+
+unset _uname
