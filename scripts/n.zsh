@@ -13,6 +13,10 @@ function install() {
 		if [[ "$_uname" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install n
+				if [[ ! -v DOTFILES ]]; then
+					echo 'export N_PREFIX="$HOME/.config/n"' >> ~/.zshenv.local
+					echo 'export PATH="$HOME/.config/n/bin:$PATH"' >> ~/.zshenv.local
+				fi
 			else
 				echo "Homebrew doesn't exist"
 				false
