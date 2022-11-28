@@ -29,6 +29,10 @@ alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"	# Q
 alias ygui="yarn global upgrade-interactive --latest"
 alias ytw="yarn test --watch"
 
+if [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]; then
+	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+fi
+
 #	---------------------------------------
 #		MAKE GIT GREAT AGAIN
 #	---------------------------------------
