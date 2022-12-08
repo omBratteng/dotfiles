@@ -12,6 +12,3 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	compdef _ph ph
 fi;
 
-h() { cd ~/"$1"; }
-_h() { _files -W ~/ -/; }
-compdef _h h
