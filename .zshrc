@@ -85,6 +85,7 @@ fi
 #	Trigger a new load of autocompletions
 #	-------------------------------------------------------------------
 autoload -U compinit && compinit
+autoload -U bashcompinit && bashcompinit
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f $XDG_CONFIG_HOME/p10k.zsh ]] || source "$XDG_CONFIG_HOME"/p10k.zsh
