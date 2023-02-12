@@ -38,7 +38,6 @@ plugins=(
 	yarn
 	zsh-autosuggestions
 	zsh-completions
-	zsh-plugin-pipx
 	zsh-syntax-highlighting
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
