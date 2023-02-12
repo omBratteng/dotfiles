@@ -15,3 +15,8 @@ indent_style = space
 [*.{json,yml,yaml,toml,tf}]
 indent_size = 2
 indent_style = space
+
+[talosconfig]
+indent_size = 2
+indent_style = space
+
