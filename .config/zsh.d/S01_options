@@ -7,3 +7,10 @@ setopt histignorespace
 # Do not enter command lines into the history list if they are duplicates of the
 # previous event.
 setopt histignorealldups
+
+# Immediately append to the history file, instead of waiting for the shell to
+# exit.
+setopt INC_APPEND_HISTORY
+
+# Remove superfluous blanks before recording entry.
+setopt HIST_REDUCE_BLANKS
