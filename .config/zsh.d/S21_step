@@ -1,0 +1,40 @@
+#! /usr/bin/env zsh
+
+function command_exists() {
+	command -v "$@" >/dev/null 2>&1
+}
+
+function decodeCertificate() {
+	if [[ "$(uname -s)" == "Linux" ]]; then
+		alias pbpaste="xclip -selection clipboard -o"
+	fi
+
+	# Check if the step binary exists
+	if ! command_exists step; then
+		echo "step binary doesn't exist"
+		return
+	fi
+
+	# Check if there is an argument
+	if [ -z "$1" ]; then
+		pbpaste | step certificate inspect
+	else
+		step certificate inspect "$1"
+	fi
+}
+
+function decodeB64Certificate() {
+	if [[ "$(uname -s)" == "Linux" ]]; then
+		alias pbpaste="xclip -selection clipboard -o"
+	fi
+
+	# Check if the step binary exists
+	if ! command_exists step; then
+		echo "step binary doesn't exist"
+		return
+	fi
+
+	pbpaste | base64 -d | step certificate inspect
+}
+
+unset command_exists
