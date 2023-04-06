@@ -72,14 +72,3 @@ alias kns='kubens'
 #	---------------------------------------
 alias flushDNS='sudo killall -HUP mDNSResponder'								# Flush out the DNS Cache (macOS)
 alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"					# Recursively delete .DS_Store files
-
-#	---------------------------------------
-#		MAKE HASH GREAT AGAIN
-#	---------------------------------------
-if [ -x "$(command -v step)" ]; then
-	alias sha512sum="step crypto hash digest --alg sha512"
-	alias sha384sum="step crypto hash digest --alg sha384"
-	alias sha256sum="step crypto hash digest --alg sha256"
-	alias sha1sum="step crypto hash digest --alg sha1"
-	alias md5sum="step crypto hash digest --alg md5 --insecure"
-fi
