@@ -65,8 +65,12 @@ if [ -x "$(command -v duf)" ] && [ -z "$_DISABLE_DUF" ]; then
 fi
 
 # Replace default `cat` with `bat`
-if [ -x "$(command -v bat)" ] && [ -z "$_DISABLE_BAT" ]; then
-	alias cat="bat"
+if [ -z "$_DISABLE_BAT" ]; then
+	if [ -x "$(command -v bat)" ]; then
+		alias cat="bat"
+	elif [ -x "$(command -v batcat)" ]; then
+		alias cat="batcat"
+	fi
 fi
 
 #	neofetch:	Fancy boot info
