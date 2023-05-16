@@ -94,5 +94,5 @@ if [ -x "$(command -v vault)" ]; then
 	complete -o nospace -C $(command -v vault) vault
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# To customize prompt, run `p10k configure` or edit ~/.config/p10k.zsh.
 [[ ! -f $XDG_CONFIG_HOME/p10k.zsh ]] || source "$XDG_CONFIG_HOME"/p10k.zsh
