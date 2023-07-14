@@ -127,7 +127,6 @@ if [[ "$_uname" == "Darwin" ]]; then
 		kubectl
 		kubectx
 		n
-		zsh_plugin_pipx
 	)
 fi
 
