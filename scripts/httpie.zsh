@@ -20,8 +20,10 @@ function install() {
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v apt-get; then
 				sudo apt-get install httpie
+			elif command_exists -v dnf; then
+				sudo dnf install httpie
 			else
-				echo "Homebrew doesn't exist"
+				echo "Could not find a valid package manager"
 				false
 			fi
 		fi
