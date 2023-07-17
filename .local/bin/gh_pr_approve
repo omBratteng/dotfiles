@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+DONE=false
+
+trap ctrl_c INT
+function ctrl_c() {
+	printf '\e[?1049l'
+	exit 0
+}
+
+# Check if gh is installed
+if ! command -v gh &> /dev/null
+then
+	echo "gh could not be found"
+	exit 1
+fi
+
+# Check if we are in a git repo
+if ! git rev-parse --is-inside-work-tree &> /dev/null
+then
+	echo "Not in a git repo"
+	exit 1
+fi
+
+# Save terminal screen
+printf '\e[?1049h'
+while ! $DONE; do
+	clear
+	gh pr list
+	echo
+	read -p "Approve PRs? [y/n] " -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[Yy]$ ]]
+	then
+		read -p "Enter PR ID to approve: " -r
+		gh pr review $REPLY --approve
+		sleep 1
+		gh pr merge $REPLY --auto --squash --delete-branch
+	elif
+		[[ $REPLY =~ ^[Nn]$ ]]
+	then
+		DONE=true
+	fi
+done
+printf '\e[?1049l'

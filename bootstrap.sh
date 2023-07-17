@@ -50,6 +50,7 @@ function syncDotfiles() {
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		--exclude "Rakefile" \
+		--include ".local/" \
 		--exclude "*.local" \
 		--exclude ".vscode/" \
 		-avh --no-perms . ~;
