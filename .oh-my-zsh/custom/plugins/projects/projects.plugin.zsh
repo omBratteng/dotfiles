@@ -3,12 +3,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	_p() { _files -W /srv -/; }
 	compdef _p p
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-	p() { cd ~/Projects/"$1"; }
-	_p() { _files -W ~/Projects -/; }
+	p() { cd ~/Developer/"$1"; }
+	_p() { _files -W ~/Developer -/; }
 	compdef _p p
-
-	ph() { cd ~/Projects/http/"$1"; }
-	_ph() { _files -W ~/Projects/http -/; }
-	compdef _ph ph
 fi;
-
