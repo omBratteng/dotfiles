@@ -15,7 +15,7 @@
 	<key>BadgeFont</key>
 	<string>Fira Code</string>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>Command</key>
 	<string>/usr/local/opt/bash/bin/bash</string>
 	<key>Custom Color Presets</key>
