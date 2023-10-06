@@ -19,6 +19,7 @@ alias cd..='cd ../'																# Go back 1 directory level (for fast typers)
 alias ..='cd ../'																# Go back 1 directory level
 alias ...='cd ../../'															# Go back 2 directory levelssy
 alias path='echo -e ${PATH//:/\\n}'												# Echo all executable Paths
+alias fpath='echo -e ${FPATH//:/\\n}'											# Echo all zsh function Paths
 
 alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df. And show sizes as human readable
 alias du="du -ch"																# Show sizes as human readable and show a grand total
