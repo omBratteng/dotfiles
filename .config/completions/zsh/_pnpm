@@ -1,0 +1,22 @@
+#compdef pnpm
+
+# zsh completion for pnpm                                -*- shell-script -*-
+
+_pnpm () {
+  local reply
+  local si=$IFS
+
+  IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" pnpm completion -- "${words[@]}"))
+  IFS=$si
+
+  if [ "$reply" = "__tabtab_complete_files__" ]; then
+    _files
+  else
+    _describe 'values' reply
+  fi
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_pnpm" ]; then
+    _pnpm
+fi
