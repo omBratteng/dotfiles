@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+const crypto = require("crypto");
+const https = require("https");
+
+if (process.argv.length < 3) {
+    console.error("Usage: node nodeChecksum.js <nodejs_version>");
+    process.exit(1);
+}
+
+const versions = process.argv[2].split(",");
+const architectures = ["amd64", "arm64", "arm", "ppc64le", "s390x"];
+
+const nodeVersions = {};
+
+const calculateChecksum = (url) => {
+    return new Promise((resolve, reject) => {
+        https
+            .get(url, (res) => {
+                const hash = crypto.createHash("sha256");
+                res.on("data", (data) => {
+                    hash.update(data);
+                });
+                res.on("end", () => {
+                    resolve(hash.digest("hex"));
+                });
+            })
+            .on("error", (err) => {
+                reject(`Error downloading file: ${err.message}`);
+            });
+    });
+};
+
+const fetchChecksums = async () => {
+    for (const nodeVersion of versions) {
+        nodeVersions[nodeVersion] = {};
+        await Promise.all(
+            architectures.map(async (key) => {
+                let arch = key;
+                if (key === "amd64") {
+                    arch = "x64";
+                } else if (key === "arm") {
+                    arch = "armv7l";
+                }
+                const url = `https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-${arch}.tar.gz`;
+                try {
+                    const checksum = await calculateChecksum(url);
+                    nodeVersions[nodeVersion][key] = {
+                        checksum,
+                        suffix: arch,
+                    };
+                } catch (error) {
+                    console.error(error);
+                }
+            }),
+        );
+    }
+};
+
+fetchChecksums().then(() => {
+    console.log(`load("//private/remote:node_archive.bzl", "node_archive")
+
+def repositories():
+    # Node (https://nodejs.org/en/about/releases/)
+    # Follow Node's maintainence schedule and support all LTS versions that are not end of life`);
+
+    for (const nodeVersion of versions) {
+        for (const key of architectures) {
+            const arch = nodeVersions[nodeVersion][key];
+            const major = nodeVersion.split(".")[0];
+            const url = `https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-${arch.suffix}.tar.gz`;
+
+            console.log(`
+    node_archive(
+        name = "nodejs${major}_${key}",
+        sha256 = "${arch.checksum}",
+        strip_prefix = "node-v${nodeVersion}-linux-${arch.suffix}/",
+        urls = ["${url}"],
+        version = "${nodeVersion}",
+        architecture = "${key}",
+        control = "//nodejs:control",
+    )`);
+        }
+    }
+});

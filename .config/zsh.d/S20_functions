@@ -52,26 +52,6 @@ function mp4() {
 	ffmpeg -i "$1" "${_fileName%.*}.mp4"
 }
 
-#	nodeSHA256:		Calculate the SHA256 of a node version tarball
-#	-------------------------------------------------------------------
-function nodeSHA256() {
-	NODE_VERSION=$1
-	echo "Fetching ARM checksum for node $NODE_VERSION"
-	curl -s "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-armv7l.tar.gz" | gsha256sum | awk '{print $1}'
-
-	echo "Fetching ARM64 checksum for node $NODE_VERSION"
-	curl -s "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-arm64.tar.gz" | gsha256sum | awk '{print $1}'
-
-	echo "Fetching X86 checksum for node $NODE_VERSION"
-	curl -s "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.gz" | gsha256sum | awk '{print $1}'
-
-	echo "Fetching ppc64le checksum for node $NODE_VERSION"
-	curl -s "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-ppc64le.tar.gz" | gsha256sum | awk '{print $1}'
-
-	echo "Fetching s390x checksum for node $NODE_VERSION"
-	curl -s "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-s390x.tar.gz" | gsha256sum | awk '{print $1}'
-}
-
 #	pdf417:			Generate a PDF417 SVG image
 #	-------------------------------------------------------------------
 function pdf417() {
