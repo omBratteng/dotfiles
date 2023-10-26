@@ -53,7 +53,15 @@ function syncDotfiles() {
 		--include ".local/" \
 		--exclude "*.local" \
 		--exclude ".vscode/" \
+		--exclude "Library/" \
 		-avh --no-perms . ~;
+
+	if [[ "$_uname" == "Darwin" ]]; then
+		for macOsDir in Library; do
+			rsync -avh --no-perms $macOsDir ~;
+		done
+	fi
+
 	echo "${GREEN}>> Done${RESET}"
 
 	source ~/.zshrc

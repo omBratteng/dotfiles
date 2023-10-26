@@ -1,0 +1,18 @@
+provision:
+- mode: system
+  script: |
+    #!/bin/sh
+    apk add python3 vim yq jq zsh git
+    curl -s https://www.googleapis.com/storage/v1/b/cloud-sdk-release/o?prefix=google-cloud-sdk-4 \
+    | jq -r '.items[].selfLink | select ( match ("linux-arm") )' | tail -n1 | xargs curl -s | jq -r '.mediaLink' \
+    | xargs curl -s | tar xz -C /opt
+    /opt/google-cloud-sdk/install.sh --quiet --additional-components docker-credential-gcr
+    ln -s /opt/google-cloud-sdk/bin/gcloud /usr/local/bin/gcloud
+    ln -s /opt/google-cloud-sdk/bin/docker-credential-gcr /usr/local/bin/docker-credential-gcr
+    ln -s /opt/google-cloud-sdk/bin/docker-credential-gcloud /usr/local/bin/docker-credential-gcloud
+    ln -s $(echo "/Users/ombratteng/.config") /home/ombratteng.linux
+    ln -s $(echo "/Users/ombratteng/.docker") /home/ombratteng.linux
+    ln -s $(echo "/Users/ombratteng/.config") /root
+    ln -s $(echo "/Users/ombratteng/.docker") /root
+    curl -sL https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.1.18/docker-credential-gcr_linux_arm64-2.1.18.tar.gz \
+    | tar xz -C /usr/local/bin
