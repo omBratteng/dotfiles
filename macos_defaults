@@ -1,0 +1,20 @@
+# Make the Dock size immutable
+defaults write com.apple.dock size-immutable -bool true
+
+# Make the icons in the Dock transparent when an app is hidden
+defaults write com.apple.Dock showhidden -bool TRUE
+
+# Hide the desktop
+defaults write com.apple.finder CreateDesktop false
+
+# Show hidden files in Finder
+defaults write com.apple.Finder AppleShowAllFiles true
+
+# Add spacer to the Dock
+defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}';
+
+# Change the font in Shottr
+defaults write cc.ffitch.shottr typeface 'FiraCode Nerd Font Mono'
+
+# Ensure clipboard sharing is enabled
+defaults write ~/Library/Preferences/com.apple.coreservices.useractivityd.plist ClipboardSharingEnabled 1

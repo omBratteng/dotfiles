@@ -54,6 +54,7 @@ function syncDotfiles() {
 		--exclude "*.local" \
 		--exclude ".vscode/" \
 		--exclude "Library/" \
+		--exclude "macos_defaults" \
 		-avh --no-perms . ~;
 
 	if [[ "$_uname" == "Darwin" ]]; then
