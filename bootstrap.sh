@@ -121,6 +121,7 @@ function upgrade() {
 }
 
 scripts=(
+	atuin
 	bat
 	ls_colors
 	nanorc
