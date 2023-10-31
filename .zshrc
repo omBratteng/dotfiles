@@ -53,10 +53,10 @@ alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
 
-# Replace default `ls` with `exa`
-if [ -x "$(command -v exa)" ] && [ -z "$_DISABLE_EXA" ]; then
-	alias ls="exa"
-	alias la="exa --long --all --group --git"
+# Replace default `ls` with `eza`
+if [ -x "$(command -v eza)" ] && [ -z "$_DISABLE_EZA" ]; then
+	alias ls="eza"
+	alias la="eza --long --all --group --git"
 fi
 
 # Replace default `df` with `duf`
