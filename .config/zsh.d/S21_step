@@ -19,7 +19,7 @@ function decodeCertificate() {
 	if [ -z "$1" ]; then
 		pbpaste | step certificate inspect
 	else
-		step certificate inspect "$1"
+		step certificate inspect "$@"
 	fi
 }
 
@@ -34,7 +34,7 @@ function decodeB64Certificate() {
 		return
 	fi
 
-	pbpaste | base64 -d | step certificate inspect
+	pbpaste | base64 -d | step certificate inspect "$@"
 }
 
 unset command_exists
