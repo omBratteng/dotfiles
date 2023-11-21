@@ -121,7 +121,6 @@ function upgrade() {
 }
 
 scripts=(
-	atuin
 	bat
 	ls_colors
 	nanorc
@@ -136,6 +135,7 @@ scripts=(
 
 if [[ "$_uname" == "Darwin" ]]; then
 	scripts+=(
+		atuin
 		httpie
 		kubectl
 		kubectx
