@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 _uname=$(uname -s)
+_yq_latest_version=$(curl -s https://api.github.com/repos/mikefarah/yq/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
 
 function command_exists() {
 	command -v "$@" >/dev/null 2>&1
@@ -38,6 +39,12 @@ function upgrade() {
 			# upgrade is handled by the package manager
 			return
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
+			# Check if the yq version is the latest, prefix is "version "
+			_yq_version=$(yq --version | grep -oP '(?<=version )(.*)')
+			if [[ "${_yq_latest_version}" == "$_yq_version" ]]; then
+				echo "yq is already the latest version"
+				return
+			fi
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
 				cd "$_tmpdir" || exit
@@ -59,4 +66,4 @@ else
 	false
 fi
 
-unset command_exists install upgrade _uname
+unset command_exists install upgrade _uname _yq_latest_version _yq_version
