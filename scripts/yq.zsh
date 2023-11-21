@@ -42,7 +42,6 @@ function upgrade() {
 			# Check if the yq version is the latest, prefix is "version "
 			_yq_version=$(yq --version | grep -oP '(?<=version )(.*)')
 			if [[ "${_yq_latest_version}" == "$_yq_version" ]]; then
-				echo "yq is already the latest version"
 				return
 			fi
 			if command_exists -v curl; then
