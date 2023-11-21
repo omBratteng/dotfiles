@@ -130,6 +130,7 @@ scripts=(
 	zsh_autosuggestions
 	zsh_completions
 	zsh_syntax_highlighting
+	yq
 )
 
 if [[ "$_uname" == "Darwin" ]]; then
