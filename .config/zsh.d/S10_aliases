@@ -1,6 +1,12 @@
 #! /usr/bin/env zsh
 
 #	-----------------------------------------
+#		MAKE DOTFILES BETTER
+#	-----------------------------------------
+alias upgrade_dotfiles="$DOTFILES/bootstrap.sh --upgrade"
+alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
+
+#	-----------------------------------------
 #		MAKE TERMINAL BETTER
 #	-----------------------------------------
 alias ls='ls -G'

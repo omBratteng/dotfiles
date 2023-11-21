@@ -46,9 +46,6 @@ plugins=(
 #	------------------------------------------------------------------------
 source "$ZSH"/oh-my-zsh.sh
 
-alias upgrade_dotfiles="$DOTFILES/bootstrap.sh --upgrade"
-alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
-
 #	---------------------------------------
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
