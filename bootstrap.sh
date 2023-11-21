@@ -152,6 +152,7 @@ if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	switch_to_zsh;
 	syncDotfiles;
 elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
+	syncDotfiles;
 	for script in "${scripts[@]}";
 	do
 		upgrade "$script"
