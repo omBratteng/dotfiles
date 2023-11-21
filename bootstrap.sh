@@ -127,10 +127,11 @@ scripts=(
 	nanorc
 	oh_my_zsh
 	powerlevel10k
+	step
+	yq
 	zsh_autosuggestions
 	zsh_completions
 	zsh_syntax_highlighting
-	yq
 )
 
 if [[ "$_uname" == "Darwin" ]]; then
