@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
 _uname=$(uname -s)
-_step_latest_version=$(curl -s https://api.github.com/repos/smallstep/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-_step_latest_version=${_step_latest_version:1}
 
 function command_exists() {
 	command -v "$@" >/dev/null 2>&1
@@ -22,6 +20,9 @@ function install() {
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
+				_step_latest_version=$(curl -s https://api.github.com/repos/smallstep/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+				_step_latest_version=${_step_latest_version:1}
+
 				cd "$_tmpdir" || exit
 				if command_exists -v dpkg; then
 					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_latest_version}/step-cli_${_step_latest_version}_amd64.deb"
@@ -48,14 +49,18 @@ function upgrade() {
 			# upgrade is handled by the package manager
 			return
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
-			# Check if the step version is the latest, prefix is "Smallstep CLI/"
-			_step_version=$(step version | grep -oP '(?<=Smallstep CLI/)(.*)(?= )')
-			if [[ "${_step_latest_version}" == "$_step_version" ]]; then
-				return
-			fi
 			if command_exists -v curl; then
+				# Check if the step version is the latest, prefix is "Smallstep CLI/"
+				_step_latest_version=$(curl -s https://api.github.com/repos/smallstep/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+				_step_latest_version=${_step_latest_version:1}
+				_step_version=$(step version | grep -oP '(?<=Smallstep CLI/)(.*)(?= )')
+				if [[ "${_step_latest_version}" == "$_step_version" ]]; then
+					return
+				fi
+
 				_tmpdir=$(mktemp -d)
 				cd "$_tmpdir" || exit
+
 				if command_exists -v dpkg; then
 					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.deb"
 					sudo dpkg -i "step-cli_${_step_version}_amd64.deb"
