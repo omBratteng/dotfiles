@@ -9,10 +9,11 @@ alias update_dotfiles="$DOTFILES/bootstrap.sh --sync"
 #	-----------------------------------------
 #		MAKE TERMINAL BETTER
 #	-----------------------------------------
-alias ls='ls -G'
-alias l='ls -l'
-alias ll='ls -lh'
-alias la='ls -la'
+alias ls='ls --grid'
+alias l='ls --long --header'
+alias la='ls --long --all --header'
+alias laz='ls --long --all --header --context'
+alias lao='ls --long --all --header --octal-permissions'
 alias cp='nocorrect cp -iv'														# Preferred 'cp' implentation
 alias mv='nocorrect mv -iv'														# Preferred 'mv' implentation
 alias mkdir='nocorrect mkdir -pv'												# Preferred 'mkdir' implentation

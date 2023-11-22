@@ -52,8 +52,16 @@ source "$ZSH"/oh-my-zsh.sh
 
 # Replace default `ls` with `eza`
 if [ -x "$(command -v eza)" ] && [ -z "$_DISABLE_EZA" ]; then
-	alias ls="eza"
-	alias la="eza --long --all --group --git"
+	_eza_flags=""
+	alias ls="eza ${_eza_flags}"
+
+	_eza_flags+="--long --group --git --header --mounts "
+	alias l="eza ${_eza_flags}"
+
+	_eza_flags+="--all "
+	alias la="eza ${_eza_flags}"
+	alias laz="eza ${_eza_flags} --context"
+	alias lao="eza ${_eza_flags} --octal-permissions"
 fi
 
 # Replace default `df` with `duf`
