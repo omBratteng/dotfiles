@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Read the video URL and store it in a variable
+read -p "Enter the video URL: " videoURL
+
+# Download the video
+ffmpeg -protocol_whitelist file,http,https,tcp,tls,crypto -c copy video.mp4 "${@}" -i "${videoURL}"
