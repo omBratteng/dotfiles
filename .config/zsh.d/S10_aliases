@@ -68,6 +68,7 @@ alias commit="git commit"
 #		MAKE NETWORKING GREAT AGAIN
 #	---------------------------------------
 alias myip='curl -4 icanhazip.com; curl -6 icanhazip.com'						# Get my public facing IP Address
+alias ips="ip a s | grep 'inet ' | awk '{print \$2}' | cut -f1 -d'/' | sort"	# Get all my IP Addresses
 alias ip4="ip -4"																# Shortcut for only querying IPv4
 alias ip6="ip -6"																# Shortcut for only querying IPv6
 alias dig4="dig -4"																# Shortcut for only querying IPv4
