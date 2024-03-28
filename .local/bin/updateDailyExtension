@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -xe
+
+# Navigate to the specific directory
+cd $HOME/.local/chrome-extensions/.src/dailydotdev-apps/packages/extension
+
+# Fetch the latest changes from the remote repository
+git fetch
+
+# Reset the local main branch to match the origin/main branch
+git reset --hard origin/main
+
+# Install dependencies using pnpm
+pnpm install
+
+# Update the version in package.json with the current date in YYYYMMDD format
+yq -oj -i '.version = "'$(date +%Y%m%d.%H%M)'"' package.json
+
+# Build the chrome extension
+pnpm build:chrome
