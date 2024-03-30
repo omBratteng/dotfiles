@@ -3,6 +3,13 @@
 # set -xe
 export BROWSERSLIST_IGNORE_OLD_DATA=true
 export LOG_LEVEL=error
+export N_PREFIX=${HOME}/.config/node/n
+export PNPM_HOME=${HOME}/.config/node/pnpm
+
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+export PATH=${N_PREFIX}/bin:${PATH}
+export PATH=${PNPM_HOME}:${PATH}
+export HOMEBREW_PREFIX="/opt/homebrew";
 
 # Navigate to the specific directory
 cd $HOME/.local/chrome-extensions/.src/dailydotdev-apps/packages/extension
