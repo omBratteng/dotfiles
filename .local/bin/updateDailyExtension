@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -xe
+# set -xe
+export BROWSERSLIST_IGNORE_OLD_DATA=true
+export LOG_LEVEL=error
 
 # Navigate to the specific directory
 cd $HOME/.local/chrome-extensions/.src/dailydotdev-apps/packages/extension
@@ -18,4 +20,4 @@ pnpm install
 yq -oj -i '.version = "'$(date +%Y%m%d.%H%M)'"' package.json
 
 # Build the chrome extension
-pnpm build:chrome
+pnpm build:chrome 2>&1 >/dev/null
