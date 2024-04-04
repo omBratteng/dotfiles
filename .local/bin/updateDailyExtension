@@ -23,8 +23,5 @@ git reset --hard origin/main
 # Install dependencies using pnpm
 pnpm install
 
-# Update the version in package.json with the current date in YYYYMMDD format
-yq -oj -i '.version = "'$(date +%Y%m%d.%H%M)'"' package.json
-
 # Build the chrome extension
 pnpm build:chrome 2>&1 >/dev/null
