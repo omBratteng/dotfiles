@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "**/.config/completions/**": "shellscript",
+    "**/.config/zsh.d/**": "shellscript",
+    "**/.config/git/ignore": "git-commit",
+  },
+}

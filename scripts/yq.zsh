@@ -10,7 +10,7 @@ function install() {
 	if command_exists -v yq; then
 		false
 	else
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install yq
 			else
@@ -21,7 +21,7 @@ function install() {
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
 				_yq_latest_version=$(curl -s https://api.github.com/repos/mikefarah/yq/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-				cd "$_tmpdir" || exit
+				cd "${_tmpdir}" || exit
 				curl -LO "https://github.com/mikefarah/yq/releases/download/${_yq_latest_version}/yq_linux_amd64"
 				sudo install -o root -g root -m 0755 yq_linux_amd64 /usr/local/bin/yq
 			else
@@ -35,7 +35,7 @@ function install() {
 
 function upgrade() {
 	if command_exists -v yq; then
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			# upgrade is handled by the package manager
 			return
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
@@ -44,7 +44,7 @@ function upgrade() {
 				_yq_latest_version=$(curl -s https://api.github.com/repos/mikefarah/yq/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
 				_yq_version=$(yq --version | grep -oP '(?<=version )(.*)')
 
-				if [[ "${_yq_latest_version}" == "$_yq_version" ]]; then
+				if [[ "${_yq_latest_version}" == "${_yq_version}" ]]; then
 					return
 				fi
 

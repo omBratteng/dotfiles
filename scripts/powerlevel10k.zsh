@@ -3,7 +3,7 @@
 DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 
 function install() {
-	if [ -d "$DIR" ]; then
+	if [ -d "${DIR}" ]; then
 		false
 	else
 		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
@@ -12,10 +12,10 @@ function install() {
 }
 
 function upgrade() {
-	if [ ! -d "$DIR" ]; then
+	if [ ! -d "${DIR}" ]; then
 		install
 	else
-		cd "$DIR" || exit
+		cd "${DIR}" || exit
 		git pull --ff-only --quiet
 		cd - || exit
 		return

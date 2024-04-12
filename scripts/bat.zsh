@@ -10,7 +10,7 @@ function install() {
 	if command_exists -v bat; then
 		false
 	else
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install bat
 			else
@@ -19,7 +19,7 @@ function install() {
 			fi
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			# If _FORCE_INSTALL is set, add the -y flag to the package manager
-			if [[ -n "$_FORCE_INSTALL" ]]; then
+			if [[ -n "${_FORCE_INSTALL}" ]]; then
 				_args="-y"
 			fi
 

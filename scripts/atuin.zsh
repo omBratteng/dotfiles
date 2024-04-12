@@ -10,7 +10,7 @@ function install() {
 	if command_exists -v atuin; then
 		false
 	else
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install atuin
 			else

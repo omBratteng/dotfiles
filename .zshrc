@@ -12,7 +12,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 HIST_STAMPS="dd.mm.yyyy"
 
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
-    source "$zshrc_snipplet"
+    source "${zshrc_snipplet}"
 done
 
 
@@ -44,14 +44,14 @@ plugins=(
 
 #	Enable oh-my-zsh
 #	------------------------------------------------------------------------
-source "$ZSH"/oh-my-zsh.sh
+source "${ZSH}"/oh-my-zsh.sh
 
 #	---------------------------------------
 #		SYSTEMS OPERATIONS & INFORMATION
 #	---------------------------------------
 
 # Replace default `ls` with `eza`
-if [ -x "$(command -v eza)" ] && [ -z "$_DISABLE_EZA" ]; then
+if [ -x "$(command -v eza)" ] && [ -z "${_DISABLE_EZA}" ]; then
 	_eza_flags=""
 	alias ls="eza ${_eza_flags}"
 
@@ -65,12 +65,12 @@ if [ -x "$(command -v eza)" ] && [ -z "$_DISABLE_EZA" ]; then
 fi
 
 # Replace default `df` with `duf`
-if [ -x "$(command -v duf)" ] && [ -z "$_DISABLE_DUF" ]; then
+if [ -x "$(command -v duf)" ] && [ -z "${_DISABLE_DUF}" ]; then
 	alias df="duf"
 fi
 
 # Replace default `cat` with `bat`
-if [ -z "$_DISABLE_BAT" ]; then
+if [ -z "${_DISABLE_BAT}" ]; then
 	if [ -x "$(command -v bat)" ]; then
 		alias cat="bat"
 	elif [ -x "$(command -v batcat)" ]; then
@@ -80,14 +80,14 @@ fi
 
 #	neofetch:	Fancy boot info
 #	-------------------------------------------------------------------
-if [ -x "$(command -v neofetch)" ] && [ -z "$_DISABLE_NEOFETCH" ]; then
+if [ -x "$(command -v neofetch)" ] && [ -z "${_DISABLE_NEOFETCH}" ]; then
 	neofetch
 fi
 
 #	LS_COLORS:	Fancy ls colors
 #	-------------------------------------------------------------------
-if [ -f "$XDG_CONFIG_HOME"/lscolors/lscolors.sh ]; then
-	. "$XDG_CONFIG_HOME/lscolors/lscolors.sh"
+if [ -f "${XDG_CONFIG_HOME}"/lscolors/lscolors.sh ]; then
+	. "${XDG_CONFIG_HOME}/lscolors/lscolors.sh"
 fi
 
 #	Trigger a new load of autocompletions
@@ -106,4 +106,4 @@ if [ -x "$(command -v atuin)" ]; then
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k.zsh.
-[[ ! -f $XDG_CONFIG_HOME/p10k.zsh ]] || source "$XDG_CONFIG_HOME"/p10k.zsh
+[[ ! -f "${XDG_CONFIG_HOME}/p10k.zsh" ]] || source "${XDG_CONFIG_HOME}"/p10k.zsh

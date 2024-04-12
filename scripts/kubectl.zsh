@@ -10,7 +10,7 @@ function install() {
 	if command_exists -v kubectl; then
 		false
 	else
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install kubernetes-cli
 			else
@@ -20,7 +20,7 @@ function install() {
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
-				cd "$_tmpdir" || exit
+				cd "${_tmpdir}" || exit
 				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 			else
@@ -34,13 +34,13 @@ function install() {
 
 function upgrade() {
 	if command_exists -v kubectl; then
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			# upgrade is handled by the package manager
 			return
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
 			if command_exists -v curl; then
 				_tmpdir=$(mktemp -d)
-				cd "$_tmpdir" || exit
+				cd "${_tmpdir}" || exit
 				curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 				sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 			else

@@ -5,7 +5,7 @@ _uname=$(uname -s)
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
-if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
+if [ -t 1 ] && [ -n "${ncolors}" ] && [ "${ncolors}" -ge 8 ]; then
 	RED="$(tput setaf 1)"
 	GREEN="$(tput setaf 2)"
 	YELLOW="$(tput setaf 3)"
@@ -57,20 +57,20 @@ function syncDotfiles() {
 		--exclude "macos_defaults" \
 		-avh --no-perms . ~;
 
-	if [[ "$_uname" == "Darwin" ]]; then
+	if [[ "${_uname}" == "Darwin" ]]; then
 		for macOsDir in Library; do
-			rsync -avh --no-perms $macOsDir ~;
+			rsync -avh --no-perms ${macOsDir} ~;
 		done
 	fi
 
 	echo "${GREEN}>> Done${RESET}"
 
 	source ~/.zshrc
-	source "$XDG_CONFIG_HOME"/p10k.zsh
+	source "${XDG_CONFIG_HOME}"/p10k.zsh
 }
 
 function switch_to_zsh() {
-	if [ "$(basename "$SHELL")" = "zsh" ]; then
+	if [ "$(basename "${SHELL}")" = "zsh" ]; then
 		return
 	else
 		if ! command_exists -v chsh; then
@@ -134,7 +134,7 @@ scripts=(
 	zsh_syntax_highlighting
 )
 
-if [[ "$_uname" == "Darwin" ]]; then
+if [[ "${_uname}" == "Darwin" ]]; then
 	scripts+=(
 		atuin
 		httpie
@@ -148,7 +148,7 @@ fi
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	for script in "${scripts[@]}";
 	do
-		install "$script" true
+		install "${script}" true
 	done
 	switch_to_zsh;
 	syncDotfiles;
@@ -156,7 +156,7 @@ elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 	syncDotfiles;
 	for script in "${scripts[@]}";
 	do
-		upgrade "$script"
+		upgrade "${script}"
 	done
 	syncDotfiles;
 elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
@@ -164,10 +164,10 @@ elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
 else
 	for script in "${scripts[@]}";
 	do
-		install "$script" false
+		install "${script}" false
 	done
 
-	if [ ! "$(basename "$SHELL")" = "zsh" ]; then
+	if [ ! "$(basename "${SHELL}")" = "zsh" ]; then
 		read "?Do you want to switch to zsh? (${YELLOW}recommended${RESET}) ${yes_no}"
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			switch_to_zsh;
@@ -188,7 +188,7 @@ else
 	fi;
 fi
 
-printf '%s' "$GREEN"
+printf '%s' "${GREEN}"
 printf '%s\n' '         __      __  _____ __            '
 printf '%s\n' '    ____/ /___  / /_/ __(_) /__  _____   '
 printf '%s\n' '   / __  / __ \/ __/ /_/ / / _ \/ ___/   '

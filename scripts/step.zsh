@@ -10,7 +10,7 @@ function install() {
 	if command_exists -v step; then
 		false
 	else
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			if command_exists -v brew; then
 				brew install step
 			else
@@ -28,7 +28,7 @@ function install() {
 				fi
 
 				# If _FORCE_INSTALL is set, add the -y flag to the package manager
-				if [[ -n "$_FORCE_INSTALL" ]]; then
+				if [[ -n "${_FORCE_INSTALL}" ]]; then
 					_args="-y"
 				fi
 
@@ -54,7 +54,7 @@ function install() {
 
 function upgrade() {
 	if command_exists -v step; then
-		if [[ "$_uname" == "Darwin" ]]; then
+		if [[ "${_uname}" == "Darwin" ]]; then
 			# upgrade is handled by the package manager
 			return
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
@@ -68,7 +68,7 @@ function upgrade() {
 				fi
 
 				_tmpdir=$(mktemp -d)
-				cd "$_tmpdir" || exit
+				cd "${_tmpdir}" || exit
 
 				if command_exists -v dpkg; then
 					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.deb"
