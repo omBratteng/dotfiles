@@ -35,10 +35,10 @@ function install() {
 				cd "$_tmpdir" || exit
 				if command_exists -v dpkg; then
 					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_latest_version}/step-cli_${_step_latest_version}_${_arch}.deb"
-					sudo dpkg -i "step-cli_${_step_latest_version}_${_arch}.deb" $_args
+					sudo dpkg -i $_args "step-cli_${_step_latest_version}_${_arch}.deb"
 				elif command_exists -v dnf; then
 					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_latest_version}/step-cli_${_step_latest_version}_${_arch}.rpm"
-					sudo dnf install "step-cli_${_step_latest_version}_${_arch}.rpm" $_args
+					sudo dnf install $_args "step-cli_${_step_latest_version}_${_arch}.rpm"
 				else
 					echo "Could not find a valid package manager"
 					false

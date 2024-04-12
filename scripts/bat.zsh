@@ -18,10 +18,15 @@ function install() {
 				false
 			fi
 		elif [[ "${_uname:0:5}" == "Linux" ]]; then
+			# If _FORCE_INSTALL is set, add the -y flag to the package manager
+			if [[ -n "$_FORCE_INSTALL" ]]; then
+				_args="-y"
+			fi
+
 			if command_exists -v apt-get; then
-				sudo apt-get install bat
+				sudo apt-get install $_args bat
 			elif command_exists -v dnf; then
-				sudo dnf install bat
+				sudo dnf install $_args bat
 			else
 				echo "Could not find a valid package manager"
 				false
