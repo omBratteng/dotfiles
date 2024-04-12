@@ -89,6 +89,7 @@ function switch_to_zsh() {
 function install() {
 	if $2; then
 		echo "${BOLD}${BLUE}>> Installing ${1}${RESET}"
+		export _FORCE_INSTALL=true
 		if zsh ./scripts/"$1".zsh install; then
 			echo "${GREEN}>> Done${RESET}"
 		else
