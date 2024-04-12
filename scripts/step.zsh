@@ -7,7 +7,7 @@ function command_exists() {
 }
 
 function install() {
-	if command_exists -v yq; then
+	if command_exists -v step; then
 		false
 	else
 		if [[ "$_uname" == "Darwin" ]]; then
@@ -48,7 +48,7 @@ function install() {
 }
 
 function upgrade() {
-	if command_exists -v yq; then
+	if command_exists -v step; then
 		if [[ "$_uname" == "Darwin" ]]; then
 			# upgrade is handled by the package manager
 			return
