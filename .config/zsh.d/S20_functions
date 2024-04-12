@@ -32,13 +32,6 @@ function extract () {
 	fi
 }
 
-#	kopy:			Send stdin to kopy.io
-#	-------------------------------------------------------------------
-function kopy () {
-	a=$(cat);
-	curl -X POST -s -d "raw:$a" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}';
-}
-
 #	dadjoke:		Fetches a dadjoke straight to the terminal
 #	-------------------------------------------------------------------
 function dadjoke() {
