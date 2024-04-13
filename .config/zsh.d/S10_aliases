@@ -34,7 +34,7 @@ alias du1="du -chd1"															# Shortcut to get the size of the current dir
 
 alias reload="source ${HOME}/.zshrc"											# Reload zshrc
 alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"	# Quick SSH without messing up your known hosts file
-alias ygui="yarn global upgrade-interactive --latest"
+alias ygui="true"
 alias ytw="yarn test --watch"
 
 # If UID is not 0, prepend sudo to apt
