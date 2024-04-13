@@ -79,7 +79,6 @@ alias dig6="dig -6"																# Shortcut for only querying IPv6
 #	---------------------------------------
 
 # Show live stats
-alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 alias dk='docker kill $(docker ps -q)'											# Kill all containers (be careful)
 alias dc='docker-compose'														# Docker-compose shortcut
 
