@@ -1,0 +1,33 @@
+#! /usr/bin/env zsh
+
+_RESET=$(tput sgr0)
+#	-----------------------------------------
+#		MAKE DOTFILES BETTER
+#	-----------------------------------------
+function dotfiles {
+	case $1 in
+		"upgrade")
+			echo "${BOLD}${YELLOW}Upgrading dotfiles${_RESET}"
+			$DOTFILES/bootstrap.sh --upgrade
+			;;
+		"update")
+			echo "${BOLD}${YELLOW}Updating dotfiles${_RESET}"
+			$DOTFILES/bootstrap.sh --sync
+			;;
+		*)
+			echo "${BOLD}${YELLOW}Usage: ${PURPLE}dotfiles ${_RESET}[upgrade|update]"
+			;;
+	esac
+}
+
+function update_dotfiles {
+	echo "${BOLD}${YELLOW}Please use ${PURPLE}\"dotfiles update\"${YELLOW} instead${_RESET}"
+	echo "${BOLD}${YELLOW}Running ${PURPLE}\"dotfiles update\"${YELLOW} now...${_RESET}"
+	dotfiles update
+};
+
+function upgrade_dotfiles {
+	echo "${BOLD}${YELLOW}Please use ${PURPLE}\"dotfiles upgrade\"${YELLOW} instead${_RESET}"
+	echo "${BOLD}${YELLOW}Running ${PURPLE}\"dotfiles upgrade\"${YELLOW} now...${_RESET}"
+	dotfiles upgrade
+}

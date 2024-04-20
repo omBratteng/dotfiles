@@ -101,7 +101,7 @@ fi
 
 #	Enable atuin for history sync
 #	-------------------------------------------------------------------
-if [ -x "$(command -v atuin)" ]; then
+if [ -x "$(command -v atuin)" ] && [ -z "${_DISABLE_ATUIN}" ]; then
 	eval "$(atuin init zsh --disable-up-arrow)"
 fi
 

@@ -1,0 +1,16 @@
+#! /usr/bin/env zsh
+
+# If UID is not 0, prepend sudo to apt
+if [ $UID -ne 0 ]; then
+	alias apt-cache="sudo apt-cache"
+	alias apt-cdrom="sudo apt-cdrom"
+	alias apt-config="sudo apt-config"
+	alias apt-extracttemplates="sudo apt-extracttemplates"
+	alias apt-ftparchive="sudo apt-ftparchive"
+	alias apt-get="sudo apt-get"
+	alias apt-key="sudo apt-key"
+	alias apt-listchanges="sudo apt-listchanges"
+	alias apt-mark="sudo apt-mark"
+	alias apt-sortpkgs="sudo apt-sortpkgs"
+	alias apt="sudo apt"
+fi

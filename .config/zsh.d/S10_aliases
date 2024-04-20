@@ -1,12 +1,6 @@
 #! /usr/bin/env zsh
 
 #	-----------------------------------------
-#		MAKE DOTFILES BETTER
-#	-----------------------------------------
-alias upgrade_dotfiles="${DOTFILES}/bootstrap.sh --upgrade"
-alias update_dotfiles="${DOTFILES}/bootstrap.sh --sync"
-
-#	-----------------------------------------
 #		MAKE TERMINAL BETTER
 #	-----------------------------------------
 alias ls='ls --grid'
@@ -20,41 +14,20 @@ alias mkdir='nocorrect mkdir -pv'												# Preferred 'mkdir' implentation
 alias rm='rm -v'																# Preferred 'rm' implentation
 alias mkcd='take'																# Replaces old zsh function for making and cd to the directory
 
-alias completions='echo $fpath | sed -e "s/ /\n/g" | sort'
-
 alias cd..='cd ../'																# Go back 1 directory level (for fast typers)
 alias ..='cd ../'																# Go back 1 directory level
 alias ...='cd ../../'															# Go back 2 directory levelssy
 alias path='echo -e ${PATH//:/\\n}'												# Echo all executable Paths
 alias fpath='echo -e ${FPATH//:/\\n}'											# Echo all zsh function Paths
+alias completions='echo $fpath | sed -e "s/ /\n/g" | sort'						# Echo all zsh funcrion Paths in a sorted list
 
 alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df. And show sizes as human readable
 alias du="du -ch"																# Show sizes as human readable and show a grand total
 alias du1="du -chd1"															# Shortcut to get the size of the current directory and it's imediate children
 
-alias reload="source ${HOME}/.zshrc"											# Reload zshrc
+alias reload="exec zsh"															# Reload zshrc
 alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"	# Quick SSH without messing up your known hosts file
-alias ygui="true"
-alias ytw="yarn test --watch"
-
-# If UID is not 0, prepend sudo to apt
-if [ $UID -ne 0 ]; then
-	alias apt-cache="sudo apt-cache"
-	alias apt-cdrom="sudo apt-cdrom"
-	alias apt-config="sudo apt-config"
-	alias apt-extracttemplates="sudo apt-extracttemplates"
-	alias apt-ftparchive="sudo apt-ftparchive"
-	alias apt-get="sudo apt-get"
-	alias apt-key="sudo apt-key"
-	alias apt-listchanges="sudo apt-listchanges"
-	alias apt-mark="sudo apt-mark"
-	alias apt-sortpkgs="sudo apt-sortpkgs"
-	alias apt="sudo apt"
-fi
-
-if [ -x "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]; then
-	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-fi
+alias ygui="true"																# I do not use this alias anymore, but it is so ingrained in my muscle memory that I changed it to a no-op
 
 #	---------------------------------------
 #		MAKE GIT GREAT AGAIN
@@ -78,10 +51,8 @@ alias dig6="dig -6"																# Shortcut for only querying IPv6
 #		MAKE DOCKER GREAT AGAIN
 #	---------------------------------------
 
-# Show live stats
 alias dk='docker kill $(docker ps -q)'											# Kill all containers (be careful)
 alias dc='docker-compose'														# Docker-compose shortcut
-
 
 #	---------------------------------------
 #		MAKE KUBECTX GREAT AGAIN
