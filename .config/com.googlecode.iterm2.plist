@@ -16,6 +16,8 @@
 	<string>Fira Code</string>
 	<key>CheckTestRelease</key>
 	<false/>
+	<key>ClickToSelectCommand</key>
+	<false/>
 	<key>Command</key>
 	<string>/usr/local/opt/bash/bin/bash</string>
 	<key>Custom Color Presets</key>
