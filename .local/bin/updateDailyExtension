@@ -15,7 +15,7 @@ export HOMEBREW_PREFIX="/opt/homebrew";
 cd $HOME/.local/chrome-extensions/.src/dailydotdev-apps/packages/extension
 
 # Fetch the latest changes from the remote repository
-git fetch
+git fetch --all --prune
 
 # Reset the local main branch to match the origin/main branch
 git reset --hard origin/main
