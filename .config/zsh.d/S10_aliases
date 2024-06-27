@@ -52,7 +52,13 @@ alias dig6="dig -6"																# Shortcut for only querying IPv6
 #	---------------------------------------
 
 alias dk='docker kill $(docker ps -q)'											# Kill all containers (be careful)
-alias dc='docker-compose'														# Docker-compose shortcut
+function dc() {																	# Docker-compose shortcut
+	if [ -x "$(command -v docker-compose)" ]; then
+		docker-compose $@
+	else
+		docker compose $@
+	fi
+}
 
 #	---------------------------------------
 #		MAKE KUBECTX GREAT AGAIN
