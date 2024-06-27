@@ -87,3 +87,13 @@ function merge_zsh_histories() {
 function jq {
 	yq -oj "$@"
 }
+
+#	claim:			Claim a directory as your own
+#	-------------------------------------------------------------------
+function claim {
+	if [ -z "$1" ]; then
+		echo "Usage: claim <directory|file>"
+		return 1
+	fi
+	sudo chown -R $(id -u):$(id -g) $@
+}
