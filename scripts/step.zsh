@@ -73,10 +73,10 @@ function upgrade() {
 				cd "${_tmpdir}" || exit
 
 				if command_exists -v dpkg; then
-					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.deb"
+					curl -sLO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.deb"
 					sudo dpkg -i "step-cli_${_step_version}_amd64.deb"
 				elif command_exists -v dnf; then
-					curl -LO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.rpm"
+					curl -sLO "https://dl.smallstep.com/gh-release/cli/docs-ca-install/v${_step_version}/step-cli_${_step_version}_amd64.rpm"
 					sudo dnf install "step-cli_${_step_version}_amd64.rpm"
 				else
 					echo "Could not find a valid package manager"
