@@ -65,6 +65,8 @@ function upgrade() {
 				_step_version=$(step version | grep -oP '(?<=Smallstep CLI/)(.*)(?= )')
 				if [[ "${_step_latest_version}" == "$_step_version" ]]; then
 					return
+				else
+					_step_version=${_step_latest_version}
 				fi
 
 				_tmpdir=$(mktemp -d)
