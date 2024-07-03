@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const crypto = require("crypto");
 const https = require("https");
+const fs = require("fs");
 
 if (process.argv.length < 3) {
     console.error("Usage: node nodeChecksum.js <nodejs_version>");
@@ -57,22 +58,24 @@ const fetchChecksums = async () => {
 };
 
 fetchChecksums().then(() => {
-    console.log(`"repositories for nodejs"
+	let nodeArchives = `"repositories for nodejs"
 
 load("//private/remote:node_archive.bzl", "node_archive")
 
 def repositories():
     "node archives"
     # Node (https://nodejs.org/en/about/releases/)
-    # Follow Node's maintainence schedule and support all LTS versions that are not end of life`);
+    # Follow Node's maintainence schedule and support all LTS versions that are not end of life`;
 
     for (const nodeVersion of versions) {
+		const major = nodeVersion.split(".")[0];
+
         for (const key of architectures) {
             const arch = nodeVersions[nodeVersion][key];
-            const major = nodeVersion.split(".")[0];
             const url = `https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-${arch.suffix}.tar.gz`;
 
-            console.log(`
+			nodeArchives += "\n"
+            nodeArchives += `
     node_archive(
         name = "nodejs${major}_${key}",
         sha256 = "${arch.checksum}",
@@ -81,7 +84,29 @@ def repositories():
         version = "${nodeVersion}",
         architecture = "${key}",
         control = "//nodejs:control",
-    )`);
+    )`;
         }
+
+		const testData = `schemaVersion: "2.0.0"
+commandTests:
+  - name: nodejs
+    command: "/nodejs/bin/node"
+    args: ["--version"]
+    expectedOutput: ["v${nodeVersion}"]
+`
+
+		fs.writeFile(`nodejs/testdata/nodejs${major}.yaml`, testData, (err) => {
+			if (err) {
+				console.error(err);
+			}}
+		);
     }
+	nodeArchives += "\n"
+
+	// Write output to node_archives.bzl file
+	fs.writeFile("node_archives.bzl", nodeArchives, (err) => {
+		if (err) {
+			console.error(err);
+		}
+	});
 });
