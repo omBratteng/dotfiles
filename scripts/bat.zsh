@@ -51,4 +51,4 @@ else
 	false
 fi
 
-unset command_exists install upgrade _uname
+unset command_exists install upgrade _uname _args
