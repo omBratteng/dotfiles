@@ -81,6 +81,17 @@ function switch_to_zsh() {
 			return
 		fi
 
+		if [[ "${_uname:0:5}" == "Linux" ]]; then
+			if ! grep "$(whoami)" /etc/passwd | grep -q zsh; then
+				echo "${BLUE}>> Changing default shell to zsh${RESET}"
+				chsh -s $(which zsh)
+				return
+			else
+				echo "${YELLOW}>> Default shell is already zsh${RESET}"
+				return
+			fi
+		fi
+
 		chsh -s $(which zsh)
 		return
 	fi
