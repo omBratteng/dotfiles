@@ -24,6 +24,9 @@ alias completions='echo $fpath | sed -e "s/ /\n/g" | sort'						# Echo all zsh f
 alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df. And show sizes as human readable
 alias du="du -ch"																# Show sizes as human readable and show a grand total
 alias du1="du -chd1"															# Shortcut to get the size of the current directory and it's imediate children
+function ps() {																	# Make ps always show the full command
+	echo "$(/usr/bin/ps $@)"
+}
 
 alias reload="exec zsh"															# Reload zshrc
 alias ssh0="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"	# Quick SSH without messing up your known hosts file
