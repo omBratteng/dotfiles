@@ -23,7 +23,6 @@ plugins=(
 	colored-man-pages
 	docker
 	docker-compose
-	docker-machine
 	gh
 	git
 	gitignore
