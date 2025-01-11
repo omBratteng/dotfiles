@@ -1,22 +1,28 @@
 #compdef pnpm
+###-begin-pnpm-completion-###
+if type compdef &>/dev/null; then
+  _pnpm_completion () {
+    local reply
+    local si=$IFS
 
-# zsh completion for pnpm                                -*- shell-script -*-
+    IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" SHELL=zsh pnpm completion-server -- "${words[@]}"))
+    IFS=$si
 
-_pnpm () {
-  local reply
-  local si=$IFS
-
-  IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" pnpm completion -- "${words[@]}"))
-  IFS=$si
-
-  if [ "$reply" = "__tabtab_complete_files__" ]; then
-    _files
+    if [ "$reply" = "__tabtab_complete_files__" ]; then
+      _files
+    else
+      _describe 'values' reply
+    fi
+  }
+  # When called by the Zsh completion system, this will end with
+  # "loadautofunc" when initially autoloaded and "shfunc" later on, otherwise,
+  # the script was "eval"-ed so use "compdef" to register it with the
+  # completion system
+  if [[ $zsh_eval_context == *func ]]; then
+    _pnpm_completion "$@"
   else
-    _describe 'values' reply
+    compdef _pnpm_completion pnpm
   fi
-}
-
-# don't run the completion function when being source-ed or eval-ed
-if [ "$funcstack[1]" = "_pnpm" ]; then
-    _pnpm
 fi
+###-end-pnpm-completion-###
+
