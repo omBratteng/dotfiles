@@ -25,7 +25,7 @@ alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df.
 alias du="du -ch"																# Show sizes as human readable and show a grand total
 alias du1="du -chd1"															# Shortcut to get the size of the current directory and it's imediate children
 function ps() {																	# Make ps always show the full command
-	echo "$(/usr/bin/ps $@)"
+	echo "$(/bin/ps $@)"
 }
 
 alias reload="exec zsh"															# Reload zshrc
