@@ -113,3 +113,46 @@ function pm {
     command pnpm "$@"
   fi
 }
+
+function cleanupKernels () {
+	# Skip if not fedora
+	if ! grep -q fedora /etc/os-release; then
+		echo "Not a fedora system, skipping kernel cleanup"
+		return
+	fi
+	kernels=("${(@f)$(rpm -q kernel-core)}")
+	count=${#kernels[@]}
+
+	if (( count > 2 )); then
+		current="kernel-core-$(uname -r)"
+		last=${kernels[-1]}
+
+		keep=("${current}")
+		[[ "${last}" != "${current}" ]] && keep+=("${last}")
+
+		to_remove=()
+		for k in "${kernels[@]}"; do
+			[[ "${keep[@]}" =~ "${k}" ]] || to_remove+=("${k}")
+		done
+
+
+		echo "Kernels to be removed:"
+		for kernel in "${to_remove[@]}"; do
+			echo "  - $kernel"
+		done
+		echo "Continue? [y/N]"
+		read -q "choice?"
+		echo
+		if [[ ! $choice =~ ^[yY]$ ]]; then
+			echo "Aborting kernel cleanup"
+			return
+		fi
+		echo "Removing kernels: ${to_remove[@]}"
+		[[ ${#to_remove[@]} -gt 0 ]] && sudo dnf remove -y "${to_remove[@]}"
+	elif
+		(( count == 2 )); then
+		echo "Only two kernels installed, no cleanup needed"
+	else
+		echo "No extra kernels installed, nothing to do"
+	fi
+}
