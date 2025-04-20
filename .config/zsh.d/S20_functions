@@ -123,35 +123,41 @@ function cleanupKernels () {
 	kernels=("${(@f)$(rpm -q kernel-core)}")
 	count=${#kernels[@]}
 
-	if (( count > 2 )); then
+	if (( count >= 2 )); then
 		current="kernel-core-$(uname -r)"
 		last=${kernels[-1]}
 
-		keep=("${current}")
-		[[ "${last}" != "${current}" ]] && keep+=("${last}")
+		# If current is the latest, only keep current
+		# Otherwise keep both current and latest
+		if [[ "${current}" == "${last}" ]]; then
+			keep=("${current}")
+		else
+			keep=("${current}" "${last}")
+		fi
 
 		to_remove=()
 		for k in "${kernels[@]}"; do
 			[[ "${keep[@]}" =~ "${k}" ]] || to_remove+=("${k}")
 		done
 
-
-		echo "Kernels to be removed:"
-		for kernel in "${to_remove[@]}"; do
-			echo "  - $kernel"
-		done
-		echo "Continue? [y/N]"
-		read -q "choice?"
-		echo
-		if [[ ! $choice =~ ^[yY]$ ]]; then
-			echo "Aborting kernel cleanup"
-			return
+		# Only proceed if there are kernels to remove
+		if [[ ${#to_remove[@]} -gt 0 ]]; then
+			echo "Kernels to be removed:"
+			for kernel in "${to_remove[@]}"; do
+				echo "  - $kernel"
+			done
+			echo "Continue? [y/N]"
+			read -q "choice?"
+			echo
+			if [[ ! $choice =~ ^[yY]$ ]]; then
+				echo "Aborting kernel cleanup"
+				return
+			fi
+			echo "Removing kernels: ${to_remove[@]}"
+			sudo dnf remove -y "${to_remove[@]}"
+		else
+			echo "No kernels to remove"
 		fi
-		echo "Removing kernels: ${to_remove[@]}"
-		[[ ${#to_remove[@]} -gt 0 ]] && sudo dnf remove -y "${to_remove[@]}"
-	elif
-		(( count == 2 )); then
-		echo "Only two kernels installed, no cleanup needed"
 	else
 		echo "No extra kernels installed, nothing to do"
 	fi
