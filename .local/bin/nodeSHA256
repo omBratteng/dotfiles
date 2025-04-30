@@ -194,22 +194,17 @@ commandTests:
 	nodeArchives += `
 
     return module_ctx.extension_metadata(
-        root_module_direct_deps = [
-            "nodejs18_amd64",
-            "nodejs18_arm64",
-            "nodejs18_arm",
-            "nodejs18_ppc64le",
-            "nodejs18_s390x",
-            "nodejs20_amd64",
-            "nodejs20_arm64",
-            "nodejs20_arm",
-            "nodejs20_ppc64le",
-            "nodejs20_s390x",
-            "nodejs22_amd64",
-            "nodejs22_arm64",
-            "nodejs22_arm",
-            "nodejs22_ppc64le",
-            "nodejs22_s390x",
+        root_module_direct_deps = [`
+
+	for (const nodeVersion of versions) {
+		const major = nodeVersion.split(".")[0];
+		for (const arch of architectures) {
+			nodeArchives += `
+            "nodejs${major}_${arch}",`
+		}
+	}
+
+	nodeArchives += `
         ],
         root_module_direct_dev_deps = [],
     )
