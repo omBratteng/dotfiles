@@ -33,10 +33,14 @@ const calculateChecksum = (url) => {
 
 const fetchChecksums = async () => {
     for (const nodeVersion of versions) {
+		const major = parseInt(nodeVersion.split(".")[0]);
         nodeVersions[nodeVersion] = {};
         await Promise.all(
             architectures.map(async (key) => {
                 let arch = key;
+				if (major > 22 && key === "arm") {
+					return;
+				}
                 if (key === "amd64") {
                     arch = "x64";
                 } else if (key === "arm") {
@@ -158,9 +162,12 @@ def _node_impl(module_ctx):
     # Follow Node's maintainence schedule and support all LTS versions that are not end of life`;
 
     for (const nodeVersion of versions) {
-		const major = nodeVersion.split(".")[0];
+		const major = parseInt(nodeVersion.split(".")[0]);
 
         for (const key of architectures) {
+			if (major > 22 && key === "arm") {
+				continue;
+			}
             const arch = nodeVersions[nodeVersion][key];
             const url = `https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-linux-${arch.suffix}.tar.gz`;
 
@@ -197,8 +204,11 @@ commandTests:
         root_module_direct_deps = [`
 
 	for (const nodeVersion of versions) {
-		const major = nodeVersion.split(".")[0];
+		const major = parseInt(nodeVersion.split(".")[0]);
 		for (const arch of architectures) {
+			if (major > 22 && arch === "arm") {
+				continue;
+			}
 			nodeArchives += `
             "nodejs${major}_${arch}",`
 		}
