@@ -1,5 +1,4 @@
 #compdef pm
-compdef _pm pm
 
 _pm() {
   if [[ -f bun.lockb ]]; then

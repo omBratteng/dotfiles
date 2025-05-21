@@ -1,0 +1,17 @@
+#compdef npm
+
+_npm() {
+  local si=$IFS
+  compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+    COMP_LINE=$BUFFER \
+    COMP_POINT=0 \
+    npm completion -- "${words[@]}" \
+    2>/dev/null)
+  IFS=$si
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_npm" ]; then
+    _npm
+fi
+compdef _npm npm

@@ -1,5 +1,4 @@
 #compdef talosctl
-compdef _talosctl talosctl
 
 # zsh completion for talosctl                             -*- shell-script -*-
 

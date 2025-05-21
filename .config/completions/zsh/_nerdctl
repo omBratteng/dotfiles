@@ -1,5 +1,4 @@
 #compdef nerdctl
-compdef _nerdctl nerdctl
 
 # zsh completion for nerdctl                              -*- shell-script -*-
 
