@@ -134,6 +134,7 @@ function upgrade() {
 
 scripts=(
 	bat
+	eza
 	ls_colors
 	nanorc
 	oh_my_zsh
