@@ -14,6 +14,8 @@
 	<false/>
 	<key>BadgeFont</key>
 	<string>Fira Code</string>
+	<key>BootstrapDaemon</key>
+	<false/>
 	<key>CheckTestRelease</key>
 	<false/>
 	<key>ClickToSelectCommand</key>
