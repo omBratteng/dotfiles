@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# SOURCE: https://gitlab.com/depesz/shell_utils/-/blob/886bfefb9e01f9e6e8d946f6a6023ae588c64155/pg_prettify
+
+### Config ###
+use_url='https://paste.depesz.com/prettify'
+use_param='q'
+strip_comment=0
+### End of config ###
+
+### Helper function ###
+show_help() {
+    if (( 0 < $# ))
+    then
+        exec >&2
+        echo "$@"
+        echo
+    fi
+    cat << _END_OF_HELP_
+Syntax:
+    ${0##*/} [-s] [-u URL] [-p PARAM_NAME] < input.file
+or
+    ${0##*/} [-s] [-u URL] [-p PARAM_NAME] input.file
+
+Options:
+    -s - strip comment mentioning which tool was used to prettify
+    -u - changes URL to use to prettify, default: ${use_url}
+    -p - changes http parameter to use to send sql, default: ${use_param}
+_END_OF_HELP_
+
+    (( 0 < $# )) && exit 1
+    exit 0
+}
+### End of helper function ###
+
+### Main program ###
+
+# Read command line arguments
+while getopts ':u:p:sh' optname
+do
+    case "${optname}" in
+        u)  use_url="${OPTARG}"                ;;
+        p)  use_param="${OPTARG}"              ;;
+        s)  strip_comment=1                    ;;
+        h)  show_help                          ;;
+        *)  show_help "Bad option: -${OPTARG}" ;;
+    esac
+done
+shift "$(( OPTIND - 1 ))"
+
+# Figure out whether query is on stdin
+use_file='-'
+(( 0 < $# )) && use_file="$1"
+
+# Check if given file is readable
+if [[ "${use_file}" != '-' ]]
+then
+    [[ -r "${use_file}" ]] || show_help "Can't read file: ${use_file}"
+fi
+
+# Store full curl command line in variable to avoid having to retype is later on.
+curl_cmd=( curl --silent --data-urlencode "${use_param}@${use_file}" "${use_url}" )
+
+# Run the curl addiing optionally `grep -v` to remove comment.
+if (( 1 == strip_comment ))
+then
+    "${curl_cmd[@]}" |
+        grep -vE '^-- Formatted by'
+else
+    "${curl_cmd[@]}"
+fi
+
+exit 0
+
+# vim: set filetype=sh shiftwidth=4 expandtab smarttab softtabstop=4 tabstop=4 textwidth=132 :
+
