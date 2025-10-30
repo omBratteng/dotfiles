@@ -24,4 +24,4 @@ git reset --hard origin/main
 pnpm install
 
 # Build the chrome extension
-pnpm build:chrome 2>&1 >/dev/null
+pnpm build 2>&1 >/dev/null
