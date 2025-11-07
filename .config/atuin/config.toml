@@ -209,6 +209,8 @@ common_subcommands = [
   "tmux",
   "yarn",
   "dotfiles",
+  "npx",
+  "pnpx",
 ]
 
 ## Set commands that should be totally stripped and ignored from stats
