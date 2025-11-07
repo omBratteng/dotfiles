@@ -133,6 +133,7 @@ function upgrade() {
 }
 
 scripts=(
+	atuin
 	bat
 	eza
 	ls_colors
@@ -148,7 +149,6 @@ scripts=(
 
 if [[ "${_uname}" == "Darwin" ]]; then
 	scripts+=(
-		atuin
 		httpie
 		kubectl
 		kubectx
