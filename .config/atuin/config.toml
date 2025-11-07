@@ -195,6 +195,7 @@ common_subcommands = [
   "git",
   "go",
   "ip",
+  "k",
   "kubectl",
   "kubectx",
   "nix",
