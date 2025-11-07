@@ -212,6 +212,7 @@ common_subcommands = [
   "npx",
   "pnpx",
   "pulumi",
+  "brew",
 ]
 
 ## Set commands that should be totally stripped and ignored from stats
