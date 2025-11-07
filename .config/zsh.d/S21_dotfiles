@@ -23,15 +23,3 @@ function dotfiles {
 			;;
 	esac
 }
-
-function update_dotfiles {
-	echo "${BOLD}${YELLOW}Please use ${PURPLE}\"dotfiles update\"${YELLOW} instead${_RESET}"
-	echo "${BOLD}${YELLOW}Running ${PURPLE}\"dotfiles update\"${YELLOW} now...${_RESET}"
-	dotfiles update
-};
-
-function upgrade_dotfiles {
-	echo "${BOLD}${YELLOW}Please use ${PURPLE}\"dotfiles upgrade\"${YELLOW} instead${_RESET}"
-	echo "${BOLD}${YELLOW}Running ${PURPLE}\"dotfiles upgrade\"${YELLOW} now...${_RESET}"
-	dotfiles upgrade
-}
