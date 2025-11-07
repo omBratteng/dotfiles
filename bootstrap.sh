@@ -166,10 +166,15 @@ if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	syncDotfiles;
 elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 	syncDotfiles;
-	for script in "${scripts[@]}";
-	do
-		upgrade "${script}"
-	done
+	# If second argument is given, upgrade only that script
+	if [ -n "$2" ]; then
+		upgrade "$2"
+	else
+		for script in "${scripts[@]}";
+		do
+			upgrade "${script}"
+		done
+	fi
 	syncDotfiles;
 elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
 	syncDotfiles;

@@ -8,14 +8,18 @@ function dotfiles {
 	case $1 in
 		"upgrade")
 			echo "${BOLD}${YELLOW}Upgrading dotfiles${_RESET}"
-			$DOTFILES/bootstrap.sh --upgrade
+			if [[ -n $2 ]]; then
+				$DOTFILES/bootstrap.sh --upgrade "$2"
+			else
+				$DOTFILES/bootstrap.sh --upgrade
+			fi
 			;;
 		"update")
 			echo "${BOLD}${YELLOW}Updating dotfiles${_RESET}"
 			$DOTFILES/bootstrap.sh --sync
 			;;
 		*)
-			echo "${BOLD}${YELLOW}Usage: ${PURPLE}dotfiles ${_RESET}[upgrade|update]"
+			echo "${BOLD}${YELLOW}Usage: ${PURPLE}dotfiles ${_RESET}[upgrade [arg]|update]"
 			;;
 	esac
 }
