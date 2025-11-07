@@ -211,6 +211,7 @@ common_subcommands = [
   "dotfiles",
   "npx",
   "pnpx",
+  "pulumi",
 ]
 
 ## Set commands that should be totally stripped and ignored from stats
