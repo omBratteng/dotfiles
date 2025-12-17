@@ -1,0 +1,201 @@
+#compdef ty
+
+autoload -U is-at-least
+
+_ty() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_ty_commands" \
+"*::: :->ty" \
+&& ret=0
+    case $state in
+    (ty)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:ty-command-$line[1]:"
+        case $line[1] in
+            (check)
+_arguments "${_arguments_options[@]}" : \
+'--project=[Run the command within the given project directory]:PROJECT:_default' \
+'--python=[Path to your project'\''s Python environment or interpreter]:PATH:_default' \
+'--typeshed=[Custom directory to use for stdlib typeshed stubs]:PATH:_default' \
+'*--extra-search-path=[Additional path to use as a module-resolution source (can be passed multiple times)]:PATH:_default' \
+'--python-version=[Python version to assume when resolving types]:VERSION:(3.7 3.8 3.9 3.10 3.11 3.12 3.13 3.14)' \
+'--python-platform=[Target platform to assume when resolving types]:PLATFORM:_default' \
+'*--error=[Treat the given rule as having severity '\''error'\''. Can be specified multiple times.]:RULE:_default' \
+'*--warn=[Treat the given rule as having severity '\''warn'\''. Can be specified multiple times.]:RULE:_default' \
+'*--ignore=[Disables the rule. Can be specified multiple times.]:RULE:_default' \
+'*-c+[A TOML \`<KEY> = <VALUE>\` pair overriding a specific configuration option.]:CONFIG_OPTION:_default' \
+'*--config=[A TOML \`<KEY> = <VALUE>\` pair overriding a specific configuration option.]:CONFIG_OPTION:_default' \
+'--config-file=[The path to a \`ty.toml\` file to use for configuration]:PATH:_default' \
+'--output-format=[The format to use for printing diagnostic messages]:OUTPUT_FORMAT:((full\:"Print diagnostics verbosely, with context and helpful hints (default)"
+concise\:"Print diagnostics concisely, one per line"
+gitlab\:"Print diagnostics in the JSON format expected by GitLab Code Quality reports"
+github\:"Print diagnostics in the format used by GitHub Actions workflow error annotations"))' \
+'*--exclude=[Glob patterns for files to exclude from type checking]:EXCLUDE:_default' \
+'--color=[Control when colored output is used]:WHEN:((auto\:"Display colors if the output goes to an interactive terminal"
+always\:"Always display colors"
+never\:"Never display colors"))' \
+'*-v[Use verbose output (or \`-vv\` and \`-vvv\` for more verbose output)]' \
+'*--verbose[Use verbose output (or \`-vv\` and \`-vvv\` for more verbose output)]' \
+'*-q[Use quiet output (or \`-qq\` for silent output)]' \
+'*--quiet[Use quiet output (or \`-qq\` for silent output)]' \
+'(--exit-zero)--error-on-warning[Use exit code 1 if there are any warning-level diagnostics]' \
+'--exit-zero[Always use exit code 0, even when there are error-level diagnostics]' \
+'-W[Watch files for changes and recheck files related to the changed files]' \
+'--watch[Watch files for changes and recheck files related to the changed files]' \
+'--respect-ignore-files[Respect file exclusions via \`.gitignore\` and other standard ignore files. Use \`--no-respect-gitignore\` to disable]' \
+'--no-respect-ignore-files[]' \
+'--no-progress[Hide all progress outputs]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'*::paths -- List of files or directories to check \[default\: the project root\]:_default' \
+&& ret=0
+;;
+(server)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(generate-shell-completion)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell:(bash elvish fish nushell powershell zsh)' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_ty__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:ty-help-command-$line[1]:"
+        case $line[1] in
+            (check)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(server)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(generate-shell-completion)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_ty_commands] )) ||
+_ty_commands() {
+    local commands; commands=(
+'check:Check a project for type errors' \
+'server:Start the language server' \
+'version:Display ty'\''s version' \
+'generate-shell-completion:Generate shell completion' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'ty commands' commands "$@"
+}
+(( $+functions[_ty__check_commands] )) ||
+_ty__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty check commands' commands "$@"
+}
+(( $+functions[_ty__generate-shell-completion_commands] )) ||
+_ty__generate-shell-completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty generate-shell-completion commands' commands "$@"
+}
+(( $+functions[_ty__help_commands] )) ||
+_ty__help_commands() {
+    local commands; commands=(
+'check:Check a project for type errors' \
+'server:Start the language server' \
+'version:Display ty'\''s version' \
+'generate-shell-completion:Generate shell completion' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'ty help commands' commands "$@"
+}
+(( $+functions[_ty__help__check_commands] )) ||
+_ty__help__check_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty help check commands' commands "$@"
+}
+(( $+functions[_ty__help__generate-shell-completion_commands] )) ||
+_ty__help__generate-shell-completion_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty help generate-shell-completion commands' commands "$@"
+}
+(( $+functions[_ty__help__help_commands] )) ||
+_ty__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty help help commands' commands "$@"
+}
+(( $+functions[_ty__help__server_commands] )) ||
+_ty__help__server_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty help server commands' commands "$@"
+}
+(( $+functions[_ty__help__version_commands] )) ||
+_ty__help__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty help version commands' commands "$@"
+}
+(( $+functions[_ty__server_commands] )) ||
+_ty__server_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty server commands' commands "$@"
+}
+(( $+functions[_ty__version_commands] )) ||
+_ty__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'ty version commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_ty" ]; then
+    _ty "$@"
+else
+    compdef _ty ty
+fi
