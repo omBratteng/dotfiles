@@ -2018,8 +2018,6 @@
 	<integer>0</integer>
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Notes</string>
-		<string>Paste History</string>
 		<string>Snippets</string>
 	</array>
 	<key>UseBorder</key>
