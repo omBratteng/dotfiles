@@ -21,7 +21,7 @@ alias path='echo -e ${PATH//:/\\n}'												# Echo all executable Paths
 alias fpath='echo -e ${FPATH//:/\\n}'											# Echo all zsh function Paths
 alias completions='echo $fpath | sed -e "s/ /\n/g" | sort'						# Echo all zsh funcrion Paths in a sorted list
 
-alias df="df -h -x overlay -x tmpfs"											# Hide overlay and tmpfs from df. And show sizes as human readable
+[[ ! "$OSTYPE" == *bsd* ]] && alias df="df -h -x overlay -x tmpfs"				# Hide overlay and tmpfs from df. And show sizes as human readable
 alias du="du -ch"																# Show sizes as human readable and show a grand total
 alias du1="du -chd1"															# Shortcut to get the size of the current directory and it's imediate children
 function ps() {																	# Make ps always show the full command
