@@ -49,5 +49,8 @@ sourceEnv() {
 		echo "Error: File '$file' not found" >&2
 		return 1
 	fi
-	export $(cat "$file" | sed -E '/^[[:space:]]*#/d; s/[[:space:]]+#.*$//' | xargs)
+	export $(cat "$file" | sed -E '/^[[:space:]]*#/d; s/[[:space:]]+#.*$//' | xargs) || {
+		echo "Error: Failed to source environment from '$file'" >&2
+		return 1
+	}
 }
