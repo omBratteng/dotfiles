@@ -38,3 +38,19 @@ fi
 
 # recognize comments
 setopt interactivecomments
+
+# sourceEnv: Load environment variables from a file
+# Usage: sourceEnv [file]
+# Default: sourceEnv (uses .env)
+# Example: sourceEnv .env.local
+sourceEnv() {
+	local file="${1:-.env}"
+	if [[ ! -f "$file" ]]; then
+		echo "Error: File '$file' not found" >&2
+		return 1
+	fi
+	export $(cat "$file" | sed -E '/^[[:space:]]*#/d; s/[[:space:]]+#.*$//' | xargs) || {
+		echo "Error: Failed to source environment from '$file'" >&2
+		return 1
+	}
+}
