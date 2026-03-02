@@ -24,7 +24,7 @@
 	<string>/usr/local/opt/bash/bin/bash</string>
 	<key>Custom Color Presets</key>
 	<dict>
-		<key>BratttengDark</key>
+		<key>BrattengDark</key>
 		<dict>
 			<key>Ansi 0 Color</key>
 			<dict>
