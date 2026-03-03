@@ -149,7 +149,6 @@ scripts=(
 
 if [[ "${_uname}" == "Darwin" ]]; then
 	scripts+=(
-		httpie
 		kubectl
 		kubectx
 		n
