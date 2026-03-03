@@ -91,7 +91,7 @@ fi
 
 #	Trigger a new load of autocompletions
 #	-------------------------------------------------------------------
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit -u
 autoload -U bashcompinit && bashcompinit
 
 if [ -x "$(command -v vault)" ]; then
