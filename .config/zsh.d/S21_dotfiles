@@ -1,4 +1,4 @@
-#! /usr/bin/env zsh
+#!/usr/bin/env zsh
 
 _RESET=$(tput sgr0)
 #	-----------------------------------------
@@ -14,12 +14,16 @@ function dotfiles {
 				$DOTFILES/bootstrap.sh --upgrade
 			fi
 			;;
-		"update")
-			echo "${BOLD}${YELLOW}Updating dotfiles${_RESET}"
+		"sync")
+			echo "${BOLD}${YELLOW}Syncing dotfiles${_RESET}"
 			$DOTFILES/bootstrap.sh --sync
 			;;
+		"update")
+			echo "${BOLD}${YELLOW}Updating dotfiles${_RESET}"
+			$DOTFILES/bootstrap.sh --update
+			;;
 		*)
-			echo "${BOLD}${YELLOW}Usage: ${PURPLE}dotfiles ${_RESET}[upgrade [arg]|update]"
+			echo "${BOLD}${YELLOW}Usage: ${PURPLE}dotfiles ${_RESET}[upgrade [arg]|update|sync]"
 			;;
 	esac
 }

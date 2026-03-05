@@ -1,4 +1,4 @@
-#! /usr/bin/env zsh
+#!/usr/bin/env zsh
 
 # Remove command lines from the history list when the first character on the
 # line is a space, or when one of the expanded aliases contains a leading space

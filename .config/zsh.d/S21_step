@@ -1,4 +1,4 @@
-#! /usr/bin/env zsh
+#!/usr/bin/env zsh
 
 function command_exists() {
 	command -v "$@" >/dev/null 2>&1

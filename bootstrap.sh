@@ -31,7 +31,9 @@ command_exists() {
 yes_no="${RESET}(${GREEN}y${RESET}/${RED}n${RESET}/${YELLOW}q${RESET}) "
 
 cd "$(dirname "${(%):-%N}")";
-git pull origin main --ff-only --quiet
+if [ "$1" != "--sync" -a "$1" != "-s" ]; then
+	git pull origin main --ff-only --quiet
+fi
 
 if [[ ! -v DOTFILES ]]; then
 	echo 'export DOTFILES="$HOME/.dotfiles"' >> ~/.zshenv.local
@@ -176,6 +178,8 @@ elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 	fi
 	syncDotfiles;
 elif [ "$1" = "--sync" -o "$1" = "-s" ]; then
+	syncDotfiles;
+elif [ "$1" = "--update" -o "$1" = "-u" ]; then
 	syncDotfiles;
 else
 	for script in "${scripts[@]}";

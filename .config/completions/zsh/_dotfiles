@@ -1,0 +1,22 @@
+#compdef dotfiles
+_dotfiles() {
+	local -a subcommands
+	subcommands=(
+		'upgrade:Upgrade installed scripts'
+		'sync:Sync dotfiles without fetching remote'
+		'update:Fetch remote and sync dotfiles'
+	)
+
+	if (( CURRENT == 2 )); then
+		_describe 'command' subcommands
+	elif (( CURRENT == 3 )) && [[ "$words[2]" == "upgrade" ]]; then
+		local -a scripts
+		scripts=(${(f)"$(ls "$DOTFILES"/scripts/*.zsh 2>/dev/null | xargs -I{} basename {} .zsh)"})
+		_describe 'script' scripts
+	fi
+}
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_dotfiles" ]; then
+    _dotfiles
+fi
+compdef _dotfiles dotfiles
