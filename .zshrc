@@ -38,6 +38,7 @@ plugins=(
 	zsh-autosuggestions
 	zsh-completions
 	zsh-syntax-highlighting
+	zsh-you-should-use
 )
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
