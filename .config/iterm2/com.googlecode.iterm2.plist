@@ -1450,7 +1450,7 @@
 			<key>Columns</key>
 			<integer>362</integer>
 			<key>Command</key>
-			<string>/usr/local/opt/bash/bin/bash</string>
+			<string>/opt/homebrew/bin/bash</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
