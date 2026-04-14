@@ -3,8 +3,6 @@ tap "anomalyco/tap"
 tap "artginzburg/tap"
 tap "derailed/k9s"
 tap "derailed/popeye"
-tap "esolitos/ipa"
-tap "mike-engel/jwt-cli"
 tap "ory/tap"
 tap "pulumi/tap"
 tap "siderolabs/tap"
@@ -83,8 +81,6 @@ brew "anomalyco/tap/opencode"
 brew "artginzburg/tap/sudo-touchid"
 brew "derailed/k9s/k9s"
 brew "derailed/popeye/popeye"
-brew "esolitos/ipa/sshpass"
-brew "mike-engel/jwt-cli/jwt-cli"
 brew "siderolabs/tap/talosctl"
 brew "tw93/tap/mole"
 cask "1password"
@@ -92,7 +88,7 @@ cask "1password-cli"
 cask "balenaetcher"
 cask "betterdisplay"
 cask "bettertouchtool"
-cask "cleanmymac"
+# cask "cleanmymac"
 cask "coconutbattery"
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
@@ -100,7 +96,7 @@ cask "font-hack"
 cask "font-monaspace"
 cask "font-roboto"
 cask "forklift"
-cask "iina"
+# cask "iina"
 cask "keka"
 cask "kekaexternalhelper"
 cask "macs-fan-control"
@@ -115,24 +111,16 @@ cask "slack"
 cask "spotify"
 cask "sublime-merge@dev"
 cask "tableplus"
-cask "vlc"
+# cask "vlc"
 mas "1Password for Safari", id: 1569813296
 # mas "Brother P-touch Editor", id: 1453365242
-mas "Discovery", id: 1381004916
+# mas "Discovery", id: 1381004916
 # mas "Infuse", id: 1136220934
-mas "Keynote", id: 409183694
+# mas "Keynote", id: 409183694
 # mas "MQTT Explorer", id: 1455214828
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
+# mas "Numbers", id: 409203825
+# mas "Pages", id: 409201541
 mas "Refined GitHub", id: 1519867270
 mas "uBlock Origin Lite", id: 6745342698
 # mas "Wake Up Time", id: 495945638
 # mas "WireGuard", id: 1451685025
-# uv "autopep8"
-# uv "flake8"
-# uv "poetry"
-# uv "pre-commit"
-# uv "pylint"
-# uv "universal-silabs-flasher"
-# uv "yamllint"
-# uv "yt-dlp"
