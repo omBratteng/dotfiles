@@ -42,11 +42,23 @@ write_quoted_zshenv_local() {
 	write_zshenv_local "export ${name}=\"${escaped_value}\""
 }
 
+write_bootstrap_conf() {
+	print -r -- "$1" >> "$bootstrap_conf"
+}
+
+record_bootstrap_decision() {
+	local name="$1"
+	local decision="$2"
+	write_bootstrap_conf "export ${name}=${decision}"
+}
+
 prompt_env_var() {
 	local name="$1"
 	local default_value="$2"
-	local prompt_text="$3"
+	local write_default_value="$3"
+	local prompt_text="$4"
 	local value="${(P)name}"
+	local write_value
 
 	if [[ -n "$value" ]]; then
 		return 0
@@ -55,10 +67,13 @@ prompt_env_var() {
 	read -r "?$prompt_text [${default_value}]: " value
 	if [[ -z "$value" ]]; then
 		value="$default_value"
+		write_value="$write_default_value"
+	else
+		write_value="$value"
 	fi
 
 	export "$name=$value"
-	write_quoted_zshenv_local "$name" "$value"
+	write_quoted_zshenv_local "$name" "$write_value"
 }
 
 prompt_optional_env_var() {
@@ -81,9 +96,9 @@ prompt_optional_env_var() {
 
 prompt_projects_envs() {
 	if [[ "${_uname}" == "Darwin" ]]; then
-		prompt_env_var _PD_DIR '${HOME}/Developer' "Where should project directories live?"
+		prompt_env_var _PD_DIR "$HOME/Developer" '${HOME}/Developer' "Where should project directories live?"
 	else
-		prompt_env_var _PD_DIR "/srv" "Where should project directories live?"
+		prompt_env_var _PD_DIR "/srv" "/srv" "Where should project directories live?"
 	fi
 	prompt_optional_env_var _PD_WORK_DIR "Optional work subdirectory for pd"
 }
@@ -94,7 +109,13 @@ if [ "$1" != "--sync" -a "$1" != "-s" ]; then
 fi
 
 if [[ ! -v DOTFILES ]]; then
-	write_quoted_zshenv_local DOTFILES "${HOME}/.dotfiles"
+	export DOTFILES="$HOME/.dotfiles"
+	write_quoted_zshenv_local DOTFILES '$HOME/.dotfiles'
+fi
+
+bootstrap_conf="${DOTFILES}/dotfiles.conf"
+if [[ -f "$bootstrap_conf" ]]; then
+	source "$bootstrap_conf"
 fi
 
 function syncDotfiles() {
@@ -109,6 +130,7 @@ function syncDotfiles() {
 		--exclude "README.md" \
 		--exclude "LICENSE" \
 		--exclude "Rakefile" \
+		--exclude "dotfiles.conf" \
 		--include ".local/" \
 		--exclude "*.local" \
 		--exclude ".vscode/" \
@@ -157,7 +179,19 @@ function switch_to_zsh() {
 }
 
 function install() {
-	if $2; then
+	local script="$1"
+	local force_install="$2"
+	local decision_var="${(U)script}"
+	local configured_decision="${(P)decision_var}"
+
+	if [[ "$force_install" != true && "$BOOTSTRAP_REINSTALL" != true && -n "$configured_decision" ]]; then
+		if [[ "$configured_decision" == skip ]]; then
+			echo "${BLUE}>> Skipping ${script} installation${RESET}"
+		fi
+		return
+	fi
+
+	if $force_install; then
 		echo "${BOLD}${BLUE}>> Installing ${1}${RESET}"
 		export _FORCE_INSTALL=true
 		if zsh ./scripts/"$1".zsh install; then
@@ -165,6 +199,7 @@ function install() {
 		else
 			echo "${YELLOW}>> Already installed${RESET}"
 		fi
+		record_bootstrap_decision "$decision_var" install
 	else
 		read "?Do you want to install ${1}? ${yes_no}"
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -174,10 +209,12 @@ function install() {
 			else
 				echo "${YELLOW}>> Already installed${RESET}"
 			fi
+			record_bootstrap_decision "$decision_var" install
 		elif [[ $REPLY =~ ^[Qq]$ ]]; then
 			quit
 		else
 			echo "${BLUE}>> Skipping ${1} installation${RESET}"
+			record_bootstrap_decision "$decision_var" skip
 		fi;
 	fi
 }
@@ -216,10 +253,21 @@ if [[ "${_uname}" == "Darwin" ]]; then
 fi
 
 
+BOOTSTRAP_REINSTALL=false
+
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	for script in "${scripts[@]}";
 	do
 		install "${script}" true
+	done
+	switch_to_zsh;
+	prompt_projects_envs;
+	syncDotfiles;
+elif [ "$1" = "--reinstall" -o "$1" = "-r" ]; then
+	BOOTSTRAP_REINSTALL=true
+	for script in "${scripts[@]}";
+	do
+		install "${script}" false
 	done
 	switch_to_zsh;
 	prompt_projects_envs;
