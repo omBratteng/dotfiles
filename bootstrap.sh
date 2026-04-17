@@ -30,15 +30,72 @@ command_exists() {
 }
 yes_no="${RESET}(${GREEN}y${RESET}/${RED}n${RESET}/${YELLOW}q${RESET}) "
 
+write_zshenv_local() {
+	print -r -- "$1" >> ~/.zshenv.local
+}
+
+write_quoted_zshenv_local() {
+	local name="$1"
+	local value="$2"
+	local escaped_value="${value//\\/\\\\}"
+	escaped_value="${escaped_value//\"/\\\"}"
+	write_zshenv_local "export ${name}=\"${escaped_value}\""
+}
+
+prompt_env_var() {
+	local name="$1"
+	local default_value="$2"
+	local prompt_text="$3"
+	local value="${(P)name}"
+
+	if [[ -n "$value" ]]; then
+		return 0
+	fi
+
+	read -r "?$prompt_text [${default_value}]: " value
+	if [[ -z "$value" ]]; then
+		value="$default_value"
+	fi
+
+	export "$name=$value"
+	write_quoted_zshenv_local "$name" "$value"
+}
+
+prompt_optional_env_var() {
+	local name="$1"
+	local prompt_text="$2"
+	local value="${(P)name}"
+
+	if [[ -n "$value" ]]; then
+		return 0
+	fi
+
+	read -r "?$prompt_text (leave blank to skip): " value
+	if [[ -z "$value" ]]; then
+		return 0
+	fi
+
+	export "$name=$value"
+	write_quoted_zshenv_local "$name" "$value"
+}
+
+prompt_projects_envs() {
+	if [[ "${_uname}" == "Darwin" ]]; then
+		prompt_env_var _PD_DIR '${HOME}/Developer' "Where should project directories live?"
+	else
+		prompt_env_var _PD_DIR "/srv" "Where should project directories live?"
+	fi
+	prompt_optional_env_var _PD_WORK_DIR "Optional work subdirectory for pd"
+}
+
 cd "$(dirname "${(%):-%N}")";
 if [ "$1" != "--sync" -a "$1" != "-s" ]; then
 	git pull origin main --ff-only --quiet
 fi
 
 if [[ ! -v DOTFILES ]]; then
-	echo 'export DOTFILES="$HOME/.dotfiles"' >> ~/.zshenv.local
+	write_quoted_zshenv_local DOTFILES "${HOME}/.dotfiles"
 fi
-
 
 function syncDotfiles() {
 	echo ""
@@ -165,6 +222,7 @@ if [ "$1" = "--force" -o "$1" = "-f" ]; then
 		install "${script}" true
 	done
 	switch_to_zsh;
+	prompt_projects_envs;
 	syncDotfiles;
 elif [ "$1" = "--upgrade" -o "$1" = "-u" ]; then
 	syncDotfiles;
@@ -198,6 +256,8 @@ else
 			echo "${BLUE}>> Skipping switching to zsh${RESET}"
 		fi;
 	fi
+
+	prompt_projects_envs;
 
 	read "?Do you want to sync the dotfiles? ${RED}This may overwrite existing files in your home directory.${RESET} ${yes_no}"
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
