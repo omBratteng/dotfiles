@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 _uname=$(uname -s)
+export XDG_CONFIG_HOME="${HOME}/.config"
 
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
