@@ -138,7 +138,7 @@ function syncDotfiles() {
 		--exclude "macos_defaults" \
 		-avh --no-perms . ~;
 
-	if [[ "${_uname}" == "Darwin" ]]; then
+	if [[ "${_uname}" == "Darwin" ]] && [ -d "Library" ]; then
 		for macOsDir in Library; do
 			rsync -avh --no-perms ${macOsDir} ~;
 		done
