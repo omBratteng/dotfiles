@@ -6,8 +6,49 @@ if [[ -z "$_PD_DIR" ]]; then
 	fi
 fi
 
+: ${_PD_DEPTH:=3}
+: ${_PD_STOP_AT:=.git}  # colon-separated list, e.g. ".git:docker-compose.yml"
+
+# Returns 0 if $1 should be treated as a leaf (stop descending).
+_p_is_leaf() {
+	local dir=$1 entry
+	for entry in ${(s.:.)_PD_STOP_AT}; do
+		[[ -e "$dir/$entry" ]] && return 0
+	done
+	return 1
+}
+
+# Collect dirs up to $_PD_DEPTH levels, stopping at leaf dirs.
+# Args: base, [skip_top_entry]
+_p_complete_dirs() {
+	local base=$1 skip=$2
+	local -a dirs
+	local d1 d2 d3
+
+	for d1 in "$base"/*(N/); do
+		local n1="${d1#$base/}"
+		[[ -n "$skip" && "$n1" == "$skip" ]] && continue
+		dirs+=("$n1/")
+		(( _PD_DEPTH < 2 )) && continue
+		_p_is_leaf "$d1" && continue
+
+		for d2 in "$d1"/*(N/); do
+			local n2="${d2#$base/}"
+			dirs+=("$n2/")
+			(( _PD_DEPTH < 3 )) && continue
+			_p_is_leaf "$d2" && continue
+
+			for d3 in "$d2"/*(N/); do
+				dirs+=("${d3#$base/}/")
+			done
+		done
+	done
+
+	compadd -S '' -a dirs
+}
+
 p() { cd "$_PD_DIR/$1"; }
-_p() { _files -W "$_PD_DIR" -/; }
+_p() { _p_complete_dirs "$_PD_DIR" "$_PD_WORK_DIR"; }
 compdef _p p
 
 pd() {
@@ -22,6 +63,6 @@ _pd() {
 		compadd -x "Error: _PD_WORK_DIR is not set"
 		return 1
 	fi
-	_files -W "$_PD_DIR/$_PD_WORK_DIR" -/
+	_p_complete_dirs "$_PD_DIR/$_PD_WORK_DIR"
 }
 compdef _pd pd
