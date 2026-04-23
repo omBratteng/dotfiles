@@ -250,6 +250,7 @@ if [[ "${_uname}" == "Darwin" ]]; then
 		kubectl
 		kubectx
 		n
+		vscode_kotlin_lsp
 	)
 fi
 
