@@ -9,17 +9,18 @@ function decodeCertificate() {
 		alias pbpaste="xclip -selection clipboard -o"
 	fi
 
-	# Check if the step binary exists
 	if ! command_exists step; then
 		echo "step binary doesn't exist"
 		return
 	fi
 
-	# Check if there is an argument
-	if [ -z "$1" ]; then
-		pbpaste | step certificate inspect
+	local file="$1"
+	shift 2>/dev/null
+
+	if [ -z "$file" ]; then
+		pbpaste | sed 's/^[[:space:]]*//' | step certificate inspect "$@"
 	else
-		step certificate inspect "$@"
+		sed 's/^[[:space:]]*//' "$file" | step certificate inspect "$@"
 	fi
 }
 
