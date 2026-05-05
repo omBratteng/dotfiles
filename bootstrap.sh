@@ -146,9 +146,6 @@ function syncDotfiles() {
 	fi
 
 	echo "${GREEN}>> Done${RESET}"
-
-	source ~/.zshrc
-	source "${XDG_CONFIG_HOME}"/p10k.zsh
 }
 
 function switch_to_zsh() {
