@@ -44,7 +44,7 @@ _p_complete_dirs() {
 		done
 	done
 
-	compadd -S '' -a dirs
+	compadd -S '' -M 'l:|=* r:|=*' -a dirs
 }
 
 p() { cd "$_PD_DIR/$1"; }
