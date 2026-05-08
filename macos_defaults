@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Make the Dock size immutable
 defaults write com.apple.dock size-immutable -bool true
 

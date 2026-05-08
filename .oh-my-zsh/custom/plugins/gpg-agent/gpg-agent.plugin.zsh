@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Enable gpg-agent if it is not running-
 # --use-standard-socket will work from version 2 upwards
 

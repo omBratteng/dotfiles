@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Fetched from https://github.com/ohmyzsh/ohmyzsh/blob/1e3abc123f690c9bdd416e8224f1beb47c96f1c7/plugins/opentofu/opentofu.plugin.zsh
 
 alias tt='tofu'

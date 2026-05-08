@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Override with local settings
 export ZSH="${HOME}/.oh-my-zsh"
 export XDG_CONFIG_HOME="${HOME}/.config"

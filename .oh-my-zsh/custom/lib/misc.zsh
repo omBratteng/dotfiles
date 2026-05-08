@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 ## Load smart urls if available
 # bracketed-paste-magic is known buggy in zsh 5.1.1 (only), so skip it there; see #4434
 autoload -Uz is-at-least
