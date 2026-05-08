@@ -1,0 +1,10 @@
+#compdef dns
+_dns() {
+  local -a cmds=(
+    load:'set DNS + search domains'
+    unload:'clear DNS + search domains'
+  )
+  _arguments '1:command:->cmd'
+  [[ $state == cmd ]] && _describe 'command' cmds
+}
+compdef _dns dns

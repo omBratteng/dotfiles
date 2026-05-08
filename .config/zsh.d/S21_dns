@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+
+# Usage: dns load | dns unload [service]
+# Requires (set in a local, untracked file sourced before this):
+#   _S21_dns_servers=(1.1.1.1 8.8.8.8)
+#   _S21_dns_search_domains=(example.com internal.lan)
+#   _S21_dns_service="Wi-Fi"
+
+dns() {
+  emulate -L zsh
+
+  # --- Config check ------------------------------------------------------
+  local missing=()
+  (( ${#_S21_dns_servers[@]} ))        || missing+=(_S21_dns_servers)
+  (( ${#_S21_dns_search_domains[@]} )) || missing+=(_S21_dns_search_domains)
+  [[ -n $_S21_dns_service ]]           || missing+=(_S21_dns_service)
+
+  if (( ${#missing[@]} )); then
+    print -u2 "dns: missing config: ${(j:, :)missing}"
+    return 2
+  fi
+
+  local cmd=$1
+  case $cmd in
+    load)
+      print "Setting DNS on '$_S21_dns_service' -> $_S21_dns_servers"
+      sudo networksetup -setdnsservers "$_S21_dns_service" $_S21_dns_servers || return
+      print "Setting search domains -> $_S21_dns_search_domains"
+      sudo networksetup -setsearchdomains "$_S21_dns_service" $_S21_dns_search_domains || return
+      sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+      print "DNS loaded."
+      ;;
+    unload)
+      print "Clearing DNS + search domains on '$_S21_dns_service'"
+      sudo networksetup -setdnsservers "$_S21_dns_service" Empty || return
+      sudo networksetup -setsearchdomains "$_S21_dns_service" Empty || return
+      sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+      print "DNS unloaded."
+      ;;
+    *)
+      print -u2 "Usage: dns load|unload"
+      return 1
+      ;;
+  esac
+}
