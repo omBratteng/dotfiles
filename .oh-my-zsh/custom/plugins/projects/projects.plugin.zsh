@@ -202,10 +202,15 @@ _p_cd_or_clone() {
 	_p_check_clone_config "$scope" || return 1
 
 	rel=${rel%/}
+	if [[ "$rel" != */* ]]; then
+		_p_err "'${_PD_BOLD}${rel}${_PD_RESET}${_PD_RED}' is not <project>/<repo>, cannot clone"
+		return 1
+	fi
+
 	project=${rel%%/*}
 	repo=${rel#*/}
 
-	if [[ -z "$project" || -z "$repo" || "$project" == "$repo" ]]; then
+	if [[ -z "$project" || -z "$repo" || "$repo" == */* ]]; then
 		_p_err "'${_PD_BOLD}${rel}${_PD_RESET}${_PD_RED}' is not <project>/<repo>, cannot clone"
 		return 1
 	fi
