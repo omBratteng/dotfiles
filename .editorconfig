@@ -16,7 +16,11 @@ indent_style = space
 indent_style = space
 indent_size = 2
 
-[*.{json,yml,yaml,toml,tf}]
+[*.{json,yml,yaml,toml}]
+indent_size = 2
+indent_style = space
+
+[*.{tf}]
 indent_size = 2
 indent_style = space
 
