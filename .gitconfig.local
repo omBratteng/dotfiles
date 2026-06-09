@@ -1,3 +1,5 @@
+# vim: set syntax=gitconfig :
+
 # local gitconfig--add personal stuff to this file, e.g. github credentials...
 # [credential]
 #	helper = osxkeychain
