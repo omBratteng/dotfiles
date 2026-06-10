@@ -1,0 +1,4 @@
+git:
+  commitPrefix:
+    - pattern: '.*?(?P<ticket>[A-Z]+-\d+).*'
+      replace: '${ticket}: '
