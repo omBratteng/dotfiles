@@ -1,0 +1,39 @@
+#compdef jira
+_jira() {
+	local state line
+	local -A opt_args
+	_arguments -s \
+		'(-v --vault)'{-v,--vault}'[1Password vault to read Jira config from]:vault:->vaults' \
+		'(-i --item)'{-i,--item}'[1Password item to read Jira config from]:item:->items' \
+		'(-h --help)'{-h,--help}'[Show help]' \
+		'1:ticket:->ticket'
+
+	case $state in
+		vaults)
+			local -a vaults
+			vaults=(${(f)"$(op vault list --format=json 2>/dev/null | jq -r '.[].name' 2>/dev/null)"})
+			(( ${#vaults} )) && _describe 'vault' vaults
+			;;
+		items)
+			# List items, scoped to the vault if one was given via -v/--vault
+			local -a items vaultflag
+			local vault="${opt_args[-v]:-${opt_args[--vault]}}"
+			[[ -n "$vault" ]] && vaultflag=(--vault "$vault")
+			items=(${(f)"$(op item list $vaultflag --format=json 2>/dev/null | jq -r '.[].title' 2>/dev/null)"})
+			(( ${#items} )) && _describe 'item' items
+			;;
+		ticket)
+			# Suggest the ticket key detected from the current git branch, if any
+			local branch
+			branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+			if [[ "$branch" =~ '[A-Z]+-[0-9]+' ]]; then
+				_describe 'ticket (from branch)' "( ${MATCH}:from\ branch )"
+			fi
+			;;
+	esac
+}
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_jira" ]; then
+	_jira
+fi
+compdef _jira jira
