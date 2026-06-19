@@ -1,4 +1,5 @@
 git:
+  overrideGpg: true
   commitPrefix:
     - pattern: '.*?(?P<ticket>[A-Z]+-\d+).*'
-      replace: '${ticket}: '
+      replace: "${ticket}: "
