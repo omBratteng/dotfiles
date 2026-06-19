@@ -240,6 +240,7 @@ scripts=(
 	zsh_completions
 	zsh_syntax_highlighting
 	zsh_you_should_use
+	nvim-config
 )
 
 if [[ "${_uname}" == "Darwin" ]]; then
