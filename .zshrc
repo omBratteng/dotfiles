@@ -115,3 +115,8 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k.zsh.
 [[ ! -f "${XDG_CONFIG_HOME}/p10k.zsh" ]] || source "${XDG_CONFIG_HOME}"/p10k.zsh
+
+{
+  zd=${ZDOTDIR:-$HOME}/.zcompdump
+  [[ -s $zd && (! -s $zd.zwc || $zd -nt $zd.zwc) ]] && zcompile $zd
+} &!
