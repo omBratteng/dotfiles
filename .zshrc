@@ -96,8 +96,12 @@ fi
 
 #	Trigger a new load of autocompletions
 #	-------------------------------------------------------------------
-autoload -Uz compinit && compinit -u
+# autoload -Uz compinit && compinit -u
+#	bashcompinit only (omz already ran compinit)
 autoload -U bashcompinit && bashcompinit
+
+# Enable if need az completion
+# complete -o nospace -o default -o bashdefault -F _az_python_argcomplete az
 
 if [ -x "$(command -v vault)" ]; then
 	complete -o nospace -C $(command -v vault) vault
