@@ -1,0 +1,253 @@
+# Starship prompt config — translated from p10k.zsh (lean style, 2-line, nerdfont-v3)
+# Layout:
+#   <blank line>
+#   <user@host> <dir> <git>                     <status> <duration> <jobs> <langs> <cloud> <kube> [HH:MM:SS]
+#   ❯
+#
+# Color numbers in comments refer to the 256-color codes from the original p10k config.
+
+add_newline = true
+palette = "p10k"
+
+format = """
+$username$hostname$directory$git_branch$git_status
+$character"""
+
+right_format = """\
+$status\
+$cmd_duration\
+$jobs\
+$direnv\
+$nodejs\
+$python\
+$golang\
+$rust\
+$ruby\
+$java\
+$php\
+$lua\
+$perl\
+$haskell\
+$dotnet\
+$terraform\
+$aws\
+$gcloud\
+$azure\
+$kubernetes\
+$time\
+"""
+
+# ── Palette (256-color → hex) ──────────────────────────────────────────────
+[palettes.p10k]
+dir              = "#0087af"   # 31
+dir_shortened    = "#8787af"   # 103
+dir_anchor       = "#00afff"   # 39
+git_clean        = "#5fd700"   # 76
+git_modified     = "#d7af00"   # 178
+git_untracked    = "#00afff"   # 39
+git_conflicted   = "#ff0000"   # 196
+prompt_ok        = "#5fd700"   # 76
+prompt_err       = "#ff0000"   # 196
+duration         = "#878787"   # 101
+jobs_fg          = "#5faf00"   # 70
+time_fg          = "#bcbcbc"   # 250
+status_err       = "#d70000"   # 160
+direnv_fg        = "#d7af00"   # 178
+node_fg          = "#5faf00"   # 70
+python_fg        = "#00afaf"   # 37
+go_fg            = "#00afaf"   # 37
+rust_fg          = "#00afaf"   # 37
+ruby_fg          = "#d75f87"   # 168
+java_fg          = "#0087d7"   # 32
+php_fg           = "#875fff"   # 99
+lua_fg           = "#0087d7"   # 32
+perl_fg          = "#5f87af"   # 67
+haskell_fg       = "#d78700"   # 172
+dotnet_fg        = "#af5fd7"   # 134
+terraform_fg     = "#00afd7"   # 38
+aws_fg           = "#ff8700"   # 208
+gcloud_fg        = "#0087d7"   # 32
+azure_fg         = "#0087d7"   # 32
+kube_fg          = "#af00d7"   # 134
+user_fg          = "#ffffff"   # 15  (white on darwin)
+host_fg          = "#ffff00"   # yellow
+at_fg            = "#00ff00"   # green @
+
+# ── Prompt character (line 2) ──────────────────────────────────────────────
+[character]
+success_symbol  = "[❯](bold prompt_ok)"
+error_symbol    = "[❯](bold prompt_err)"
+vimcmd_symbol   = "[❮](bold prompt_ok)"
+vimcmd_replace_symbol = "[▶](bold prompt_ok)"
+vimcmd_visual_symbol  = "[V](bold prompt_ok)"
+
+# ── Context: user@host (SSH/root only, starship default) ───────────────────
+[username]
+style_user      = "user_fg"
+style_root      = "bold red"
+format          = "[$user]($style)"
+show_always     = false
+
+[hostname]
+ssh_only        = true
+ssh_symbol      = ""
+format          = "[@](at_fg)[$hostname](host_fg) "
+trim_at         = "."
+
+# ── Directory ──────────────────────────────────────────────────────────────
+[directory]
+style                  = "dir"
+truncation_length      = 3
+truncation_symbol      = "…/"
+truncate_to_repo       = false
+fish_style_pwd_dir_length = 1
+read_only              = " "
+read_only_style        = "red"
+home_symbol            = "~"
+
+# ── Git ────────────────────────────────────────────────────────────────────
+[git_branch]
+symbol        = " "
+style         = "git_clean"
+format        = "[$symbol$branch]($style) "
+truncation_length = 32
+truncation_symbol = "…"
+
+[git_status]
+style       = "git_clean"
+# Mirrors p10k formatter: ⇣N⇡N *N +N !N ?N ~N
+# Note: starship combines ahead/behind via $ahead_behind; we use it directly.
+format      = '([\[$all_status$ahead_behind\]]($style) )'
+conflicted  = "[~${count}](git_conflicted)"
+ahead       = "⇡${count}"
+behind      = "⇣${count}"
+diverged    = "⇣${behind_count}⇡${ahead_count}"
+up_to_date  = ""
+untracked   = "[?${count}](git_untracked)"
+stashed     = "*${count}"
+modified    = "[!${count}](git_modified)"
+staged      = "[+${count}](git_modified)"
+renamed     = "[»${count}](git_modified)"
+deleted     = "[✘${count}](git_conflicted)"
+
+# ── Status (exit code) ─────────────────────────────────────────────────────
+[status]
+disabled        = false
+symbol          = "✘ "
+not_executable_symbol = "🚫 "
+not_found_symbol      = "🔍 "
+sigint_symbol         = "🧱 "
+signal_symbol         = "⚡ "
+style           = "bold status_err"
+format          = "[$symbol$common_meaning$signal_name$maybe_int]($style) "
+
+# ── Command duration ───────────────────────────────────────────────────────
+[cmd_duration]
+min_time        = 3000
+style           = "duration"
+format          = "[$duration]($style) "
+
+# ── Background jobs ────────────────────────────────────────────────────────
+[jobs]
+symbol          = "✦"
+style           = "jobs_fg"
+threshold       = 1
+format          = "[$symbol$number]($style) "
+
+# ── direnv ─────────────────────────────────────────────────────────────────
+[direnv]
+disabled        = false
+style           = "direnv_fg"
+format          = "[$symbol$loaded/$allowed]($style) "
+symbol          = "direnv "
+
+# ── Languages (project-only by default) ────────────────────────────────────
+[nodejs]
+symbol          = " "
+style           = "node_fg"
+format          = "[$symbol($version )]($style)"
+
+[python]
+symbol          = " "
+style           = "python_fg"
+format          = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[golang]
+symbol          = " "
+style           = "go_fg"
+format          = "[$symbol($version )]($style)"
+
+[rust]
+symbol          = " "
+style           = "rust_fg"
+format          = "[$symbol($version )]($style)"
+
+[ruby]
+symbol          = " "
+style           = "ruby_fg"
+format          = "[$symbol($version )]($style)"
+
+[java]
+symbol          = " "
+style           = "java_fg"
+format          = "[$symbol($version )]($style)"
+
+[php]
+symbol          = " "
+style           = "php_fg"
+format          = "[$symbol($version )]($style)"
+
+[lua]
+symbol          = " "
+style           = "lua_fg"
+format          = "[$symbol($version )]($style)"
+
+[perl]
+symbol          = " "
+style           = "perl_fg"
+format          = "[$symbol($version )]($style)"
+
+[haskell]
+symbol          = " "
+style           = "haskell_fg"
+format          = "[$symbol($version )]($style)"
+
+[dotnet]
+symbol          = " "
+style           = "dotnet_fg"
+format          = "[$symbol($version )]($style)"
+
+[terraform]
+symbol          = "󱁢 "
+style           = "terraform_fg"
+format          = "[$symbol$workspace]($style) "
+
+# ── Cloud (always show when available) ─────────────────────────────────────
+[aws]
+symbol          = "  "
+style           = "bold aws_fg"
+format          = '[$symbol($profile )(\($region\) )]($style)'
+
+[gcloud]
+symbol          = "󱇶 "
+style           = "bold gcloud_fg"
+format          = '[$symbol$account(@$domain)(\($region\))]($style) '
+
+[azure]
+disabled        = false
+symbol          = "󰠅 "
+style           = "bold azure_fg"
+format          = "[$symbol($subscription)]($style) "
+
+[kubernetes]
+disabled        = false
+symbol          = "☸ "
+style           = "kube_fg"
+format          = '[$symbol$context( \($namespace\))]($style) '
+
+# ── Time (24h, matches p10k [HH:MM:SS]) ────────────────────────────────────
+[time]
+disabled        = false
+time_format     = "%H:%M:%S"
+style           = "time_fg"
+format          = '[\[$time\]]($style)'
