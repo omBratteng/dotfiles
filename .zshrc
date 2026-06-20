@@ -15,6 +15,8 @@ HIST_STAMPS="dd.mm.yyyy"
 
 typeset -gU fpath path
 
+zstyle ':omz:update' mode disabled
+
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
     source "${zshrc_snipplet}"
 done
