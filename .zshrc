@@ -42,7 +42,6 @@ plugins=(
 	pip
 	poetry
 	projects
-	sublime
 	sudo
 	yarn
 	zsh-autosuggestions
