@@ -87,12 +87,6 @@ if [ -z "${_DISABLE_BAT}" ]; then
 	fi
 fi
 
-#	neofetch:	Fancy boot info
-#	-------------------------------------------------------------------
-if [ -x "$(command -v neofetch)" ] && [ -z "${_DISABLE_NEOFETCH}" ]; then
-	neofetch
-fi
-
 #	LS_COLORS:	Fancy ls colors
 #	-------------------------------------------------------------------
 if [ -f "${XDG_CONFIG_HOME}"/lscolors/lscolors.sh ]; then
