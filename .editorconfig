@@ -28,3 +28,6 @@ indent_style = space
 indent_size = 2
 indent_style = space
 
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+indent_style = space
