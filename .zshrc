@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
-if [[ -n "$ZSH_DEBUGRC" ]]; then
+if [[ -n "${ZSH_DEBUGRC}" ]]; then
   zmodload zsh/zprof
+  zmodload zsh/datetime
+  typeset -F _zshrc_start=$EPOCHREALTIME
+
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -121,5 +124,9 @@ fi
 } &!
 
 if [[ -n "$ZSH_DEBUGRC" ]]; then
-  zprof
+  typeset -F elapsed=$((EPOCHREALTIME - _zshrc_start))
+
+  if (( elapsed > 1.0 )); then
+    zprof
+  fi
 fi
