@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+#	Vendor lib gates
+#	------------------------------------------------------------------------
+#	Runs after S25_local (PATH is complete) and before S30_vendor_lib.
+#	When eza owns `ls` (see the eza block in ~/.zshrc), the vendored
+#	50-theme-and-appearance.zsh ls colour probes -- `test-ls-args ls -G`,
+#	dircolors, LSCOLORS -- probe a command that is about to be aliased
+#	away, so tell it to skip them. The `colors` call and prompt_subst at
+#	the top of the vendored file still run: S21_dotfiles needs them.
+if (( $+commands[eza] )) && [[ -z "${_DISABLE_EZA}" ]]; then
+	DISABLE_LS_COLORS=true
+fi

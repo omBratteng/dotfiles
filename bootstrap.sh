@@ -239,6 +239,7 @@ scripts=(
 	yq
 	zsh_autosuggestions
 	zsh_completions
+	zsh_compile
 	zsh_syntax_highlighting
 	zsh_you_should_use
 	nvim-config

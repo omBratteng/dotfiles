@@ -26,6 +26,7 @@ typeset -gU fpath path
 #
 #	  S00-S21  options, variables, aliases, functions
 #	  S25      ~/.zshrc.local          (PATH and FPATH, before compinit)
+#	  S26      vendor lib gates        (DISABLE_LS_COLORS when eza owns `ls`)
 #	  S28      compinit
 #	  S30-S31  vendored oh-my-zsh libs (they call compdef)
 #	  S40-S50  vendored oh-my-zsh plugins, then the projects plugin
@@ -33,6 +34,9 @@ typeset -gU fpath path
 #
 #	See .config/zsh.d/vendor/VENDOR.md for what was kept from oh-my-zsh.
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
+    # Skip the .zwc wordcode files scripts/zsh_compile.zsh drops next to the
+    # snippets; `source` finds them on its own via the matching .zsh-free name.
+    [[ "${zshrc_snipplet}" == *.zwc ]] && continue
     source "${zshrc_snipplet}"
 done
 unset zshrc_snipplet
@@ -42,7 +46,7 @@ unset zshrc_snipplet
 #	---------------------------------------
 
 # Replace default `ls` with `eza`
-if [ -x "$(command -v eza)" ] && [ -z "${_DISABLE_EZA}" ]; then
+if (( $+commands[eza] )) && [[ -z "${_DISABLE_EZA}" ]]; then
 	_eza_flags=""
 	alias ls="eza ${_eza_flags}"
 
@@ -56,15 +60,15 @@ if [ -x "$(command -v eza)" ] && [ -z "${_DISABLE_EZA}" ]; then
 fi
 
 # Replace default `df` with `duf`
-if [ -x "$(command -v duf)" ] && [ -z "${_DISABLE_DUF}" ]; then
+if (( $+commands[duf] )) && [[ -z "${_DISABLE_DUF}" ]]; then
 	alias df="duf"
 fi
 
 # Replace default `cat` with `bat`
 if [ -z "${_DISABLE_BAT}" ]; then
-	if [ -x "$(command -v bat)" ]; then
+	if (( $+commands[bat] )); then
 		alias cat="bat"
-	elif [ -x "$(command -v batcat)" ]; then
+	elif (( $+commands[batcat] )); then
 		alias cat="batcat"
 	fi
 fi
@@ -79,14 +83,25 @@ fi
 # thing it ran; here it has to follow lscolors.sh, which is what sets LS_COLORS.
 [[ -z "$LS_COLORS" ]] || zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-if [ -x "$(command -v vault)" ]; then
-	complete -o nospace -C $(command -v vault) vault
+if (( $+commands[vault] )); then
+	complete -o nospace -C "$commands[vault]" vault
 fi
 
 #	Enable atuin for history sync
 #	-------------------------------------------------------------------
-if [ -x "$(command -v atuin)" ] && [ -z "${_DISABLE_ATUIN}" ]; then
-	eval "$(atuin init zsh --disable-up-arrow)"
+#	`atuin init` costs a fork plus a ~60ms binary run per shell, so cache its
+#	output and only regenerate when the binary or config.toml changes. The
+#	zcompile pass picks up the cache automatically via its .zwc.
+if (( $+commands[atuin] )) && [[ -z "${_DISABLE_ATUIN}" ]]; then
+	_atuin_init="${ZSH_CACHE_DIR}/atuin-init.zsh"
+	if [[ -s "${_atuin_init}" \
+		&& "${_atuin_init}" -nt "${commands[atuin]}" \
+		&& "${_atuin_init}" -nt "${XDG_CONFIG_HOME}/atuin/config.toml" ]]; then
+		source "${_atuin_init}"
+	else
+		atuin init zsh --disable-up-arrow >| "${_atuin_init}" && source "${_atuin_init}"
+	fi
+	unset _atuin_init
 fi
 
 #	Prompt
@@ -98,6 +113,14 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k.zsh.
 [[ ! -f "${XDG_CONFIG_HOME}/p10k.zsh" ]] || source "${XDG_CONFIG_HOME}"/p10k.zsh
+
+#	zcompile self-heal
+#	-----------------------------------------------------------------------
+#	scripts/zsh_compile.zsh keeps a .zwc next to everything sourced above;
+#	`source` prefers the newer .zwc automatically. The check is stat-only
+#	and runs in the background so it never blocks the prompt.
+[[ -f "${DOTFILES:-$HOME/.dotfiles}/scripts/zsh_compile.zsh" ]] &&
+	{ zsh "${DOTFILES:-$HOME/.dotfiles}/scripts/zsh_compile.zsh" compile } &!
 
 if [[ -n "$ZSH_DEBUGRC" ]]; then
   typeset -F elapsed=$((EPOCHREALTIME - _zshrc_start))

@@ -2,7 +2,10 @@
 #
 # Vendored from oh-my-zsh @ ff1df9a0399d56b9f6e957bb62a2d4ba6bc0ef4c
 # Upstream: lib/theme-and-appearance.zsh
-# Local changes: none
+# Local changes:
+#   - the `diff --color` capability probe is deferred via zsh-defer (S00) so
+#     its fork stays off the shell startup path; the wrapper is defined once
+#     zle goes idle, before the first `diff` invocation
 #
 # DO NOT EDIT BY HAND -- see .config/zsh.d/vendor/VENDOR.md
 
@@ -22,11 +25,11 @@ ZSH_THEME_RUBY_PROMPT_SUFFIX=")"
 
 
 # Use diff --color if available
-if command diff --color /dev/null{,} &>/dev/null; then
+zsh-defer -c 'if command diff --color /dev/null{,} &>/dev/null; then
   function diff {
     command diff --color "$@"
   }
-fi
+fi'
 
 # Don't set ls coloring if disabled
 [[ "$DISABLE_LS_COLORS" != true ]] || return 0

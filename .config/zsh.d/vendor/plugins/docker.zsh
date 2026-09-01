@@ -2,7 +2,10 @@
 #
 # Vendored from oh-my-zsh @ ff1df9a0399d56b9f6e957bb62a2d4ba6bc0ef4c
 # Upstream: plugins/docker/docker.plugin.zsh
-# Local changes: none
+# Local changes:
+#   - the background completion generator now only runs when the cached
+#     _docker is missing or older than 24h; upstream respawned
+#     `docker --version` (~200ms) and `docker completion zsh` on every shell
 #
 # DO NOT EDIT BY HAND -- see .config/zsh.d/vendor/VENDOR.md
 
@@ -64,14 +67,22 @@ if [[ ! -f "$ZSH_CACHE_DIR/completions/_docker" ]]; then
   _comps[docker]=_docker
 fi
 
-{
-  # `docker completion` is only available from 23.0.0 on
-  # docker version returns `Docker version 24.0.2, build cb74dfcd85`
-  # with `s:,:` remove the comma after the version, and select third word of it
-  if zstyle -t ':omz:plugins:docker' legacy-completion || \
-    ! is-at-least 23.0.0 ${${(s:,:z)"$(command docker --version)"}[3]}; then
-        command cp "${0:h}/completions/_docker" "$ZSH_CACHE_DIR/completions/_docker"
-      else
-        command docker completion zsh | tee "$ZSH_CACHE_DIR/completions/_docker" > /dev/null
-  fi
-} &|
+# Regenerate the cached completion at most once a day, in the background,
+# mirroring the day gate in S28_compinit. The staleness check uses an array
+# glob because the `[[ -n x(#q...) ]]` form needs extendedglob to work.
+_docker_stale=( "${ZSH_CACHE_DIR}/completions/_docker"(N.mh+24) )
+if [[ ! -f "$ZSH_CACHE_DIR/completions/_docker" ]] || (( $#_docker_stale )); then
+  {
+    # `docker completion` is only available from 23.0.0 on
+    # docker version returns `Docker version 24.0.2, build cb74dfcd85`
+    # with `s:,:` remove the comma after the version, and select third word of it
+    if zstyle -t ':omz:plugins:docker' legacy-completion || \
+      ! is-at-least 23.0.0 ${${(s:,:z)"$(command docker --version)"}[3]}; then
+          command cp "${0:h}/completions/_docker" "$ZSH_CACHE_DIR/completions/_docker"
+        else
+          command docker completion zsh | tee "$ZSH_CACHE_DIR/completions/_docker" > /dev/null
+    fi
+  } &|
+fi
+
+unset _docker_stale

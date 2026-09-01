@@ -8,10 +8,16 @@
 #
 #	Order is load-bearing: zsh-syntax-highlighting has to be last, since it
 #	wraps every widget defined before it.
+#
+#	zsh-autosuggestions and zsh-syntax-highlighting are deferred via
+#	zsh-defer (S00): they execute once zle goes idle, after the first prompt
+#	is drawn, instead of blocking startup. Queue order preserves the
+#	load-bearing ordering above; you-should-use is cheap enough to load
+#	eagerly.
 
 if [ -z "${_DISABLE_ZSH_AUTOSUGGESTIONS}" ]; then
 	[ -f "${ZSH_PLUGIN_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh" ] &&
-		source "${ZSH_PLUGIN_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+		zsh-defer source "${ZSH_PLUGIN_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
 if [ -z "${_DISABLE_ZSH_YOU_SHOULD_USE}" ]; then
@@ -21,5 +27,5 @@ fi
 
 if [ -z "${_DISABLE_ZSH_SYNTAX_HIGHLIGHTING}" ]; then
 	[ -f "${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] &&
-		source "${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+		zsh-defer source "${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi

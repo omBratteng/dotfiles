@@ -10,7 +10,7 @@
 #	Which is why ~/.zshrc.local (S25_local, homebrew site-functions) comes
 #	before this file, and the vendored libs and plugins come after it.
 
-mkdir -p "${ZSH_CACHE_DIR}/completions"
+[[ -d "${ZSH_CACHE_DIR}/completions" ]] || mkdir -p "${ZSH_CACHE_DIR}/completions"
 
 fpath=(
 	"${XDG_CONFIG_HOME}/zsh.d/vendor/completions"
@@ -27,7 +27,11 @@ _zcompdump="${ZSH_CACHE_DIR}/zcompdump-${ZSH_VERSION}"
 #	skips both the security audit and the fpath rescan, which is the slow part.
 #	`-u` matches the old ZSH_DISABLE_COMPFIX=true behaviour: load from every
 #	directory found, without prompting about group-writable ones.
-if [[ -n ${_zcompdump}(#qN.mh-24) ]]; then
+#	The staleness check uses an array glob: the `[[ -n x(#q...) ]]` form
+#	silently degrades to a literal-string test unless extendedglob is set,
+#	which had this gate stuck on `compinit -C` forever.
+_zcompdump_fresh=( "${_zcompdump}"(N.mh-24) )
+if (( $#_zcompdump_fresh )); then
 	compinit -C -d "${_zcompdump}"
 else
 	compinit -u -d "${_zcompdump}"
@@ -43,7 +47,7 @@ fi
 	fi
 } &!
 
-unset _zcompdump
+unset _zcompdump _zcompdump_fresh
 
 #	bashcompinit backs the `complete -C ...` style completions (vault, az, ...)
 autoload -Uz bashcompinit && bashcompinit

@@ -5,7 +5,7 @@
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
-export GPG_TTY=$(tty)
+export GPG_TTY=${TTY}
 
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000

@@ -57,6 +57,8 @@ Everything below was enabled at some point but had zero recorded uses across
 | `lib/00-functions.zsh` | Subset of `lib/functions.zsh`. Kept `zsh_stats`, the `take` family, `default`, `env_default`, `omz_urlencode`. Dropped `uninstall_oh_my_zsh`, `upgrade_oh_my_zsh`, `open_command`, `alias_value`, `try_alias_value`, `omz_urldecode`. |
 | `lib/05-git.zsh`       | Subset of `lib/git.zsh`. Kept `__git_prompt_git`, `git_current_branch` (14 git-plugin aliases call it), `git_previous_branch`, `git_current_user_name`, `git_current_user_email`, `git_repo_name`. Dropped every prompt-building helper. |
 | `lib/30-completion.zsh`| Dropped the `CASE_SENSITIVE` / `HYPHEN_INSENSITIVE` branches and inlined the default `matcher-list`. Dropped the trailing `bashcompinit`, which now lives in `S28_compinit`. |
+| `lib/50-theme-and-appearance.zsh` | `diff --color` capability probe deferred via `zsh-defer` so its fork stays off the startup path. The ls-colour probes below it are skipped at runtime by `S26_tool-gates.zsh` setting `DISABLE_LS_COLORS` when eza owns `ls`. |
+| `plugins/docker.zsh` | Background completion generator gated on `_docker` missing or older than 24h (day gate mirrors `S28_compinit`); upstream ran `docker --version` (~200ms) and `docker completion zsh` on every shell. |
 
 Every other file is byte-identical to upstream below its header block.
 
