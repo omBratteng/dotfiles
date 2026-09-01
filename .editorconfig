@@ -31,3 +31,7 @@ indent_style = space
 [*.{js,jsx,ts,tsx}]
 indent_size = 2
 indent_style = space
+
+[*.{java,kt,kts}]
+indent_size = 4
+indent_style = space
