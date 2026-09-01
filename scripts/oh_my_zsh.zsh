@@ -15,8 +15,8 @@ function upgrade() {
 	if [ -d "${DIR}" ]; then
 		install
 	else
-		env ZSH="${ZSH}" sh "${ZSH}/tools/upgrade.sh" >/dev/null 2>&1
-		command rm -rf "${ZSH}/log/update.lock"
+		env ZSH="${DIR}" sh "${DIR}/tools/upgrade.sh" >/dev/null 2>&1
+		command rm -rf "${DIR}/log/update.lock"
 	fi
 }
 

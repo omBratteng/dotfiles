@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-DIR="${HOME}/.oh-my-zsh/custom/plugins/zsh-completions"
+DIR="${ZSH_PLUGIN_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins}/zsh-completions"
 
 function install() {
 	if [ -d "${DIR}" ]; then

@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+#	Completion initialisation
+#	------------------------------------------------------------------------
+#	Ordering matters here, and it mirrors what oh-my-zsh.sh used to do:
+#
+#	  everything that adds to $fpath  ->  compinit  ->  everything that
+#	                                                    calls `compdef`
+#
+#	Which is why ~/.zshrc.local (S25_local, homebrew site-functions) comes
+#	before this file, and the vendored libs and plugins come after it.
+
+mkdir -p "${ZSH_CACHE_DIR}/completions"
+
+fpath=(
+	"${XDG_CONFIG_HOME}/zsh.d/vendor/completions"
+	"${ZSH_PLUGIN_DIR}/zsh-completions/src"
+	"${ZSH_CACHE_DIR}/completions"
+	${fpath}
+)
+
+autoload -Uz compinit
+
+_zcompdump="${ZSH_CACHE_DIR}/zcompdump-${ZSH_VERSION}"
+
+#	Rebuild the dump at most once a day. `-C` trusts the existing dump and
+#	skips both the security audit and the fpath rescan, which is the slow part.
+#	`-u` matches the old ZSH_DISABLE_COMPFIX=true behaviour: load from every
+#	directory found, without prompting about group-writable ones.
+if [[ -n ${_zcompdump}(#qN.mh-24) ]]; then
+	compinit -C -d "${_zcompdump}"
+else
+	compinit -u -d "${_zcompdump}"
+	touch "${_zcompdump}"
+fi
+
+#	Compile the dump in the background so the next shell can mmap it instead of
+#	parsing it. Replaces the block that used to sit at the bottom of ~/.zshrc
+#	and pointed at ~/.zcompdump, a file that never existed.
+{
+	if [[ -s "${_zcompdump}" && ( ! -s "${_zcompdump}.zwc" || "${_zcompdump}" -nt "${_zcompdump}.zwc" ) ]]; then
+		zcompile "${_zcompdump}"
+	fi
+} &!
+
+unset _zcompdump
+
+#	bashcompinit backs the `complete -C ...` style completions (vault, az, ...)
+autoload -Uz bashcompinit && bashcompinit

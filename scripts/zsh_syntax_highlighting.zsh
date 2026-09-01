@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-DIR="${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+DIR="${ZSH_PLUGIN_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins}/zsh-syntax-highlighting"
 
 function install() {
 	if [ -d "${DIR}" ]; then

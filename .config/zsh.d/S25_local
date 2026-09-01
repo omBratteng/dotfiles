@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+#	Machine-local overrides
+#	------------------------------------------------------------------------
+#	Sourced from a snippet rather than from ~/.zshrc so the PATH and FPATH it
+#	sets land *before* compinit runs in S28_compinit.
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

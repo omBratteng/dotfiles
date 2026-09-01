@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
 
-DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+DIR="${ZSH_PLUGIN_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins}/powerlevel10k"
 
 function install() {
 	if [ -d "${DIR}" ]; then
 		false
 	else
-		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"/themes/powerlevel10k
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${DIR}"
 		return
 	fi
 }

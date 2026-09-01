@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+#	Vendored oh-my-zsh plugins
+#	------------------------------------------------------------------------
+#	Verbatim copies of the plugins that were actually in use. See
+#	vendor/VENDOR.md for the upstream commit and how to refresh them.
+#
+#	These need compinit to have run (they call `compdef`) and they deliberately
+#	load after S10_aliases, so a plugin alias still beats a hand-written one --
+#	the same precedence oh-my-zsh gave them.
+
+#	git.zsh and docker.zsh use is-at-least for version gating. It ships with
+#	zsh itself, it was never an oh-my-zsh function.
+autoload -Uz is-at-least
+
+for _vendor_plugin in "${XDG_CONFIG_HOME}"/zsh.d/vendor/plugins/*.zsh(N); do
+	source "${_vendor_plugin}"
+done
+unset _vendor_plugin

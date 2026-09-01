@@ -11,6 +11,10 @@ export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
 
+#	Timestamp format for the `history` builtin wrapper, read by
+#	vendor/lib/20-history.zsh. Must be set before that file is sourced.
+HIST_STAMPS="dd.mm.yyyy"
+
 export EDITOR='vim'
 export GIT_EDITOR='vim'
 

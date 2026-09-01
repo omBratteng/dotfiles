@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+#	Vendored oh-my-zsh libraries
+#	------------------------------------------------------------------------
+#	Verbatim copies of the handful of lib/*.zsh files that were worth keeping.
+#	See vendor/VENDOR.md for the upstream commit and the list of local edits.
+#
+#	Loaded here, after compinit, because lib/directories.zsh calls `compdef`.
+#	Files are numbered so 00-functions.zsh (env_default, take, omz_urlencode)
+#	is in place before the files that depend on it.
+
+for _vendor_lib in "${XDG_CONFIG_HOME}"/zsh.d/vendor/lib/*.zsh(N); do
+	source "${_vendor_lib}"
+done
+unset _vendor_lib

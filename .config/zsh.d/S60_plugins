@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+#	Third party plugins
+#	------------------------------------------------------------------------
+#	Cloned into ${ZSH_PLUGIN_DIR} by scripts/zsh_*.zsh via bootstrap.sh.
+#	zsh-completions is not sourced: it only ships completion functions, and
+#	S28_compinit already put its src/ directory on $fpath.
+#
+#	Order is load-bearing: zsh-syntax-highlighting has to be last, since it
+#	wraps every widget defined before it.
+
+if [ -z "${_DISABLE_ZSH_AUTOSUGGESTIONS}" ]; then
+	[ -f "${ZSH_PLUGIN_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh" ] &&
+		source "${ZSH_PLUGIN_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+if [ -z "${_DISABLE_ZSH_YOU_SHOULD_USE}" ]; then
+	[ -f "${ZSH_PLUGIN_DIR}/zsh-you-should-use/you-should-use.plugin.zsh" ] &&
+		source "${ZSH_PLUGIN_DIR}/zsh-you-should-use/you-should-use.plugin.zsh"
+fi
+
+if [ -z "${_DISABLE_ZSH_SYNTAX_HIGHLIGHTING}" ]; then
+	[ -f "${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] &&
+		source "${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi

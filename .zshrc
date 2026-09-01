@@ -17,46 +17,25 @@ fi
 #	-------------------------------------------
 #		ENVIRONMENT CONFIGURATION
 #	-------------------------------------------
-ZSH_THEME="powerlevel10k/powerlevel10k"
-HIST_STAMPS="dd.mm.yyyy"
 
 typeset -gU fpath path
 
-zstyle ':omz:update' mode disabled
-
+#	Everything lives in numbered snippets under $XDG_CONFIG_HOME/zsh.d.
+#	The numbering encodes the load order that used to be implicit in
+#	oh-my-zsh.sh:
+#
+#	  S00-S21  options, variables, aliases, functions
+#	  S25      ~/.zshrc.local          (PATH and FPATH, before compinit)
+#	  S28      compinit
+#	  S30-S31  vendored oh-my-zsh libs (they call compdef)
+#	  S40-S50  vendored oh-my-zsh plugins, then the projects plugin
+#	  S60      zsh-autosuggestions / you-should-use / syntax-highlighting
+#
+#	See .config/zsh.d/vendor/VENDOR.md for what was kept from oh-my-zsh.
 for zshrc_snipplet in $XDG_CONFIG_HOME/zsh.d/S[0-9][0-9]*[^~] ; do
     source "${zshrc_snipplet}"
 done
-
-
-#	Enable Plugins
-#	------------------------------------------------------------------------
-plugins=(
-	aliases
-	colored-man-pages
-	docker
-	docker-compose
-	gh
-	git
-	gitignore
-	helm
-	kubectl
-	kubectx
-	pip
-	poetry
-	projects
-	sudo
-	yarn
-	zsh-autosuggestions
-	zsh-completions
-	zsh-syntax-highlighting
-	zsh-you-should-use
-)
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-#	Enable oh-my-zsh
-#	------------------------------------------------------------------------
-source "${ZSH}"/oh-my-zsh.sh
+unset zshrc_snipplet
 
 #	---------------------------------------
 #		SYSTEMS OPERATIONS & INFORMATION
@@ -96,14 +75,9 @@ if [ -f "${XDG_CONFIG_HOME}"/lscolors/lscolors.sh ]; then
 	. "${XDG_CONFIG_HOME}/lscolors/lscolors.sh"
 fi
 
-#	Trigger a new load of autocompletions
-#	-------------------------------------------------------------------
-# autoload -Uz compinit && compinit -u
-#	bashcompinit only (omz already ran compinit)
-autoload -U bashcompinit && bashcompinit
-
-# Enable if need az completion
-# complete -o nospace -o default -o bashdefault -F _az_python_argcomplete az
+# Match completion menu colouring to $LS_COLORS. oh-my-zsh did this as the last
+# thing it ran; here it has to follow lscolors.sh, which is what sets LS_COLORS.
+[[ -z "$LS_COLORS" ]] || zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 if [ -x "$(command -v vault)" ]; then
 	complete -o nospace -C $(command -v vault) vault
@@ -115,18 +89,21 @@ if [ -x "$(command -v atuin)" ] && [ -z "${_DISABLE_ATUIN}" ]; then
 	eval "$(atuin init zsh --disable-up-arrow)"
 fi
 
+#	Prompt
+#	-------------------------------------------------------------------
+#	Loaded last, the way oh-my-zsh loaded $ZSH_THEME last.
+if [ -f "${ZSH_PLUGIN_DIR}/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+	source "${ZSH_PLUGIN_DIR}/powerlevel10k/powerlevel10k.zsh-theme"
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.config/p10k.zsh.
 [[ ! -f "${XDG_CONFIG_HOME}/p10k.zsh" ]] || source "${XDG_CONFIG_HOME}"/p10k.zsh
-
-{
-  zd=${ZDOTDIR:-$HOME}/.zcompdump
-  [[ -s $zd && (! -s $zd.zwc || $zd -nt $zd.zwc) ]] && zcompile $zd
-} &!
 
 if [[ -n "$ZSH_DEBUGRC" ]]; then
   typeset -F elapsed=$((EPOCHREALTIME - _zshrc_start))
 
   if (( elapsed > 1.0 )); then
     zprof
+	echo "took more than 1 second to load ~/.zshrc: ${elapsed}s"
   fi
 fi
