@@ -38,4 +38,24 @@ function decodeB64Certificate() {
 	pbpaste | base64 -d | step certificate inspect "$@"
 }
 
+function decodeJWT() {
+	if [[ "$(uname -s)" == "Linux" ]]; then
+		alias pbpaste="xclip -selection clipboard -o"
+	fi
+
+	if ! command_exists step; then
+		echo "step binary doesn't exist"
+		return
+	fi
+
+	local file="$1"
+	shift 2>/dev/null
+
+	if [ -z "$file" ]; then
+		pbpaste | step crypto jwt inspect --insecure "$@" | yq -oj
+	else
+		cat "$file" | step crypto jwt inspect --insecure "$@" | yq -oj
+	fi
+}
+
 unset command_exists
