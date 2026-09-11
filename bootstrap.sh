@@ -233,7 +233,6 @@ scripts=(
 	ls_colors
 	nanorc
 	oh_my_pi
-	oh_my_zsh
 	powerlevel10k
 	step
 	yq
