@@ -30,7 +30,8 @@ _p_init_colors() {
 
 # Shared
 : ${_PD_DEPTH:=3}
-: ${_PD_STOP_AT:=.git}        # colon-separated, e.g. ".git:docker-compose.yml"
+# colon-separated, e.g. ".git:docker-compose.yml"
+: ${_PD_STOP_AT:=.git:docker-compose.yml:docker-compose.yaml}
 
 # Per-command SCM/clone config. _P_* applies to `p`, _PD_* to `pd`.
 local _scope
