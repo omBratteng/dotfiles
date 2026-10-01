@@ -3,6 +3,12 @@
 _uname=$(uname -s)
 export XDG_CONFIG_HOME="${HOME}/.config"
 
+# Scripts in scripts/ rely on GNU-only behaviour (`dircolors`, `mv -t`, ...).
+# Prepend Homebrew's coreutils for this process and the scripts it runs.
+if [[ "${_uname}" == "Darwin" ]] && [ -d "/opt/homebrew/opt/coreutils/libexec/gnubin" ]; then
+	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+fi
+
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
